@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {TestController} from '../services/test/test.controller';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'sandbox';
+
+  title = 'Sandbox';
+  helloResult: string = null;
+
+  hello = 'Hello';
+
+  constructor(private testController: TestController) {
+  }
+
+  async say() {
+    this.helloResult = await this.testController.sayHello(this.hello);
+  }
 }
