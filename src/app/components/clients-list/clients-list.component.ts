@@ -8,7 +8,7 @@ import {ClientService} from '../../../services/client/client.service';
   styleUrls: ['./clients-list.component.scss']
 })
 export class ClientsListComponent implements OnInit {
-  displayedColumns: string[] = ['fullName', 'age', 'grandTotalOfBalance', 'maximumBalance', 'minimumBalance'];
+  displayedColumns: string[] = ['fullName', 'age', 'grandTotalOfBalance', 'maximumBalance', 'minimumBalance', 'options'];
   data: Client[];
   constructor(private clientService: ClientService) {}
   ngOnInit(): void {

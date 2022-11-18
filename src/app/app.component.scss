@@ -1,21 +1,5 @@
-h1 {
-  color: blue;
-}
-
-.say {
-  cursor: pointer;
-  padding: 0.1rem 0.5rem;
-  font-style: oblique;
-  border: black 1px solid;
-  border-radius: 0.3rem;
-}
-
-.hello {
-  margin-left: 0.3rem;
-  border: blue 1px solid;
-  padding: 0.3rem;
-}
-
-.helloResult {
-  margin-top: 1rem;
+body{
+  padding-top: 1%;
+  height: 100%;
+  background-color: grey;
 }
