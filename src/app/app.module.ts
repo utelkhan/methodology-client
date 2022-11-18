@@ -4,14 +4,18 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { ClientsListComponent } from './components/clients-list/clients-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ClientsListComponent
   ],
-  imports: [
-    BrowserModule, FormsModule, HttpClientModule,
-  ],
+    imports: [
+        BrowserModule, FormsModule, HttpClientModule, BrowserAnimationsModule, MatTableModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
