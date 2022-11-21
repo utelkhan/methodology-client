@@ -1,8 +1,9 @@
 export interface Client {
   id: number;
-  fullName: string;
-  age: number;
-  grandTotalOfBalance: number;
-  maximumBalance: number;
-  minimumBalance: number;
+  surname: string;
+  name: string;
+  patronymic: string;
+  gender: number;
+  birth_date: Date;
+  charm: number;
 }
