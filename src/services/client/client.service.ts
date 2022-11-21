@@ -19,4 +19,32 @@ export class ClientService {
   public getClients() {
     return of(this.clients);
   }
+  public addClient(client: Client) {
+    console.log('add client: ', client);
+    this.clients.push(client);
+    const index = this.clients.findIndex((c) => c.id === client.id);
+    console.log('index of client: ', index);
+    return of(this.clients);
+  }
+  public deleteClient(id: number) {
+    console.log('delete client: ', this.clients[id - 1]);
+    const index = this.clients.findIndex((c) => c.id === id);
+    this.clients = this.clients.filter((client) => {
+      return client.id !== id;
+    });
+    console.log('index of client: ', index);
+    return of(this.clients);
+  }
+  public updateClient(client: Client) {
+    console.log('update client: ', client);
+    const index = this.clients.findIndex((c) => c.id === client.id);
+    console.log('index of client: ', index);
+    this.clients[index].id = client.id;
+    this.clients[index].fullName = client.fullName;
+    this.clients[index].age = client.age;
+    this.clients[index].grandTotalOfBalance = client.grandTotalOfBalance;
+    this.clients[index].maximumBalance = client.maximumBalance;
+    this.clients[index].minimumBalance = client.minimumBalance;
+    return of(this.clients);
+  }
 }
