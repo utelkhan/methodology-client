@@ -9,6 +9,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import { AddClientComponent } from './components/add-client/add-client.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -17,7 +21,7 @@ import { AddClientComponent } from './components/add-client/add-client.component
     AddClientComponent
   ],
   imports: [
-    BrowserModule, FormsModule, HttpClientModule, BrowserAnimationsModule, MatTableModule, MatButtonModule,
+    BrowserModule, FormsModule, HttpClientModule, BrowserAnimationsModule, MatTableModule, MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
