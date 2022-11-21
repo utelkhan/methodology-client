@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Client} from '../../model/client';
 import {ClientService} from '../../../services/client/client.service';
+import {Observable} from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-clients-list',
@@ -8,10 +9,10 @@ import {ClientService} from '../../../services/client/client.service';
   styleUrls: ['./clients-list.component.scss']
 })
 export class ClientsListComponent implements OnInit {
-  displayedColumns: string[] = ['fullName', 'age', 'grandTotalOfBalance', 'maximumBalance', 'minimumBalance', 'options'];
-  data: Client[];
+  displayedColumns: string[] = ['id', 'fullName', 'age', 'grandTotalOfBalance', 'maximumBalance', 'minimumBalance', 'options'];
+  clientsObs: Observable<Client[]>;
   constructor(private clientService: ClientService) {}
   ngOnInit(): void {
-    this.data = this.clientService.getClients();
+    this.clientsObs = this.clientService.getClients();
   }
 }

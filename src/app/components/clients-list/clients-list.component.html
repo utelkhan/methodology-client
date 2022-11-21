@@ -1,7 +1,7 @@
-<div id="wrapper">
+<div class="wrapper" *ngIf="clientsObs | async as clients;">
   <button id="addButton" mat-flat-button color="accent">+</button>
 
-  <table mat-table [dataSource]="data" class="mat-elevation-z8">
+  <table mat-table [dataSource]="clients" class="mat-elevation-z8">
 
     <!-- id Column -->
     <ng-container matColumnDef="id">
