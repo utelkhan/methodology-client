@@ -1,0 +1,42 @@
+<h1 mat-dialog-title>{{action}} client</h1>
+<div mat-dialog-content>
+ <form [formGroup]="clientForm">
+   <mat-form-field appearance="outline" class="form">
+     <mat-label>Id</mat-label>
+     <input formControlName="id" type="number" matInput placeholder="0">
+     <!--    <mat-hint>Hint</mat-hint>-->
+   </mat-form-field>
+
+   <mat-form-field appearance="outline" class="form">
+     <mat-label>Full Name</mat-label>
+     <input formControlName="fullName" matInput placeholder="Name Surname">
+     <!--    <mat-hint>Hint</mat-hint>-->
+   </mat-form-field>
+
+   <mat-form-field appearance="outline" class="form">
+     <mat-label>Age</mat-label>
+     <input formControlName="age" type="number" matInput placeholder="18">
+     <!--    <mat-hint>Hint</mat-hint>-->
+   </mat-form-field>
+
+   <mat-form-field appearance="outline" class="form">
+     <mat-label>Grand Total Of Balance</mat-label>
+     <input formControlName="grandTotalOfBalance" type="number" matInput placeholder="Grand Balance">
+     <!--    <mat-hint>Hint</mat-hint>-->
+   </mat-form-field>
+
+   <mat-form-field appearance="outline" class="form">
+     <mat-label>Maximum Balance</mat-label>
+     <input formControlName="maximumBalance" type="number" matInput placeholder="Maximum Balance">
+     <!--    <mat-hint>Hint</mat-hint>-->
+   </mat-form-field>
+   <mat-form-field appearance="outline" class="form">
+     <mat-label>Minimum Balance</mat-label>
+     <input formControlName="minimumBalance" type="number" matInput placeholder="Minimum Balance">
+     <!--    <mat-hint>Hint</mat-hint>-->
+   </mat-form-field>
+ </form>
+</div>
+<button mat-flat-button color="accent" (click)="onClickCancel()">Cancel</button>
+<button mat-flat-button color="accent" (click)="addClient()">{{action}} client</button>
+
