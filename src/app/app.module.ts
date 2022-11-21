@@ -8,11 +8,13 @@ import { ClientsListComponent } from './components/clients-list/clients-list.com
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
+import { AddClientComponent } from './components/add-client/add-client.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ClientsListComponent
+    ClientsListComponent,
+    AddClientComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule, BrowserAnimationsModule, MatTableModule, MatButtonModule,
