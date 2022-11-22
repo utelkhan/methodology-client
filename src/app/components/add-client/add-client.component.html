@@ -1,42 +1,190 @@
-<h1 mat-dialog-title>{{action}} client</h1>
-<div mat-dialog-content>
- <form [formGroup]="clientForm">
-   <mat-form-field appearance="outline" class="form">
-     <mat-label>Id</mat-label>
-     <input formControlName="id" type="number" matInput placeholder="0">
-     <!--    <mat-hint>Hint</mat-hint>-->
-   </mat-form-field>
+<p mat-dialog-title id="mat_dialog_title">Add client
+  <small style="font-size: 15px;"> (* - the required fields)</small>
+</p>
 
-   <mat-form-field appearance="outline" class="form">
-     <mat-label>Full Name</mat-label>
-     <input formControlName="fullName" matInput placeholder="Name Surname">
-     <!--    <mat-hint>Hint</mat-hint>-->
-   </mat-form-field>
+<div mat-dialog-content id="dialog">
 
-   <mat-form-field appearance="outline" class="form">
-     <mat-label>Age</mat-label>
-     <input formControlName="age" type="number" matInput placeholder="18">
-     <!--    <mat-hint>Hint</mat-hint>-->
-   </mat-form-field>
+  <!-- Детали пользователя -->
+  <form [formGroup]="clientForm">
+    <!-- ФИО пользователя -->
+    <div class="inline">
+      <p>Full name</p>
+      <hr>
+      <mat-form-field appearance="fill" class="form">
+        <mat-label>Surname</mat-label>
+        <input required formControlName="surname" type="text" matInput placeholder="client surname">
+      </mat-form-field>
 
-   <mat-form-field appearance="outline" class="form">
-     <mat-label>Grand Total Of Balance</mat-label>
-     <input formControlName="grandTotalOfBalance" type="number" matInput placeholder="Grand Balance">
-     <!--    <mat-hint>Hint</mat-hint>-->
-   </mat-form-field>
+      <mat-form-field appearance="fill" class="form">
+        <mat-label>Name</mat-label>
+        <input required formControlName="name" type="text" matInput placeholder="client name">
+      </mat-form-field>
 
-   <mat-form-field appearance="outline" class="form">
-     <mat-label>Maximum Balance</mat-label>
-     <input formControlName="maximumBalance" type="number" matInput placeholder="Maximum Balance">
-     <!--    <mat-hint>Hint</mat-hint>-->
-   </mat-form-field>
-   <mat-form-field appearance="outline" class="form">
-     <mat-label>Minimum Balance</mat-label>
-     <input formControlName="minimumBalance" type="number" matInput placeholder="Minimum Balance">
-     <!--    <mat-hint>Hint</mat-hint>-->
-   </mat-form-field>
- </form>
+      <mat-form-field appearance="fill" class="form">
+        <mat-label>Patronymic</mat-label>
+        <input formControlName="patronymic" type="text" matInput placeholder="client patronymic">
+      </mat-form-field>
+    </div>
+
+    <!-- Пол пользователя -->
+    <div class="inline">
+      <p>Gender</p>
+      <hr>
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="gender" required>
+          <mat-option value="MALE">MALE</mat-option>
+          <mat-option value="FEMALE">FEMALE</mat-option>
+        </mat-select>
+        <mat-label>Gender</mat-label>
+      </mat-form-field>
+    </div>
+
+    <!-- Дата рождения пользователя -->
+    <div class="inline">
+      <p>Date of birth</p>
+      <hr>
+      <mat-form-field appearance="fill" style="margin-bottom: 15px">
+        <mat-label>Date of birth</mat-label>
+        <input formControlName="date_of_birth" matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <!-- Характет пользователя -->
+    <div class="inline">
+      <p>Charm</p>
+      <hr>
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="charm" required>
+          <mat-option value="hysterical">hysterical</mat-option>
+          <mat-option value="psychasthenic">psychasthenic</mat-option>
+          <mat-option value="labile">labile</mat-option>
+          <mat-option value="conformal">conformal</mat-option>
+        </mat-select>
+        <mat-label>Charm</mat-label>
+      </mat-form-field>
+    </div>
+  </form>
+
+  <!-- Адресарегистрации -->
+  <form [formGroup]="regAddressForm">
+    <div class="inline">
+      <p>Address of registration and fact</p>
+      <hr>
+      <small style="font-size: 15px; margin-right: 15px">REG ADDRESS</small>
+      <mat-form-field appearance="fill" class="form">
+        <mat-label>Street</mat-label>
+        <input required formControlName="street" type="text" matInput placeholder="client street">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="form">
+        <mat-label>House</mat-label>
+        <input required formControlName="house" type="text" matInput placeholder="client house">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="form">
+        <mat-label>Flat</mat-label>
+        <input formControlName="flat" type="text" matInput placeholder="client flat">
+      </mat-form-field>
+    </div>
+  </form>
+  <button style="margin-bottom: 10px" *ngIf="!factAddresses" mat-mini-fab color="accent" (click)="changeAddingFactAddress()">+</button>
+
+  <!-- Фактическое место проживания -->
+  <div *ngIf="factAddresses">
+  <form [formGroup]="factAddressForm">
+    <div class="inline">
+      <small style="font-size: 15px; margin-right: 8px">FACT ADDRESS</small>
+      <mat-form-field appearance="fill" class="form">
+        <mat-label>Street</mat-label>
+        <input formControlName="street" type="text" matInput placeholder="client street">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="form">
+        <mat-label>House</mat-label>
+        <input formControlName="house" type="text" matInput placeholder="client house">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="form">
+        <mat-label>Flat</mat-label>
+        <input formControlName="flat" type="text" matInput placeholder="client flat">
+      </mat-form-field>
+    </div>
+  </form>
+    <button style="margin-bottom: 10px" mat-mini-fab color="accent" (click)="changeAddingFactAddress()">-</button>
+  </div>
+
+  <!-- Телефоны пользователя -->
+  <form [formGroup]="phoneForm">
+    <div class="inline">
+      <p>Phone</p>
+      <hr>
+      <mat-form-field appearance="fill" class="form">
+        <mat-label>Mobile phone</mat-label>
+        <input required formControlName="number" type="text" matInput placeholder="client mobile phone">
+      </mat-form-field>
+    </div>
+  </form>
 </div>
-<button mat-flat-button color="accent" (click)="onClickCancel()">Cancel</button>
-<button mat-flat-button color="accent" (click)="addClient()">{{action}} client</button>
+<button mat-flat-button color="accent" mat-dialog-close>Cancel</button>
+<button mat-flat-button color="accent" (click)="addClient()">Add client</button>
+
+
+<!-- <form [formGroup]="clientForm">-->
+
+<!--   <mat-form-field appearance="outline" class="form">-->
+<!--     <mat-label>Surname</mat-label>-->
+<!--     <input formControlName="surname" type="text" matInput placeholder="surname">-->
+<!--   </mat-form-field>-->
+
+<!--   <mat-form-field appearance="outline" class="form">-->
+<!--     <mat-label>Name</mat-label>-->
+<!--     <input formControlName="name" matInput placeholder="name">-->
+<!--   </mat-form-field>-->
+
+<!--   <mat-form-field appearance="outline" class="form">-->
+<!--     <mat-label>Patronymic</mat-label>-->
+<!--     <input formControlName="patronymic" matInput placeholder="patronymic">-->
+<!--   </mat-form-field>-->
+
+<!--   <mat-form-field appearance="outline" class="form">-->
+<!--     <mat-label>Gender</mat-label>-->
+<!--     <mat-select placeholder="Gender">-->
+<!--       <mat-option value="MALE">MALE</mat-option>-->
+<!--       <mat-option value="FEMALE">FEMALE</mat-option>-->
+<!--     </mat-select>-->
+<!--   </mat-form-field>-->
+
+<!--   <mat-label>Birth date</mat-label>-->
+<!--   <input matInput [matDatepicker]="picker">-->
+<!--   <mat-hint>MM/DD/YYYY</mat-hint>-->
+<!--   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--   <mat-datepicker #picker></mat-datepicker>-->
+
+<!--   <mat-form-field appearance="outline" class="form">-->
+<!--     <mat-label>Birth date</mat-label>-->
+<!--     <input matInput [matDatepicker]="picker">-->
+<!--     <mat-hint>MM/DD/YYYY</mat-hint>-->
+<!--     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--     <mat-datepicker #picker></mat-datepicker>-->
+<!--     -->
+<!--     <mat-label>Birth date</mat-label>-->
+<!--     <input formControlName="birth_date" [matDatepicker]="picker" matInput placeholder="birth_date">-->
+<!--     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--     <mat-datepicker #picker></mat-datepicker>-->
+<!--   </mat-form-field>-->
+
+<!--   <mat-form-field appearance="outline" class="form">-->
+<!--     <mat-label>Charm</mat-label>-->
+<!--     <mat-select placeholder="charm">-->
+<!--       <mat-option value="1">1</mat-option>-->
+<!--       <mat-option value="2">2</mat-option>-->
+<!--     </mat-select>-->
+<!--   </mat-form-field>-->
+<!-- </form>-->
+<!--</div>-->
+<!--<button mat-flat-button color="accent" (click)="onClickCancel()">Cancel</button>-->
+<!--<button mat-flat-button color="accent" (click)="addClient()">{{action}} client</button>-->
 
