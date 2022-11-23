@@ -56,7 +56,7 @@ export class AddClientComponent implements OnInit {
     this.regAddressForm = this.formBuilder.group({
       // client reg address
       client: [],
-      regAddressType: [Addr_type.REG, Validators.required],
+      type: [Addr_type.REG, Validators.required],
       street: ['', Validators.required],
       house: ['', Validators.required],
       flat: [''],
