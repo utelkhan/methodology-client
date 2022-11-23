@@ -57,11 +57,11 @@
       <p>Charm</p>
       <hr>
       <mat-form-field appearance="fill">
-        <mat-select formControlName="charm" required>
-          <mat-option value="hysterical">hysterical</mat-option>
-          <mat-option value="psychasthenic">psychasthenic</mat-option>
-          <mat-option value="labile">labile</mat-option>
-          <mat-option value="conformal">conformal</mat-option>
+        <mat-select *ngFor="let charm of charms" formControlName="charm" required>
+          <mat-option value="hysterical">{{charm.name}}</mat-option>
+<!--          <mat-option value="psychasthenic">psychasthenic</mat-option>-->
+<!--          <mat-option value="labile">labile</mat-option>-->
+<!--          <mat-option value="conformal">conformal</mat-option>-->
         </mat-select>
         <mat-label>Charm</mat-label>
       </mat-form-field>
@@ -90,43 +90,85 @@
       </mat-form-field>
     </div>
   </form>
-  <button style="margin-bottom: 10px" *ngIf="!factAddresses" mat-mini-fab color="accent" (click)="changeAddingFactAddress()">+</button>
+  <button style="margin-bottom: 10px" *ngIf="!factAddresses" mat-mini-fab color="accent"
+          (click)="changeAddingFactAddress()">+
+  </button>
 
   <!-- Фактическое место проживания -->
   <div *ngIf="factAddresses">
-  <form [formGroup]="factAddressForm">
-    <div class="inline">
-      <small style="font-size: 15px; margin-right: 8px">FACT ADDRESS</small>
-      <mat-form-field appearance="fill" class="form">
-        <mat-label>Street</mat-label>
-        <input formControlName="street" type="text" matInput placeholder="client street">
-      </mat-form-field>
+    <form [formGroup]="factAddressForm">
+      <div class="inline">
+        <small style="font-size: 15px; margin-right: 8px">FACT ADDRESS</small>
+        <mat-form-field appearance="fill" class="form">
+          <mat-label>Street</mat-label>
+          <input formControlName="street" type="text" matInput placeholder="client street">
+        </mat-form-field>
 
-      <mat-form-field appearance="fill" class="form">
-        <mat-label>House</mat-label>
-        <input formControlName="house" type="text" matInput placeholder="client house">
-      </mat-form-field>
+        <mat-form-field appearance="fill" class="form">
+          <mat-label>House</mat-label>
+          <input formControlName="house" type="text" matInput placeholder="client house">
+        </mat-form-field>
 
-      <mat-form-field appearance="fill" class="form">
-        <mat-label>Flat</mat-label>
-        <input formControlName="flat" type="text" matInput placeholder="client flat">
-      </mat-form-field>
-    </div>
-  </form>
+        <mat-form-field appearance="fill" class="form">
+          <mat-label>Flat</mat-label>
+          <input formControlName="flat" type="text" matInput placeholder="client flat">
+        </mat-form-field>
+      </div>
+    </form>
     <button style="margin-bottom: 10px" mat-mini-fab color="accent" (click)="changeAddingFactAddress()">-</button>
   </div>
 
   <!-- Телефоны пользователя -->
-  <form [formGroup]="phoneForm">
-    <div class="inline">
-      <p>Phone</p>
-      <hr>
+  <div class="inline">
+    <p>Phone</p>
+    <hr>
+    <form [formGroup]="mobile1PhoneForm">
       <mat-form-field appearance="fill" class="form">
         <mat-label>Mobile phone</mat-label>
         <input required formControlName="number" type="text" matInput placeholder="client mobile phone">
       </mat-form-field>
-    </div>
-  </form>
+      <button style="margin-bottom: 10px" *ngIf="!homePhone" mat-flat-button color="accent"
+              (click)="changeAddingHomePhone()">HOME PHONE
+      </button>
+      <button style="margin-bottom: 10px" *ngIf="!workPhone" mat-flat-button color="accent"
+              (click)="changeAddingWorkPhone()">WORK PHONE
+      </button>
+      <button style="margin-bottom: 10px" *ngIf="!mobile2Phone" mat-flat-button color="accent"
+              (click)="changeAddingMobile2Phone()">+MOBILE PHONE
+      </button>
+    </form>
+    <form *ngIf="homePhone" [formGroup]="homePhoneForm">
+        <mat-form-field appearance="fill" class="form">
+          <mat-label>Home phone</mat-label>
+          <input required formControlName="number" type="text" matInput placeholder="client home phone">
+        </mat-form-field>
+      <button style="margin-bottom: 10px" mat-mini-fab color="accent" (click)="changeAddingHomePhone()">-</button>
+    </form>
+    <form *ngIf="workPhone" [formGroup]="workPhoneForm">
+      <mat-form-field appearance="fill" class="form">
+        <mat-label>Work phone</mat-label>
+        <input required formControlName="number" type="text" matInput placeholder="client work phone">
+      </mat-form-field>
+      <button style="margin-bottom: 10px" mat-mini-fab color="accent" (click)="changeAddingWorkPhone()">-</button>
+    </form>
+    <form *ngIf="mobile2Phone" [formGroup]="mobile2PhoneForm">
+      <mat-form-field appearance="fill" class="form">
+        <mat-label>First additional mobile phone</mat-label>
+        <input required formControlName="number" type="text" matInput placeholder="client additional 1 mobile phone">
+      </mat-form-field>
+      <button style="margin-bottom: 10px" mat-mini-fab color="accent" (click)="changeAddingMobile2Phone()">-</button>
+      <button style="margin-bottom: 10px" *ngIf="!mobile3Phone" mat-flat-button color="accent"
+              (click)="changeAddingMobile3Phone()">+MOBILE PHONE
+      </button>
+    </form>
+    <form *ngIf="mobile3Phone" [formGroup]="mobile3PhoneForm">
+      <mat-form-field appearance="fill" class="form">
+        <mat-label>Second additional mobile phone</mat-label>
+        <input formControlName="number" type="text" matInput placeholder="client additional 2 mobile phone">
+      </mat-form-field>
+      <button style="margin-bottom: 10px" mat-mini-fab color="accent" (click)="changeAddingMobile3Phone()">-</button>
+    </form>
+  </div>
 </div>
 <button mat-flat-button color="accent" mat-dialog-close>Cancel</button>
 <button mat-flat-button color="accent" (click)="addClient()">Add client</button>
