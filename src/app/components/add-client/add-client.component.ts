@@ -93,6 +93,8 @@ export class AddClientComponent implements OnInit {
     if (this.clientForm.valid) {
       console.log('adding client', this.clientForm.value);
       this.clientService.addClient(this.clientForm.value);
+      this.clientForm.reset();
+      this.dialogRef.close('save');
     }
   }
 

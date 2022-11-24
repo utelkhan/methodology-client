@@ -7,30 +7,36 @@ import {CHARM_DATA, CLIENT_DATA} from './test.data';
 export class ClientService {
   private clients = CLIENT_DATA;
   private charms = CHARM_DATA;
-  private newClient!: Client;
 
-  constructor() {}
+  constructor() {
+  }
 
   public getClients() {
     return of(this.clients);
   }
+
   public addClient(client: Client) {
-    console.log(this.newClient.id);
-    this.newClient.surname = client.surname;
-    this.newClient.name = client.name;
-    this.newClient.patronymic = client.patronymic;
-    this.newClient.gender = client.gender;
-    this.newClient.charm = client.charm;
-    this.newClient.birth_date = client.birth_date;
-    this.clients.push(this.newClient);
+    client.id = this.clients.length + 1;
     console.log('CLIENT_SERVICE.addCLIENT: trying to add client', client);
+
+    console.log('CLIENTIDDDDDDDDDDDDDD', client.id);
+
+    client.phones.forEach((phone) => {
+      phone.client = client.id;
+    });
+    if (client.factAddress !== null) {
+      client.factAddress.client = client.id;
+    }
+    client.regAddress.client = client.id;
     this.clients.push(client);
     console.log('CLIENT_SERVICE.addCLIENT: clients successfully added');
     return of(this.clients);
   }
+
   public getCharms() {
     return of(this.charms);
   }
+
   // public getClients() {
   //   return of(this.clients);
   // }
