@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Form, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClientService} from '../../../services/client/client.service';
 import {Addr_type} from '../../model/mymodels/enums/addr_type';
 import {Charm} from '../../model/mymodels/charm';
 import {Phone_type} from '../../model/mymodels/enums/phone_type';
 import {MatDialogRef} from '@angular/material/dialog';
+import {Client_gender} from '../../model/mymodels/enums/client_gender';
 
 @Component({
   selector: 'app-add-client',
@@ -13,173 +14,127 @@ import {MatDialogRef} from '@angular/material/dialog';
 })
 export class AddClientComponent implements OnInit {
   clientForm!: FormGroup;
-
-  regAddressForm!: FormGroup;
-  factAddressForm!: FormGroup;
-
-  homePhoneForm!: FormGroup;
-  workPhoneForm!: FormGroup;
-  mobile1PhoneForm!: FormGroup;
-  mobile2PhoneForm!: FormGroup;
-  mobile3PhoneForm!: FormGroup;
-
   charms!: Charm[];
+  gender = Client_gender;
+  phones = new FormArray([]);
 
-  factAddresses = false;
-  homePhone = false;
-  workPhone = false;
-  mobile2Phone = false;
-  mobile3Phone = false;
+  maxDate!: Date;
+  additionalPhones = 0;
+  needFactAddresses = false;
+
 
   constructor(private formBuilder: FormBuilder, private clientService: ClientService, private dialogRef: MatDialogRef<AddClientComponent>) {
   }
 
   ngOnInit(): void {
+    this.maxDate = new Date();
+    this.clientService.getClients().toPromise().then((c) => {
+      console.log('clients', c);
+    });
+    this.clientForm = this.createForm();
     // charms
-    this.clientService.getCharms().toPromise().then((c) => {
-      this.charms = c;
+    this.clientService.getCharms().toPromise().then((charms) => {
+      this.charms = charms;
     });
+    console.log(this.clientForm.get('phones'));
+  }
 
+  private createForm() {
     // client details
-    this.clientForm = this.formBuilder.group({
+    return this.clientForm = this.formBuilder.group({
       // client data
-      id: [this.clientService.getLastId() + 1],
-      surname: ['', Validators.required],
-      name: ['', Validators.required],
-      patronymic: [''],
-      gender: ['', Validators.required],
-      date_of_birth: ['', Validators.required],
-      charm: ['', Validators.required],
-    });
+      id: [],
+      surname: [, Validators.required],
+      name: [, Validators.required],
+      patronymic: [],
+      gender: [, Validators.required],
+      birth_date: [, [Validators.required]],
+      charm: [, Validators.required],
 
-    // client addresses
-    this.regAddressForm = this.formBuilder.group({
       // client reg address
-      client: [],
-      type: [Addr_type.REG, Validators.required],
-      street: ['', Validators.required],
-      house: ['', Validators.required],
-      flat: [''],
-    });
-    this.factAddressForm = this.formBuilder.group({
-      // client fact address
-      client: [],
-      type: [Addr_type.FACT],
-      street: ['', Validators.required],
-      house: ['', Validators.required],
-      flat: [''],
-    });
+      regAddress: this.formBuilder.group({
+        client: [],
+        type: [Addr_type[1], Validators.required],
+        street: [, Validators.required],
+        house: [, Validators.required],
+        flat: [],
+      }),
+      factAddress: this.formBuilder.group({
+        client: [],
+        type: [Addr_type[0]],
+        street: [],
+        house: [],
+        flat: [],
+      }),
 
-    // client phones
-    this.mobile1PhoneForm = this.formBuilder.group({
-      // client mobile1PhoneForm
-      client: [],
-      number: ['', Validators.required],
-      type: [Phone_type.MOBILE, Validators.required],
+      // client phones
+      phones: this.formBuilder.array([
+        this.formBuilder.group({
+          client: [],
+          number: [, Validators.required],
+          type: [Phone_type[2]],
+        }),
+        this.formBuilder.group({
+          client: [],
+          number: [],
+          type: [Phone_type[0]],
+        }),
+        this.formBuilder.group({
+          client: [],
+          number: [],
+          type: [Phone_type[1]],
+        }),
+      ], [Validators.maxLength(5), Validators.minLength(1)])
     });
-    this.homePhoneForm = this.formBuilder.group({
-      // client mobile1PhoneForm
-      client: [],
-      number: [''],
-      type: [Phone_type.HOME, Validators.required],
-    });
-    this.workPhoneForm = this.formBuilder.group({
-      // client mobile1PhoneForm
-      client: [],
-      number: ['', Validators.required],
-      type: [Phone_type.WORK, Validators.required],
-    });
-    this.mobile2PhoneForm = this.formBuilder.group({
-      // client mobile2PhoneForm
-      client: [],
-      number: [''],
-      type: [Phone_type.MOBILE, Validators.required],
-    });
-    this.mobile3PhoneForm = this.formBuilder.group({
-      // client mobile3PhoneForm
-      client: [],
-      number: [''],
-      type: [Phone_type.MOBILE, Validators.required],
-    });
+  }
+
+  //
+  addClient() {
+    if (this.clientForm.valid) {
+      console.log('adding client', this.clientForm.value);
+      this.clientService.addClient(this.clientForm.value);
+    }
   }
 
   changeAddingFactAddress() {
-    this.factAddresses = !this.factAddresses;
-    if (this.factAddresses === false) {
-      this.factAddressForm.reset();
-    }
-  }
-  changeAddingHomePhone() {
-    this.homePhone = !this.homePhone;
-    if (this.homePhone === false) {
-      this.homePhoneForm.reset();
-    }
-  }
-  changeAddingWorkPhone() {
-    this.workPhone = !this.workPhone;
-    if (this.workPhone === false) {
-      this.workPhoneForm.reset();
-    }
-  }
-  changeAddingMobile2Phone() {
-    this.mobile2Phone = !this.mobile2Phone;
-    if (this.mobile2Phone === false) {
-      this.mobile2PhoneForm.reset();
-    }
-  }
-  changeAddingMobile3Phone() {
-    this.mobile3Phone = !this.mobile3Phone;
-    if (this.mobile3Phone === false) {
-      this.mobile3PhoneForm.reset();
+    this.needFactAddresses = !this.needFactAddresses;
+    if (this.needFactAddresses === false) {
+      this.clientForm.reset('factAddressStreet');
+      this.clientForm.reset('factAddressHouse');
+      this.clientForm.reset('factAddressFlat');
     }
   }
 
-  addClient() {
-    if (this.clientForm.valid && this.regAddressForm.valid && this.mobile1PhoneForm.valid) {
+  // phones
+  get phonesArrayControl(): FormArray {
+    return this.clientForm.get('phones') as FormArray;
+  }
 
-      this.clientService.addClient(this.clientForm.value).toPromise().then((c) => {
-        // добавление адрессов
-        this.clientService.addAddresses(this.clientForm.value.id, this.regAddressForm.value).toPromise().then((a) => {
-          this.regAddressForm.reset();
-        });
-
-        if (this.factAddresses) {
-          this.clientService.addAddresses(this.clientForm.value.id, this.factAddressForm.value).toPromise().then((a) => {
-            this.factAddressForm.reset();
-          });
-        }
-        // конец добавления адрессов
-
-        // добавление телефонов
-        this.clientService.addPhones(this.clientForm.value.id, this.mobile1PhoneForm.value).toPromise().then((p) => {
-          this.mobile1PhoneForm.reset();
-        });
-        if (this.homePhone && this.homePhoneForm.valid && this.homePhoneForm.value.number !== '') {
-          this.clientService.addPhones(this.clientForm.value.id, this.homePhoneForm.value).toPromise().then((p) => {
-            this.homePhoneForm.reset();
-          });
-        }
-        if (this.workPhone && this.workPhoneForm.valid && this.workPhoneForm.value.number !== '') {
-          this.clientService.addPhones(this.clientForm.value.id, this.workPhoneForm.value).toPromise().then((p) => {
-            this.workPhoneForm.reset();
-          });
-        }
-        if (this.mobile2Phone && this.mobile2PhoneForm.valid && this.mobile2PhoneForm.value.number !== '') {
-          this.clientService.addPhones(this.clientForm.value.id, this.mobile2PhoneForm.value).toPromise().then((p) => {
-            this.mobile2PhoneForm.reset();
-          });
-        }
-        if (this.mobile3Phone && this.mobile3PhoneForm.valid && this.mobile3PhoneForm.value.number !== '') {
-          this.clientService.addPhones(this.clientForm.value.id, this.mobile3PhoneForm.value).toPromise().then((p) => {
-            this.mobile3PhoneForm.reset();
-          });
-        }
-        // конец добавления телефонов
-        this.clientForm.reset();
-        this.dialogRef.close();
-      });
+  addAdditionalMobilePhone() {
+    console.log(this.clientForm.get('birth_date'));
+    if (this.additionalPhones <= 2) {
+      this.additionalPhones++;
+      this.phones = this.clientForm.get('phones') as FormArray;
+      this.phones.push(
+        this.formBuilder.group({
+            client: [],
+            number: [],
+            type: [Phone_type[2]],
+          }
+        )
+      );
     }
   }
+
+  removeAdditionalMobilePhone() {
+    if (this.additionalPhones > -1) {
+      this.phones = this.clientForm.get('phones') as FormArray;
+      this.additionalPhones--;
+      this.phones.removeAt(this.phones.length - 1);
+    }
+  }
+
+
 }
 
 // export class AddClientComponent implements OnInit {
