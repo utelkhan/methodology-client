@@ -101,9 +101,7 @@ export class AddClientComponent implements OnInit {
   changeAddingFactAddress() {
     this.needFactAddresses = !this.needFactAddresses;
     if (this.needFactAddresses === false) {
-      this.clientForm.reset('factAddressStreet');
-      this.clientForm.reset('factAddressHouse');
-      this.clientForm.reset('factAddressFlat');
+      this.clientForm.get('factAddress').reset();
     }
   }
 

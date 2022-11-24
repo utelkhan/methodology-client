@@ -1,65 +1,71 @@
 <button id="addButton" mat-flat-button color="accent" (click)="openAddClientDialog()">+</button>
 
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input style="color: #ffffff" matInput (keyup)="applyFilter($event)" placeholder="by Full Name" #input>
+</mat-form-field>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
 
   <!-- Id Column -->
   <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> Id </th>
+    <th mat-header-cell *matHeaderCellDef> Id</th>
     <td mat-cell *matCellDef="let client"> {{client.id}} </td>
   </ng-container>
 
   <!-- Full Name Column -->
   <ng-container matColumnDef="Full Name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Full Name</th>
     <td mat-cell *matCellDef="let client"> {{client.surname}} {{client.name}} {{client.patronymic}} </td>
   </ng-container>
 
   <!-- Charm Column -->
   <ng-container matColumnDef="Charm">
-    <th mat-header-cell *matHeaderCellDef> Charm </th>
+    <th mat-header-cell *matHeaderCellDef> Charm</th>
     <td mat-cell *matCellDef="let client"> {{client.charm.name}} </td>
   </ng-container>
 
   <!-- Charm Column -->
   <ng-container matColumnDef="Age">
-    <th mat-header-cell *matHeaderCellDef> Age </th>
+    <th mat-header-cell mat-sort-header *matHeaderCellDef> Age</th>
     <td mat-cell *matCellDef="let client"> {{calculateAge(client.birth_date)}} </td>
   </ng-container>
 
   <!-- Total account balance Column -->
   <ng-container matColumnDef="Total account balance">
-    <th mat-header-cell *matHeaderCellDef> Total account balance </th>
-    <td mat-cell *matCellDef="let client"> 0 </td>
+    <th mat-header-cell  mat-sort-header *matHeaderCellDef> Total account balance</th>
+    <td mat-cell *matCellDef="let client"> 0</td>
   </ng-container>
 
   <!-- Maximum balance Column -->
   <ng-container matColumnDef="Maximum balance">
-    <th mat-header-cell *matHeaderCellDef> Maximum balance </th>
-    <td mat-cell *matCellDef="let client"> 0 </td>
+    <th mat-header-cell mat-sort-header *matHeaderCellDef> Maximum balance</th>
+    <td mat-cell *matCellDef="let client"> 0</td>
   </ng-container>
 
   <!-- Minimum balance Column -->
   <ng-container matColumnDef="Minimum balance">
-    <th mat-header-cell *matHeaderCellDef> Minimum balance </th>
-    <td mat-cell *matCellDef="let client"> 0 </td>
+    <th mat-header-cell  mat-sort-header *matHeaderCellDef> Minimum balance</th>
+    <td mat-cell *matCellDef="let client"> 0</td>
   </ng-container>
 
   <!-- Options Column -->
   <ng-container matColumnDef="Options">
-    <th mat-header-cell *matHeaderCellDef> Options </th>
+    <th mat-header-cell *matHeaderCellDef> Options</th>
     <td mat-cell *matCellDef="let client">
       <button mat-flat-button color="accent">...</button>
       <button mat-flat-button color="accent">-</button>
-<!--      <button mat-flat-button color="accent" (click)="openEditClientDialog(element)">...</button>-->
-<!--      <button mat-flat-button color="accent" (click)="deleteClient(element.id)">-</button>-->
+      <!--      <button mat-flat-button color="accent" (click)="openEditClientDialog(element)">...</button>-->
+      <!--      <button mat-flat-button color="accent" (click)="deleteClient(element.id)">-</button>-->
     </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
 
+</table>
+<mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons>
+</mat-paginator>
 
 
 <!--<div *ngIf="clients" >-->

@@ -1,22 +1,57 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {AddClientComponent} from '../add-client/add-client.component';
 import {Client} from '../../model/mymodels/client';
 import {ClientService} from '../../../services/client/client.service';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import {NgModel} from '@angular/forms';
+import {Observable} from 'rxjs/internal/Observable';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-clients-list',
   templateUrl: './clients-list.component.html',
   styleUrls: ['./clients-list.component.scss']
 })
-export class ClientsListComponent implements OnInit {
+export class ClientsListComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns: string[] = ['id', 'Full Name', 'Charm', 'Age', 'Total account balance', 'Maximum balance', 'Minimum balance', 'Options'];
-  dataSource!: Client[];
-  constructor(private clientService: ClientService, private dialog: MatDialog) {}
+  dataSource!: any;
+  clientData!: any;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(private clientService: ClientService, private dialog: MatDialog) {
+  }
+
   ngOnInit() {
+    this.getAllClients();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  ngOnDestroy() {
+
+  }
+
+  getAllClients() {
     this.clientService.getClients().subscribe((clientList) => {
-      this.dataSource = clientList;
+      this.clientData = clientList;
+      this.dataSource = new MatTableDataSource<Client>(this.clientData);
     });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   openAddClientDialog(): void {
@@ -24,18 +59,19 @@ export class ClientsListComponent implements OnInit {
       width: '70%'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().toPromise().then(result => {
+      this.dataSource.paginator = this.paginator;
       console.log('The dialog was closed');
     });
   }
 
-  public calculateAge(birthDate: Date) {
+  calculateAge(birthDate: Date) {
 
-    return Math.floor( (   Math.abs(Date.now() - new Date(birthDate).getTime()) ) / (1000 * 3600 * 24) / 365.25      );
+    return Math.floor((Math.abs(Date.now() - new Date(birthDate).getTime())) / (1000 * 3600 * 24) / 365.25);
 
-      // //Used Math.floor instead of Math.ceil
-      // //so 26 years and 140 days would be considered as 26, not 27.
-      // this.age = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
+    // //Used Math.floor instead of Math.ceil
+    // //so 26 years and 140 days would be considered as 26, not 27.
+    // this.age = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
   }
 
 }
