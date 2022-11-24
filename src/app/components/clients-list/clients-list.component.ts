@@ -1,23 +1,43 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {AddClientComponent} from '../add-client/add-client.component';
+import {Client} from '../../model/mymodels/client';
+import {ClientService} from '../../../services/client/client.service';
 
 @Component({
   selector: 'app-clients-list',
   templateUrl: './clients-list.component.html',
   styleUrls: ['./clients-list.component.scss']
 })
-export class ClientsListComponent {
-  constructor(private dialog: MatDialog) {}
+export class ClientsListComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'Full Name', 'Charm', 'Age', 'Total account balance', 'Maximum balance', 'Minimum balance', 'Options'];
+  dataSource!: Client[];
+  constructor(private clientService: ClientService, private dialog: MatDialog) {}
+  ngOnInit() {
+    this.clientService.getClients().subscribe((clientList) => {
+      this.dataSource = clientList;
+    });
+  }
+
   openAddClientDialog(): void {
     const dialogRef = this.dialog.open(AddClientComponent, {
-      width: '100%'
+      width: '70%'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
   }
+
+  public calculateAge(birthDate: Date) {
+
+    return Math.floor( (   Math.abs(Date.now() - new Date(birthDate).getTime()) ) / (1000 * 3600 * 24) / 365.25      );
+
+      // //Used Math.floor instead of Math.ceil
+      // //so 26 years and 140 days would be considered as 26, not 27.
+      // this.age = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
+  }
+
 }
 
 // export class ClientsListComponent implements OnInit, AfterViewInit {
