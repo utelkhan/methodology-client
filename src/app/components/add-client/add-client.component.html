@@ -3,10 +3,10 @@
 </p>
 
 <div mat-dialog-content id="dialog">
-
-  <!-- Детали пользователя -->
+  <!-- Детали клиента -->
   <form [formGroup]="clientForm">
-    <!-- ФИО пользователя -->
+
+    <!-- ФИО клиента -->
     <div class="inline">
       <p>Full name</p>
       <hr>
@@ -14,63 +14,58 @@
         <mat-label>Surname</mat-label>
         <input required formControlName="surname" type="text" matInput placeholder="client surname">
       </mat-form-field>
-
       <mat-form-field appearance="fill" class="form">
         <mat-label>Name</mat-label>
         <input required formControlName="name" type="text" matInput placeholder="client name">
       </mat-form-field>
-
       <mat-form-field appearance="fill" class="form">
         <mat-label>Patronymic</mat-label>
         <input formControlName="patronymic" type="text" matInput placeholder="client patronymic">
       </mat-form-field>
     </div>
 
-    <!-- Пол пользователя -->
+    <!-- Пол клиента -->
     <div class="inline">
       <p>Gender</p>
       <hr>
       <mat-form-field appearance="fill">
         <mat-select formControlName="gender" required>
-          <mat-option value="MALE">MALE</mat-option>
-          <mat-option value="FEMALE">FEMALE</mat-option>
+          <mat-option [value]="gender.MALE">MALE</mat-option>
+          <mat-option [value]="gender.FEMALE">FEMALE</mat-option>
         </mat-select>
         <mat-label>Gender</mat-label>
       </mat-form-field>
     </div>
 
-    <!-- Дата рождения пользователя -->
+    <!-- Дата рождения клиента -->
     <div class="inline">
       <p>Date of birth</p>
       <hr>
       <mat-form-field appearance="fill" style="margin-bottom: 15px">
         <mat-label>Date of birth</mat-label>
-        <input formControlName="date_of_birth" matInput [matDatepicker]="picker">
+        <input formControlName="birth_date" matInput [matDatepicker]="picker">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
 
-    <!-- Характет пользователя -->
+    <!-- Характет клиента -->
     <div class="inline">
       <p>Charm</p>
       <hr>
-      <mat-form-field appearance="fill">
-        <mat-select *ngFor="let charm of charms" formControlName="charm" required>
-          <mat-option value="hysterical">{{charm.name}}</mat-option>
-<!--          <mat-option value="psychasthenic">psychasthenic</mat-option>-->
-<!--          <mat-option value="labile">labile</mat-option>-->
-<!--          <mat-option value="conformal">conformal</mat-option>-->
-        </mat-select>
+      <mat-form-field appearance="fill" style="margin-bottom: 15px">
         <mat-label>Charm</mat-label>
+        <mat-select formControlName="charm" required>
+          <mat-option *ngFor="let charm of charms" [value]="charm">
+            {{charm.name}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
-  </form>
 
-  <!-- Адресарегистрации -->
-  <form [formGroup]="regAddressForm">
-    <div class="inline">
+    <!-- Место регистрации -->
+    <div class="inline" formGroupName="regAddress">
       <p>Address of registration and fact</p>
       <hr>
       <small style="font-size: 15px; margin-right: 15px">REG ADDRESS</small>
@@ -78,25 +73,21 @@
         <mat-label>Street</mat-label>
         <input required formControlName="street" type="text" matInput placeholder="client street">
       </mat-form-field>
-
       <mat-form-field appearance="fill" class="form">
         <mat-label>House</mat-label>
         <input required formControlName="house" type="text" matInput placeholder="client house">
       </mat-form-field>
-
       <mat-form-field appearance="fill" class="form">
         <mat-label>Flat</mat-label>
         <input formControlName="flat" type="text" matInput placeholder="client flat">
       </mat-form-field>
     </div>
-  </form>
-  <button style="margin-bottom: 10px" *ngIf="!factAddresses" mat-mini-fab color="accent"
-          (click)="changeAddingFactAddress()">+
-  </button>
+    <button style="margin-bottom: 10px" *ngIf="!factAddresses" mat-mini-fab color="accent"
+            (click)="changeAddingFactAddress()">+
+    </button>
 
-  <!-- Фактическое место проживания -->
-  <div *ngIf="factAddresses">
-    <form [formGroup]="factAddressForm">
+    <!-- Фактическое место проживания -->
+    <div *ngIf="factAddresses" formGroupName="factAddress">
       <div class="inline">
         <small style="font-size: 15px; margin-right: 8px">FACT ADDRESS</small>
         <mat-form-field appearance="fill" class="form">
@@ -114,119 +105,14 @@
           <input formControlName="flat" type="text" matInput placeholder="client flat">
         </mat-form-field>
       </div>
-    </form>
-    <button style="margin-bottom: 10px" mat-mini-fab color="accent" (click)="changeAddingFactAddress()">-</button>
-  </div>
+      <button style="margin-bottom: 10px" mat-mini-fab color="accent" (click)="changeAddingFactAddress()">-</button>
+    </div>
 
-  <!-- Телефоны пользователя -->
-  <div class="inline">
-    <p>Phone</p>
-    <hr>
-    <form [formGroup]="mobile1PhoneForm">
-      <mat-form-field appearance="fill" class="form">
-        <mat-label>Mobile phone</mat-label>
-        <input required formControlName="number" type="text" matInput placeholder="client mobile phone">
-      </mat-form-field>
-      <button style="margin-bottom: 10px" *ngIf="!homePhone" mat-flat-button color="accent"
-              (click)="changeAddingHomePhone()">HOME PHONE
-      </button>
-      <button style="margin-bottom: 10px" *ngIf="!workPhone" mat-flat-button color="accent"
-              (click)="changeAddingWorkPhone()">WORK PHONE
-      </button>
-      <button style="margin-bottom: 10px" *ngIf="!mobile2Phone" mat-flat-button color="accent"
-              (click)="changeAddingMobile2Phone()">+MOBILE PHONE
-      </button>
-    </form>
-    <form *ngIf="homePhone" [formGroup]="homePhoneForm">
-        <mat-form-field appearance="fill" class="form">
-          <mat-label>Home phone</mat-label>
-          <input required formControlName="number" type="text" matInput placeholder="client home phone">
-        </mat-form-field>
-      <button style="margin-bottom: 10px" mat-mini-fab color="accent" (click)="changeAddingHomePhone()">-</button>
-    </form>
-    <form *ngIf="workPhone" [formGroup]="workPhoneForm">
-      <mat-form-field appearance="fill" class="form">
-        <mat-label>Work phone</mat-label>
-        <input required formControlName="number" type="text" matInput placeholder="client work phone">
-      </mat-form-field>
-      <button style="margin-bottom: 10px" mat-mini-fab color="accent" (click)="changeAddingWorkPhone()">-</button>
-    </form>
-    <form *ngIf="mobile2Phone" [formGroup]="mobile2PhoneForm">
-      <mat-form-field appearance="fill" class="form">
-        <mat-label>First additional mobile phone</mat-label>
-        <input required formControlName="number" type="text" matInput placeholder="client additional 1 mobile phone">
-      </mat-form-field>
-      <button style="margin-bottom: 10px" mat-mini-fab color="accent" (click)="changeAddingMobile2Phone()">-</button>
-      <button style="margin-bottom: 10px" *ngIf="!mobile3Phone" mat-flat-button color="accent"
-              (click)="changeAddingMobile3Phone()">+MOBILE PHONE
-      </button>
-    </form>
-    <form *ngIf="mobile3Phone" [formGroup]="mobile3PhoneForm">
-      <mat-form-field appearance="fill" class="form">
-        <mat-label>Second additional mobile phone</mat-label>
-        <input formControlName="number" type="text" matInput placeholder="client additional 2 mobile phone">
-      </mat-form-field>
-      <button style="margin-bottom: 10px" mat-mini-fab color="accent" (click)="changeAddingMobile3Phone()">-</button>
-    </form>
-  </div>
+  </form>
 </div>
 <button mat-flat-button color="accent" mat-dialog-close>Cancel</button>
 <button mat-flat-button color="accent" (click)="addClient()">Add client</button>
 
 
-<!-- <form [formGroup]="clientForm">-->
 
-<!--   <mat-form-field appearance="outline" class="form">-->
-<!--     <mat-label>Surname</mat-label>-->
-<!--     <input formControlName="surname" type="text" matInput placeholder="surname">-->
-<!--   </mat-form-field>-->
-
-<!--   <mat-form-field appearance="outline" class="form">-->
-<!--     <mat-label>Name</mat-label>-->
-<!--     <input formControlName="name" matInput placeholder="name">-->
-<!--   </mat-form-field>-->
-
-<!--   <mat-form-field appearance="outline" class="form">-->
-<!--     <mat-label>Patronymic</mat-label>-->
-<!--     <input formControlName="patronymic" matInput placeholder="patronymic">-->
-<!--   </mat-form-field>-->
-
-<!--   <mat-form-field appearance="outline" class="form">-->
-<!--     <mat-label>Gender</mat-label>-->
-<!--     <mat-select placeholder="Gender">-->
-<!--       <mat-option value="MALE">MALE</mat-option>-->
-<!--       <mat-option value="FEMALE">FEMALE</mat-option>-->
-<!--     </mat-select>-->
-<!--   </mat-form-field>-->
-
-<!--   <mat-label>Birth date</mat-label>-->
-<!--   <input matInput [matDatepicker]="picker">-->
-<!--   <mat-hint>MM/DD/YYYY</mat-hint>-->
-<!--   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>-->
-<!--   <mat-datepicker #picker></mat-datepicker>-->
-
-<!--   <mat-form-field appearance="outline" class="form">-->
-<!--     <mat-label>Birth date</mat-label>-->
-<!--     <input matInput [matDatepicker]="picker">-->
-<!--     <mat-hint>MM/DD/YYYY</mat-hint>-->
-<!--     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>-->
-<!--     <mat-datepicker #picker></mat-datepicker>-->
-<!--     -->
-<!--     <mat-label>Birth date</mat-label>-->
-<!--     <input formControlName="birth_date" [matDatepicker]="picker" matInput placeholder="birth_date">-->
-<!--     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-<!--     <mat-datepicker #picker></mat-datepicker>-->
-<!--   </mat-form-field>-->
-
-<!--   <mat-form-field appearance="outline" class="form">-->
-<!--     <mat-label>Charm</mat-label>-->
-<!--     <mat-select placeholder="charm">-->
-<!--       <mat-option value="1">1</mat-option>-->
-<!--       <mat-option value="2">2</mat-option>-->
-<!--     </mat-select>-->
-<!--   </mat-form-field>-->
-<!-- </form>-->
-<!--</div>-->
-<!--<button mat-flat-button color="accent" (click)="onClickCancel()">Cancel</button>-->
-<!--<button mat-flat-button color="accent" (click)="addClient()">{{action}} client</button>-->
 
