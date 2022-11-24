@@ -9,6 +9,7 @@ import {MatSort} from '@angular/material/sort';
 import {NgModel} from '@angular/forms';
 import {Observable} from 'rxjs/internal/Observable';
 import {Subscription} from 'rxjs';
+import {LiveAnnouncer} from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-clients-list',
@@ -16,8 +17,8 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./clients-list.component.scss']
 })
 export class ClientsListComponent implements OnInit, AfterViewInit, OnDestroy {
-  displayedColumns: string[] = ['id', 'Full Name', 'Charm', 'Age', 'Total account balance', 'Maximum balance', 'Minimum balance', 'Options'];
-  dataSource!: any;
+  displayedColumns: string[] = ['id', 'name', 'charm', 'birth_date', 'total_account_balance', 'maximum_balance', 'minimum_balance', 'Options'];
+  dataSource!: MatTableDataSource<Client>;
   clientData!: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

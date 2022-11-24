@@ -4,48 +4,51 @@
   <mat-label>Filter</mat-label>
   <input style="color: #ffffff" matInput (keyup)="applyFilter($event)" placeholder="by Full Name" #input>
 </mat-form-field>
-
-<table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+<div  class="mat-elevation-z8">
+<table mat-table matSort [dataSource]="dataSource">
 
   <!-- Id Column -->
   <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> Id</th>
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Id</th>
     <td mat-cell *matCellDef="let client"> {{client.id}} </td>
   </ng-container>
 
   <!-- Full Name Column -->
-  <ng-container matColumnDef="Full Name">
+  <ng-container matColumnDef="name">
     <th mat-header-cell mat-sort-header *matHeaderCellDef>Full Name</th>
     <td mat-cell *matCellDef="let client"> {{client.surname}} {{client.name}} {{client.patronymic}} </td>
   </ng-container>
 
   <!-- Charm Column -->
-  <ng-container matColumnDef="Charm">
-    <th mat-header-cell *matHeaderCellDef> Charm</th>
+  <ng-container matColumnDef="charm">
+    <th mat-header-cell *matHeaderCellDef>Charm</th>
     <td mat-cell *matCellDef="let client"> {{client.charm.name}} </td>
   </ng-container>
 
   <!-- Charm Column -->
-  <ng-container matColumnDef="Age">
-    <th mat-header-cell mat-sort-header *matHeaderCellDef> Age</th>
+  <ng-container matColumnDef="birth_date">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Age</th>
     <td mat-cell *matCellDef="let client"> {{calculateAge(client.birth_date)}} </td>
   </ng-container>
 
   <!-- Total account balance Column -->
-  <ng-container matColumnDef="Total account balance">
-    <th mat-header-cell  mat-sort-header *matHeaderCellDef> Total account balance</th>
-    <td mat-cell *matCellDef="let client"> 0</td>
+  <ng-container matColumnDef="total_account_balance">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Total account balance</th>
+<!--    <td mat-cell *matCellDef="let client">{{total_account_balance}}</td> heeeeeeeeeeeey it should be like this-->
+    <td mat-cell *matCellDef="let client">0</td>
   </ng-container>
 
   <!-- Maximum balance Column -->
-  <ng-container matColumnDef="Maximum balance">
-    <th mat-header-cell mat-sort-header *matHeaderCellDef> Maximum balance</th>
+  <ng-container matColumnDef="maximum_balance">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Maximum balance</th>
+<!--    <td mat-cell *matCellDef="let client">{{maximum_balance}}</td> heeeeeeeeeeeey it should be like this-->
     <td mat-cell *matCellDef="let client"> 0</td>
   </ng-container>
 
   <!-- Minimum balance Column -->
-  <ng-container matColumnDef="Minimum balance">
-    <th mat-header-cell  mat-sort-header *matHeaderCellDef> Minimum balance</th>
+  <ng-container matColumnDef="minimum_balance">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef >Minimum balance</th>
+    <!--    <td mat-cell *matCellDef="let client">{{minimum_balance}}</td> heeeeeeeeeeeey it should be like this-->
     <td mat-cell *matCellDef="let client"> 0</td>
   </ng-container>
 
@@ -64,9 +67,8 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
 </table>
-<mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons>
-</mat-paginator>
-
+<mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
+</div>
 
 <!--<div *ngIf="clients" >-->
 <!--  <table mat-table [dataSource]="clients" matSort-->
