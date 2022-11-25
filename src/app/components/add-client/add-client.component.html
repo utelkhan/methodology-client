@@ -28,7 +28,7 @@
     <div class="inline">
       <p>Gender</p>
       <hr>
-      <mat-form-field appearance="fill">
+      <mat-form-field class="form" appearance="fill">
         <mat-select formControlName="gender" required>
           <mat-option [value]="gender.MALE">MALE</mat-option>
           <mat-option [value]="gender.FEMALE">FEMALE</mat-option>
@@ -38,10 +38,10 @@
     </div>
 
     <!-- Дата рождения клиента -->
-    <div class="inline">
+    <div class="inline" style="margin-bottom: 15px">
       <p>Date of birth</p>
       <hr>
-      <mat-form-field appearance="fill" style="margin-bottom: 15px">
+      <mat-form-field appearance="fill" class="form">
         <mat-label>Date of birth</mat-label>
         <input required formControlName="birth_date" matInput [max]="maxDate" [matDatepicker]="picker">
         <mat-hint>MM/DD/YYYY</mat-hint>
@@ -54,7 +54,7 @@
     <div class="inline">
       <p>Charm</p>
       <hr>
-      <mat-form-field appearance="fill" style="margin-bottom: 15px">
+      <mat-form-field appearance="fill" class="form">
         <mat-label>Charm</mat-label>
         <mat-select formControlName="charm" required>
           <mat-option *ngFor="let charm of charms" [value]="charm">
@@ -84,24 +84,22 @@
     </div>
 
     <!-- Фактическое место проживания -->
-    <div formGroupName="factAddress">
-      <div class="inline">
-        <small style="font-size: 15px; margin-right: 8px">FACT ADDRESS</small>
-        <mat-form-field appearance="fill" class="form">
-          <mat-label>Street</mat-label>
-          <input formControlName="street" type="text" matInput placeholder="client street">
-        </mat-form-field>
+    <div class="inline" formGroupName="factAddress">
+      <small style="font-size: 15px; margin-right: 8px">FACT ADDRESS</small>
+      <mat-form-field appearance="fill" class="form">
+        <mat-label>Street</mat-label>
+        <input formControlName="street" type="text" matInput placeholder="client street">
+      </mat-form-field>
 
-        <mat-form-field appearance="fill" class="form">
-          <mat-label>House</mat-label>
-          <input formControlName="house" type="text" matInput placeholder="client house">
-        </mat-form-field>
+      <mat-form-field appearance="fill" class="form">
+        <mat-label>House</mat-label>
+        <input formControlName="house" type="text" matInput placeholder="client house">
+      </mat-form-field>
 
-        <mat-form-field appearance="fill" class="form">
-          <mat-label>Flat</mat-label>
-          <input formControlName="flat" type="text" matInput placeholder="client flat">
-        </mat-form-field>
-      </div>
+      <mat-form-field appearance="fill" class="form">
+        <mat-label>Flat</mat-label>
+        <input formControlName="flat" type="text" matInput placeholder="client flat">
+      </mat-form-field>
     </div>
 
 
@@ -111,59 +109,45 @@
       <hr>
 
       <div formArrayName="phones">
+        <!-- Main phones-->
+        <div class="inline">
+          <label *ngFor="let item of phonesArrayControl.controls; let i = index">
+            <label [formGroupName]="i">
 
-        <div *ngFor="let item of phonesArrayControl.controls; let i = index">
-          <div [formGroupName]="i">
-            <div class="inline">
-              <div *ngIf="i === 0">
-                <mat-form-field appearance="fill" class="form">
-                  <mat-label>Mobile phone</mat-label>
-                  <input required formControlName="number" type="text" matInput placeholder="client flat">
-                </mat-form-field>
-                <button *ngIf="availableAdditionalPhones > 0" mat-mini-fab color="accent" (click)="addAdditionalMobilePhone()">+</button>
-              </div>
-
-              <div *ngIf="i === 1">
-                <mat-form-field appearance="fill" class="form">
-                  <mat-label>Home phone</mat-label>
-                  <input formControlName="number" type="text" matInput placeholder="client flat">
-                </mat-form-field>
-              </div>
-
-              <div *ngIf="i === 2">
-                <mat-form-field appearance="fill" class="form">
-                  <mat-label>Work phone</mat-label>
-                  <input formControlName="number" type="text" matInput placeholder="client flat">
-                </mat-form-field>
-              </div>
-            </div>
-            <div *ngIf="i > 2">
               <mat-form-field appearance="fill" class="form">
-                <mat-label>Additional mobile phone</mat-label>
-                <input formControlName="number" type="text" matInput placeholder="client flat">
+                <mat-label>{{item.get('type').value | lowercase}} phone</mat-label>
+                <label *ngIf="i === 0">
+                  <input required formControlName="number" type="text" matInput placeholder="mobile number">
+                </label>
+
+                <label *ngIf="i === 1">
+                  <input formControlName="number" type="text" matInput placeholder="home number">
+                </label>
+
+                <label *ngIf="i === 2">
+                  <input formControlName="number" type="text" matInput placeholder="work number">
+                </label>
+
+                <div *ngIf="i > 2">
+                  <input formControlName="number" type="text" matInput placeholder="additional mobile phone">
+                </div>
               </mat-form-field>
-              <button mat-mini-fab color="accent" color="accent" (click)="removeAdditionalMobilePhone()">-</button>
-            </div>
-          </div>
+              <label *ngIf="i > 2">
+                <button mat-mini-fab color="accent" color="accent" (click)="removeAdditionalMobilePhone()">-</button>
+              </label>
+            </label>
+          </label>
         </div>
+
+
+        <button *ngIf="availableAdditionalPhones > 0" mat-flat-button color="accent"
+                (click)="addAdditionalMobilePhone()">
+          + additional number
+        </button>
 
 
       </div>
 
-      <!--    <div  formArrayName="phones" *ngFor="let phone of phonesArrayControl.controls; let i = index;" (submit)="addP()">-->
-      <!--      <div [formGroupName]="i">-->
-      <!--        <input formControl="number">-->
-      <!--      </div>-->
-      <!--    </div>-->
-
-
-      <!--    <div  formArrayName="phones">-->
-      <!--      <div *ngFor="let phone of phonesArrayControl.controls; let i = index;">-->
-      <!--        <div [formGroupName]="i">-->
-      <!--          <input formControlName="number" type="text" matInput placeholder="client flat">-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!--    </div>-->
     </div>
   </form>
 </div>
