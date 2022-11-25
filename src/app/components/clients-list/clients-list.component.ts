@@ -23,6 +23,7 @@ export class ClientsListComponent implements OnInit, AfterViewInit, OnDestroy {
   clientData!: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  sub!: Subscription;
 
   constructor(private clientService: ClientService, private dialog: MatDialog) {
   }
@@ -37,11 +38,11 @@ export class ClientsListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-
+    this.sub.unsubscribe();
   }
 
   getAllClients() {
-    this.clientService.getClients().subscribe((clientList) => {
+    this.sub = this.clientService.getClients().subscribe((clientList) => {
       this.clientData = clientList;
       this.dataSource = new MatTableDataSource<Client>(this.clientData);
     });

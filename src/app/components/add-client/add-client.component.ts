@@ -19,7 +19,7 @@ export class AddClientComponent implements OnInit {
   phones = new FormArray([]);
 
   maxDate!: Date;
-  additionalPhones = 0;
+  availableAdditionalPhones = 2;
 
   action = 'add';
 
@@ -60,7 +60,7 @@ export class AddClientComponent implements OnInit {
         type: [Addr_type[1], Validators.required],
         street: [, Validators.required],
         house: [, Validators.required],
-        flat: [],
+        flat: [, Validators.required],
       }),
       factAddress: this.formBuilder.group({
         client: [],
@@ -116,7 +116,8 @@ export class AddClientComponent implements OnInit {
         })
       );
     });
-    if (this.editingClient.phones.length < 2) {
+
+    if (this.editingClient.phones.length === 1) {
       this.phones.push(
         this.formBuilder.group({
           client: [this.editingClient.id],
@@ -131,8 +132,7 @@ export class AddClientComponent implements OnInit {
           type: [Phone_type.WORK],
         })
       );
-    }
-    if (this.editingClient.phones.length < 3) {
+    } else if (this.editingClient.phones.length === 2) {
       this.phones.push(
         this.formBuilder.group({
           client: [this.editingClient.id],
@@ -141,7 +141,7 @@ export class AddClientComponent implements OnInit {
         })
       );
     }
-    this.additionalPhones = this.editingClient.phones.length - 2;
+    this.availableAdditionalPhones = 5 - this.phones.length;
   }
 
   addOrEditClient() {
@@ -166,8 +166,8 @@ export class AddClientComponent implements OnInit {
 
   addAdditionalMobilePhone() {
     console.log(this.clientForm.get('birth_date'));
-    if (this.additionalPhones <= 2) {
-      this.additionalPhones++;
+    if (this.availableAdditionalPhones > 0) {
+      this.availableAdditionalPhones--;
       this.phones = this.clientForm.get('phones') as FormArray;
       this.phones.push(
         this.formBuilder.group({
@@ -181,9 +181,9 @@ export class AddClientComponent implements OnInit {
   }
 
   removeAdditionalMobilePhone() {
-    if (this.additionalPhones > -1) {
+    if (this.availableAdditionalPhones < 3) {
       this.phones = this.clientForm.get('phones') as FormArray;
-      this.additionalPhones--;
+      this.availableAdditionalPhones++;
       this.phones.removeAt(this.phones.length - 1);
     }
   }

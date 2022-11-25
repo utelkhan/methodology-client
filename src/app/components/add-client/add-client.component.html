@@ -43,11 +43,11 @@
       <hr>
       <mat-form-field appearance="fill" style="margin-bottom: 15px">
         <mat-label>Date of birth</mat-label>
-        <input formControlName="birth_date" matInput [max]="maxDate" [matDatepicker]="picker">
+        <input required formControlName="birth_date" matInput [max]="maxDate" [matDatepicker]="picker">
         <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
     </div>
 
     <!-- Характет клиента -->
@@ -79,7 +79,7 @@
       </mat-form-field>
       <mat-form-field appearance="fill" class="form">
         <mat-label>Flat</mat-label>
-        <input formControlName="flat" type="text" matInput placeholder="client flat">
+        <input required formControlName="flat" type="text" matInput placeholder="client flat">
       </mat-form-field>
     </div>
 
@@ -120,7 +120,7 @@
                   <mat-label>Mobile phone</mat-label>
                   <input required formControlName="number" type="text" matInput placeholder="client flat">
                 </mat-form-field>
-                <button *ngIf="additionalPhones < 2" mat-mini-fab color="accent" (click)="addAdditionalMobilePhone()">+</button>
+                <button *ngIf="availableAdditionalPhones > 0" mat-mini-fab color="accent" (click)="addAdditionalMobilePhone()">+</button>
               </div>
 
               <div *ngIf="i === 1">
