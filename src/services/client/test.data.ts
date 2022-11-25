@@ -34,7 +34,7 @@ export const CLIENT_DATA: Client[] = [
     regAddress:  {client: 2, type: Addr_type.REG, street: 'second_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
     factAddress:   {client: 2, type: Addr_type.FACT, street: 'second_clients_street', house: 'first_clients_house', flat : 'first_clients_flat'},
     phones: [
-      {client: 2, number: '82222222222', type: PhoneType.MOBILE},]
+      {client: 2, number: '82222222222', type: PhoneType.MOBILE}]
   },
   {
     id: 3,
@@ -43,8 +43,10 @@ export const CLIENT_DATA: Client[] = [
     birth_date: new Date('12-03-2002'),
     charm: CHARM_DATA[2],
     regAddress:  {client: 3, type: Addr_type.REG, street: 'third_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
+    factAddress:   {client: 3, type: Addr_type.FACT, street: null, house: null, flat : null},
+
     phones: [
-      {client: 3, number: '83333333333', type: PhoneType.MOBILE},],
+      {client: 3, number: '83333333333', type: PhoneType.MOBILE}],
   },
   {
     id: 4,
@@ -57,7 +59,7 @@ export const CLIENT_DATA: Client[] = [
     phones: [
       {client: 4, number: '84444444444', type: PhoneType.MOBILE},
       {client: 4, number: '84444444433', type: PhoneType.MOBILE},
-      {client: 4, number: '74444444444', type: PhoneType.WORK},],
+      {client: 4, number: '74444444444', type: PhoneType.WORK}],
   },
   {
     id: 5,
@@ -66,9 +68,10 @@ export const CLIENT_DATA: Client[] = [
     birth_date: new Date('12-05-2002'),
     charm: CHARM_DATA[0],
     regAddress:  {client: 5, type: Addr_type.REG, street: 'fifth_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
+    factAddress:   {client: 5, type: Addr_type.FACT, street: null, house: null, flat : null},
     phones: [
       {client: 5, number: '85555555555', type: PhoneType.MOBILE},
-      {client: 5, number: '65555555555', type: PhoneType.HOME},],
+      {client: 5, number: '65555555555', type: PhoneType.HOME}],
   },
   {
     id: 6,
@@ -77,11 +80,12 @@ export const CLIENT_DATA: Client[] = [
     birth_date: new Date('12-06-2002'),
     charm: CHARM_DATA[1],
     regAddress:  {client: 6, type: Addr_type.REG, street: 'sixth_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
+    factAddress:   {client: 6, type: Addr_type.FACT, street: null, house: null, flat : null},
     phones: [
-      {client: 6, number: '86666666666', type: PhoneType.MOBILE},],
+      {client: 6, number: '86666666666', type: PhoneType.MOBILE}],
   },
   {
-    id: 1,
+    id: 7,
     surname: 'Nurtaev', name: 'Yernar', patronymic: 'Kenzheuly',
     gender: Client_gender.MALE,
     birth_date: new Date('12-01-1997'),
@@ -93,27 +97,29 @@ export const CLIENT_DATA: Client[] = [
       {client: 1, number: '71111111111', type: PhoneType.WORK}],
   },
   {
-    id: 2,
+    id: 8,
     surname: 'Sugurali', name: 'Aibek',
     gender: Client_gender.MALE, birth_date: new Date('12-02-2002'),
     charm: CHARM_DATA[1],
     regAddress:  {client: 2, type: Addr_type.REG, street: 'second_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
     factAddress:   {client: 2, type: Addr_type.FACT, street: 'second_clients_street', house: 'first_clients_house', flat : 'first_clients_flat'},
     phones: [
-      {client: 2, number: '82222222222', type: PhoneType.MOBILE},]
+      {client: 2, number: '82222222222', type: PhoneType.MOBILE}]
   },
   {
-    id: 3,
+    id: 9,
     surname: 'Amanbek', name: 'Azamat',
     gender: Client_gender.MALE,
     birth_date: new Date('12-03-2002'),
     charm: CHARM_DATA[2],
     regAddress:  {client: 3, type: Addr_type.REG, street: 'third_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
+    factAddress:   {client: 3, type: Addr_type.FACT, street: null, house: null, flat : null},
+
     phones: [
-      {client: 3, number: '83333333333', type: PhoneType.MOBILE},],
+      {client: 3, number: '83333333333', type: PhoneType.MOBILE}],
   },
   {
-    id: 4,
+    id: 10,
     surname: 'Berkin', name: 'Alua', patronymic: 'Aidoskyzy',
     gender: Client_gender.FEMALE,
     birth_date: new Date('12-04-1976'),
@@ -123,93 +129,29 @@ export const CLIENT_DATA: Client[] = [
     phones: [
       {client: 4, number: '84444444444', type: PhoneType.MOBILE},
       {client: 4, number: '84444444433', type: PhoneType.MOBILE},
-      {client: 4, number: '74444444444', type: PhoneType.WORK},],
+      {client: 4, number: '74444444444', type: PhoneType.WORK}],
   },
   {
-    id: 5,
+    id: 11,
     surname: 'Omar', name: 'Aliya',
     gender: Client_gender.FEMALE,
     birth_date: new Date('12-05-2002'),
     charm: CHARM_DATA[0],
     regAddress:  {client: 5, type: Addr_type.REG, street: 'fifth_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
+    factAddress:   {client: 5, type: Addr_type.FACT, street: null, house: null, flat : null},
     phones: [
       {client: 5, number: '85555555555', type: PhoneType.MOBILE},
-      {client: 5, number: '65555555555', type: PhoneType.HOME},],
+      {client: 5, number: '65555555555', type: PhoneType.HOME}],
   },
   {
-    id: 6,
+    id: 12,
     surname: 'Kanat', name: 'Alena',
     gender: Client_gender.FEMALE,
     birth_date: new Date('12-06-2002'),
     charm: CHARM_DATA[1],
     regAddress:  {client: 6, type: Addr_type.REG, street: 'sixth_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
+    factAddress:   {client: 6, type: Addr_type.FACT, street: null, house: null, flat : null},
     phones: [
-      {client: 6, number: '86666666666', type: PhoneType.MOBILE},],
-  },
-  {
-    id: 1,
-    surname: 'Nurtaev', name: 'Yernar', patronymic: 'Kenzheuly',
-    gender: Client_gender.MALE,
-    birth_date: new Date('12-01-1997'),
-    charm: CHARM_DATA[0],
-    regAddress: {client: 1, type: Addr_type.REG, street: 'first_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
-    factAddress: {client: 1, type: Addr_type.FACT, street: 'first_clients_street', house: 'first_clients_house', flat : 'first_clients_flat'},
-    phones: [
-      {client: 1, number: '81111111111', type: PhoneType.MOBILE},
-      {client: 1, number: '71111111111', type: PhoneType.WORK}],
-  },
-  {
-    id: 2,
-    surname: 'Sugurali', name: 'Aibek',
-    gender: Client_gender.MALE, birth_date: new Date('12-02-2002'),
-    charm: CHARM_DATA[1],
-    regAddress:  {client: 2, type: Addr_type.REG, street: 'second_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
-    factAddress:   {client: 2, type: Addr_type.FACT, street: 'second_clients_street', house: 'first_clients_house', flat : 'first_clients_flat'},
-    phones: [
-      {client: 2, number: '82222222222', type: PhoneType.MOBILE},]
-  },
-  {
-    id: 3,
-    surname: 'Amanbek', name: 'Azamat',
-    gender: Client_gender.MALE,
-    birth_date: new Date('12-03-2002'),
-    charm: CHARM_DATA[2],
-    regAddress:  {client: 3, type: Addr_type.REG, street: 'third_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
-    phones: [
-      {client: 3, number: '83333333333', type: PhoneType.MOBILE},],
-  },
-  {
-    id: 4,
-    surname: 'Berkin', name: 'Alua', patronymic: 'Aidoskyzy',
-    gender: Client_gender.FEMALE,
-    birth_date: new Date('12-04-1976'),
-    charm: CHARM_DATA[3],
-    regAddress: {client: 4, type: Addr_type.REG, street: 'third_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
-    factAddress:  {client: 4, type: Addr_type.FACT, street: 'fourth_clients_street', house: 'first_clients_house', flat : 'first_clients_flat'},
-    phones: [
-      {client: 4, number: '84444444444', type: PhoneType.MOBILE},
-      {client: 4, number: '84444444433', type: PhoneType.MOBILE},
-      {client: 4, number: '74444444444', type: PhoneType.WORK},],
-  },
-  {
-    id: 5,
-    surname: 'Omar', name: 'Aliya',
-    gender: Client_gender.FEMALE,
-    birth_date: new Date('12-05-2002'),
-    charm: CHARM_DATA[0],
-    regAddress:  {client: 5, type: Addr_type.REG, street: 'fifth_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
-    phones: [
-      {client: 5, number: '85555555555', type: PhoneType.MOBILE},
-      {client: 5, number: '65555555555', type: PhoneType.HOME},],
-  },
-  {
-    id: 6,
-    surname: 'Kanat', name: 'Alena',
-    gender: Client_gender.FEMALE,
-    birth_date: new Date('12-06-2002'),
-    charm: CHARM_DATA[1],
-    regAddress:  {client: 6, type: Addr_type.REG, street: 'sixth_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
-    phones: [
-      {client: 6, number: '86666666666', type: PhoneType.MOBILE},],
-  },
+      {client: 6, number: '86666666666', type: PhoneType.MOBILE}],
+  }
 ];

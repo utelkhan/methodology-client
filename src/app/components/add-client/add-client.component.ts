@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Form, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClientService} from '../../../services/client/client.service';
 import {Addr_type} from '../../model/mymodels/enums/addr_type';
 import {Charm} from '../../model/mymodels/charm';
 import {Phone_type} from '../../model/mymodels/enums/phone_type';
-import {MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Client_gender} from '../../model/mymodels/enums/client_gender';
 
 @Component({
@@ -20,26 +20,29 @@ export class AddClientComponent implements OnInit {
 
   maxDate!: Date;
   additionalPhones = 0;
-  needFactAddresses = false;
 
+  action = 'add';
 
-  constructor(private formBuilder: FormBuilder, private clientService: ClientService, private dialogRef: MatDialogRef<AddClientComponent>) {
+  constructor(@Inject(MAT_DIALOG_DATA) public editingClient: any, private formBuilder: FormBuilder, private clientService: ClientService, private dialogRef: MatDialogRef<AddClientComponent>) {
   }
 
   ngOnInit(): void {
     this.maxDate = new Date();
-    this.clientService.getClients().toPromise().then((c) => {
-      console.log('clients', c);
-    });
-    this.clientForm = this.createForm();
-    // charms
+
+    this.clientForm = this.createAddingForm();
+
+    // getting charms
     this.clientService.getCharms().toPromise().then((charms) => {
       this.charms = charms;
     });
-    console.log(this.clientForm.get('phones'));
+
+    if (this.editingClient) {
+      this.action = 'edit';
+      this.createEditingForm();
+    }
   }
 
-  private createForm() {
+  private createAddingForm() {
     // client details
     return this.clientForm = this.formBuilder.group({
       // client data
@@ -88,24 +91,75 @@ export class AddClientComponent implements OnInit {
     });
   }
 
-  //
-  addClient() {
-    if (this.clientForm.valid) {
-      console.log('adding client', this.clientForm.value);
-      this.clientService.addClient(this.clientForm.value);
+  private createEditingForm() {
+    // this.action = 'update';
+    this.clientForm.controls.id.setValue(this.editingClient.id);
+    this.clientForm.controls.surname.setValue(this.editingClient.age);
+    this.clientForm.controls.surname.setValue(this.editingClient.surname);
+    this.clientForm.controls.name.setValue(this.editingClient.name);
+    this.clientForm.controls.patronymic.setValue(this.editingClient.patronymic);
+    this.clientForm.controls.gender.setValue(this.editingClient.gender);
+    this.clientForm.controls.birth_date.setValue(this.editingClient.birth_date);
+    this.clientForm.controls.charm.setValue(this.editingClient.charm);
+    this.clientForm.controls.regAddress.setValue(this.editingClient.regAddress);
+    this.clientForm.controls.factAddress.setValue(this.editingClient.factAddress);
+
+    this.phones = this.clientForm.get('phones') as FormArray;
+    this.phones.clear();
+
+    this.editingClient.phones.forEach((phone) => {
+      this.phones.push(
+        this.formBuilder.group({
+          client: [phone.client],
+          number: [phone.number],
+          type: [phone.type],
+        })
+      );
+    });
+    if (this.editingClient.phones.length < 2) {
+      this.phones.push(
+        this.formBuilder.group({
+          client: [this.editingClient.id],
+          number: [],
+          type: [Phone_type.HOME],
+        })
+      );
+      this.phones.push(
+        this.formBuilder.group({
+          client: [this.editingClient.id],
+          number: [],
+          type: [Phone_type.WORK],
+        })
+      );
+    }
+    if (this.editingClient.phones.length < 3) {
+      this.phones.push(
+        this.formBuilder.group({
+          client: [this.editingClient.id],
+          number: [],
+          type: [Phone_type.WORK],
+        })
+      );
+    }
+    this.additionalPhones = this.editingClient.phones.length - 2;
+  }
+
+  addOrEditClient() {
+    if (!this.editingClient) {
+      if (this.clientForm.valid) {
+        console.log('adding client', this.clientForm.value);
+        this.clientService.addClient(this.clientForm.value);
+        this.clientForm.reset();
+        this.dialogRef.close('add');
+      }
+    } else {
+      console.log('editing client', this.editingClient);
+      this.clientService.editClient(this.clientForm.value);
       this.clientForm.reset();
-      this.dialogRef.close('save');
+      this.dialogRef.close('edit');
     }
   }
 
-  changeAddingFactAddress() {
-    this.needFactAddresses = !this.needFactAddresses;
-    if (this.needFactAddresses === false) {
-      this.clientForm.get('factAddress').reset();
-    }
-  }
-
-  // phones
   get phonesArrayControl(): FormArray {
     return this.clientForm.get('phones') as FormArray;
   }

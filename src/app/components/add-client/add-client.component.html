@@ -82,13 +82,9 @@
         <input formControlName="flat" type="text" matInput placeholder="client flat">
       </mat-form-field>
     </div>
-    <button style="margin-bottom: 10px" *ngIf="!needFactAddresses" mat-flat-button color="accent"
-            (click)="changeAddingFactAddress()">+FACT ADDRESS
-    </button>
-
 
     <!-- Фактическое место проживания -->
-    <div *ngIf="needFactAddresses" formGroupName="factAddress">
+    <div formGroupName="factAddress">
       <div class="inline">
         <small style="font-size: 15px; margin-right: 8px">FACT ADDRESS</small>
         <mat-form-field appearance="fill" class="form">
@@ -106,7 +102,6 @@
           <input formControlName="flat" type="text" matInput placeholder="client flat">
         </mat-form-field>
       </div>
-      <button style="margin-bottom: 10px" mat-mini-fab color="accent" (click)="changeAddingFactAddress()">-</button>
     </div>
 
 
@@ -172,8 +167,8 @@
     </div>
   </form>
 </div>
-<button style="float: right" mat-flat-button color="accent" mat-dialog-close>Cancel</button>
-<button style="float: right" mat-flat-button color="accent" (click)="addClient()">Add client</button>
+<button style="float: right" mat-flat-button color="accent" mat-dialog-close>cancel</button>
+<button style="float: right" mat-flat-button color="accent" (click)="addOrEditClient()">{{action}} client</button>
 
 
 

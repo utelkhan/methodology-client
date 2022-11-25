@@ -10,6 +10,7 @@ import {NgModel} from '@angular/forms';
 import {Observable} from 'rxjs/internal/Observable';
 import {Subscription} from 'rxjs';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
+import {element} from 'protractor';
 
 @Component({
   selector: 'app-clients-list',
@@ -62,7 +63,25 @@ export class ClientsListComponent implements OnInit, AfterViewInit, OnDestroy {
 
     dialogRef.afterClosed().toPromise().then(result => {
       this.dataSource.paginator = this.paginator;
-      console.log('The dialog was closed');
+      console.log('The add client dialog was closed');
+    });
+  }
+
+  openEditClientDialog(client: any): void {
+    const dialogRef = this.dialog.open(AddClientComponent, {
+      width: '70%',
+      data: client,
+    });
+
+    dialogRef.afterClosed().toPromise().then(result => {
+      this.dataSource.paginator = this.paginator;
+      console.log('The edit client dialog was closed');
+    });
+  }
+
+  removeClient(id: number) {
+    this.clientService.removeClientById(id).toPromise().then((clientList) => {
+      this.dataSource.data = clientList;
     });
   }
 
