@@ -1,3 +1,4 @@
+// todo: Название файла client_account_transaction.ts, нужно создавать через '-', а не '_'
 export interface Client_account_transaction {
   id: number;
   account: number; // account id

@@ -28,6 +28,11 @@
   <!-- Charm Column -->
   <ng-container matColumnDef="birth_date">
     <th mat-header-cell mat-sort-header *matHeaderCellDef>Age</th>
+<!--    todo: Нельзя использовать метод в html без вызова событии.
+          Если будет какое то событие, например (click), метод исполнится один раз(или столько, сколько нажали)
+          В этом случаем метод исполниться множество раз, что тратит впустую вычислительную мощность.
+          Можешь посмотреть сколько раз, и когда calculateAge() будет отрабатывать внутри пропиши console.log()
+          Ты должен расчитать возраст до этого момента в ts-->
     <td mat-cell *matCellDef="let client"> {{calculateAge(client.birth_date)}} </td>
   </ng-container>
 
@@ -68,6 +73,7 @@
 <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
 </div>
 
+<!-- todo: Лишние комментарии убрать-->
 <!--<div *ngIf="clients" >-->
 <!--  <table mat-table [dataSource]="clients" matSort-->
 <!--         class="mat-elevation-z8">-->

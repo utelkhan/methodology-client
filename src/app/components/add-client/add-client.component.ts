@@ -23,7 +23,11 @@ export class AddClientComponent implements OnInit {
 
   action = 'add';
 
-  constructor(@Inject(MAT_DIALOG_DATA) public editingClient: any, private formBuilder: FormBuilder, private clientService: ClientService, private dialogRef: MatDialogRef<AddClientComponent>) {
+  // todo: в конструкторах могут подключать очень много. Через enter если проставить, будет удобнее читать
+  constructor(@Inject(MAT_DIALOG_DATA) public editingClient: any,
+              private formBuilder: FormBuilder,
+              private clientService: ClientService,
+              private dialogRef: MatDialogRef<AddClientComponent>) {
   }
 
   ngOnInit(): void {
@@ -42,11 +46,15 @@ export class AddClientComponent implements OnInit {
     }
   }
 
+  // todo: Название методе не соответсвует.
+  //  Ты назвал создание форму для добавления, но эта форма так же будет использоваться, если будет Редактирование
+  //  Поэтому лучше будет назвать, что этот метод делает, а не для чего он будет использоваться. Например createClientForm
   private createAddingForm() {
     // client details
     return this.clientForm = this.formBuilder.group({
       // client data
       id: [],
+      // todo: Эти запятые можно и не ставить
       surname: [, Validators.required],
       name: [, Validators.required],
       patronymic: [],
@@ -75,6 +83,7 @@ export class AddClientComponent implements OnInit {
         this.formBuilder.group({
           client: [],
           number: [, Validators.required],
+          // todo: Тут непонятно какое значения enum используется. Лучше будет, если напишешь так: Phone_type.MOBILE
           type: [Phone_type[2]],
         }),
         this.formBuilder.group({
@@ -91,6 +100,8 @@ export class AddClientComponent implements OnInit {
     });
   }
 
+  // todo: Название методе не соответсвует.
+  //  Так как тут ты не создаешь, а присваеваешь значение будет более уместно назвать что то наподобии fillClientForm()
   private createEditingForm() {
     // this.action = 'update';
     this.clientForm.controls.id.setValue(this.editingClient.id);
@@ -144,6 +155,9 @@ export class AddClientComponent implements OnInit {
     this.availableAdditionalPhones = 5 - this.phones.length;
   }
 
+  // todo: На практике используется стараются избегать таких названии: что то or что то
+  //  Это означает, что такой метод можно разделить на два разных метода, либо нужно придумать более обобщенный вариант названии
+  //  К примеру тут можно назвать saveClient() - в проектах обычно так и называют, когда нужно либо создать или редактировать
   addOrEditClient() {
     if (!this.editingClient) {
       if (this.clientForm.valid) {
@@ -153,6 +167,8 @@ export class AddClientComponent implements OnInit {
         this.dialogRef.close('add');
       }
     } else {
+      // todo: тут проверки нет на влидность формы
+      //  Если при редактировании убрать Имя и Фамилия к примеру, можно будет сохранить без них
       console.log('editing client', this.editingClient);
       this.clientService.editClient(this.clientForm.value);
       this.clientForm.reset();
@@ -191,6 +207,7 @@ export class AddClientComponent implements OnInit {
 
 }
 
+// todo: Лишние комментарии убрать
 // export class AddClientComponent implements OnInit {
 //   action = 'add';
 //   clientForm!: FormGroup;

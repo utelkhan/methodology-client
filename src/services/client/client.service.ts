@@ -42,6 +42,8 @@ export class ClientService {
     return of(this.charms);
   }
 
+  // todo: у тебя удаление клиента возвращает весь список клиентов
+  //  Метод должен исполнять свою роль, то есть он должен удалить клиента, и возвращать список клиентов не должен
   public removeClientById(id: number) {
     this.clients = this.clients.filter((client) => {
       return client.id !== id;
@@ -49,6 +51,7 @@ export class ClientService {
     return of(this.clients);
   }
 
+  // todo: Лишние комментарии убрать
   // public getClients() {
   //   return of(this.clients);
   // }

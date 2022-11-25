@@ -20,6 +20,7 @@ import {element} from 'protractor';
 export class ClientsListComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns: string[] = ['id', 'name', 'charm', 'birth_date', 'total_account_balance', 'maximum_balance', 'minimum_balance', 'Options'];
   dataSource!: MatTableDataSource<Client>;
+  // todo: Тут должен быть определенная типизация. Нельзя ставить any
   clientData!: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -42,6 +43,10 @@ export class ClientsListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getAllClients() {
+    // todo: Этот метод возвращает тебе список Client,
+    //  в котором лежат телефоны, адреса, и другие лишние данные, которые не используется в таблице
+    //  Будет лучше создать новый модель для таблицы отдельно, где будет поля, которые в таблице(fullName, age, charmName, balance и тд)
+    //  Сервис как раз таки будет возвращать список с новыми модельками
     this.sub = this.clientService.getClients().subscribe((clientList) => {
       this.clientData = clientList;
       this.dataSource = new MatTableDataSource<Client>(this.clientData);
@@ -68,6 +73,7 @@ export class ClientsListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
+  // todo: параметор client должен быть типизирован
   openEditClientDialog(client: any): void {
     const dialogRef = this.dialog.open(AddClientComponent, {
       width: '70%',
@@ -97,6 +103,7 @@ export class ClientsListComponent implements OnInit, AfterViewInit, OnDestroy {
 
 }
 
+// todo: Лишние комментарии убрать
 // export class ClientsListComponent implements OnInit, AfterViewInit {
 //   displayedColumns: string[] = ['fullName', 'charm', 'age', 'grandTotalOfBalance', 'maximumBalance', 'minimumBalance', 'options'];
 //   clients!: MatTableDataSource<Client>;
