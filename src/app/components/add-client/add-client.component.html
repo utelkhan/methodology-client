@@ -44,7 +44,7 @@
       <mat-form-field appearance="fill" class="form">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-label>Date of birth</mat-label>
-        <input required formControlName="birth_date" matInput [max]="maxDate" [matDatepicker]="picker">
+        <input required formControlName="birthDate" matInput [max]="maxDate" [matDatepicker]="picker">
       </mat-form-field>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
@@ -115,7 +115,7 @@
             <label [formGroupName]="i">
 
               <mat-form-field appearance="fill" class="form">
-                <mat-label>{{item.get('type').value | lowercase}} phone</mat-label>
+                <mat-label>{{item.get('type').value}} phone</mat-label>
                 <label *ngIf="i === 0">
                   <input required formControlName="number" type="text" matInput placeholder="mobile number">
                 </label>

@@ -41,7 +41,7 @@ export class AddClientComponent implements OnInit {
 
     if (this.editingClient) {
       this.action = 'Update';
-      this.createClientForm();
+      this.fillClientForm();
     }
   }
 
@@ -156,8 +156,6 @@ export class AddClientComponent implements OnInit {
         this.dialogRef.close('add');
       }
     } else {
-      // todo: тут проверки нет на влидность формы
-      //  Если при редактировании убрать Имя и Фамилия к примеру, можно будет сохранить без них
       if (this.clientForm.valid) {
         console.log('editing client', this.editingClient);
         this.clientService.editClient(this.clientForm.value);

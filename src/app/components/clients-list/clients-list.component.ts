@@ -6,11 +6,7 @@ import {ClientService} from '../../../services/client/client.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
-import {NgModel} from '@angular/forms';
-import {Observable} from 'rxjs/internal/Observable';
 import {Subscription} from 'rxjs';
-import {LiveAnnouncer} from '@angular/cdk/a11y';
-import {element} from 'protractor';
 
 @Component({
   selector: 'app-clients-list',
@@ -18,9 +14,8 @@ import {element} from 'protractor';
   styleUrls: ['./clients-list.component.scss']
 })
 export class ClientsListComponent implements OnInit, AfterViewInit, OnDestroy {
-  displayedColumns: string[] = ['id', 'name', 'charm', 'birth_date', 'total_account_balance', 'maximum_balance', 'minimum_balance', 'Options'];
+  displayedColumns: string[] = ['id', 'name', 'charm', 'birthDate', 'total_account_balance', 'maximum_balance', 'minimum_balance', 'Options'];
   dataSource!: MatTableDataSource<Client>;
-  // todo: Тут должен быть определенная типизация. Нельзя ставить any
   clientData!: Client[];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -36,6 +31,7 @@ export class ClientsListComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
   }
 
   ngOnDestroy() {
@@ -51,6 +47,8 @@ export class ClientsListComponent implements OnInit, AfterViewInit, OnDestroy {
       this.clientData = clientList;
       this.dataSource = new MatTableDataSource<Client>(this.clientData);
     });
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {
@@ -73,8 +71,7 @@ export class ClientsListComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  // todo: параметор client должен быть типизирован
-  openEditClientDialog(client: any): void {
+  openEditClientDialog(client: Client): void {
     const dialogRef = this.dialog.open(AddClientComponent, {
       width: '70%',
       data: client,
@@ -87,9 +84,8 @@ export class ClientsListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   removeClient(id: number) {
-    this.clientService.removeClientById(id).toPromise().then((clientList) => {
-      this.dataSource.data = clientList;
-    });
+    this.clientService.removeClientById(id);
+    this.getAllClients();
   }
 
   calculateAge(birthDate: Date) {
