@@ -1,10 +1,7 @@
-// todo: Название файла client_account_transaction.ts, нужно создавать через '-', а не '_'
-export interface Client_account_transaction {
+export interface ClientAccountTransaction {
   id: number;
   account: number; // account id
-  type: string;
-  patronymic?: string;
-  gender: string;
-  birth_date: Date;
-  charm: number;
+  money: number;
+  finishedAt?: string; // should be TimeStamp
+  type: number;
 }

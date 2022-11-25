@@ -1,8 +1,8 @@
-import {Addr_type} from './enums/addr_type';
+import {AddrType} from './enums/addr_type';
 
-export interface Client_addr {
+export interface ClientAddr {
   client: number; // client id
-  type: Addr_type;
+  type: AddrType;
   street: string;
   house: string;
   flat: string;

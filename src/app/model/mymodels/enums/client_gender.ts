@@ -1,6 +1,4 @@
-// todo: Во всем проекте для переменных и классов используется CamelCase стиль написания
-//  Snake case можем использовать в статик филдах, так как там все буквы заглавные, и пробел помечаем через '_'
-export enum Client_gender {
-  MALE,
-  FEMALE,
+export enum ClientGender {
+  MALE = 'MALE',
+  FEMALE = 'FEMALE',
 }

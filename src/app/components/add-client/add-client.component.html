@@ -1,5 +1,5 @@
-<p mat-dialog-title id="mat_dialog_title">Add client
-  <small style="font-size: 15px;"> (* - the required fields)</small>
+<p mat-dialog-title id="mat_dialog_title">{{action}} client
+  <small> (* - the required fields)</small>
 </p>
 
 <div mat-dialog-content id="dialog">
@@ -38,13 +38,13 @@
     </div>
 
     <!-- Дата рождения клиента -->
-    <div class="inline" style="margin-bottom: 15px">
+    <div class="inline">
       <p>Date of birth</p>
       <hr>
       <mat-form-field appearance="fill" class="form">
+        <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-label>Date of birth</mat-label>
         <input required formControlName="birth_date" matInput [max]="maxDate" [matDatepicker]="picker">
-        <mat-hint>MM/DD/YYYY</mat-hint>
       </mat-form-field>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
@@ -68,7 +68,7 @@
     <div class="inline" formGroupName="regAddress">
       <p>Address of registration and fact</p>
       <hr>
-      <small style="font-size: 15px; margin-right: 15px">REG ADDRESS</small>
+      <small>REG ADDRESS</small>
       <mat-form-field appearance="fill" class="form">
         <mat-label>Street</mat-label>
         <input required formControlName="street" type="text" matInput placeholder="client street">
@@ -85,9 +85,7 @@
 
     <!-- Фактическое место проживания -->
     <div class="inline" formGroupName="factAddress">
-<!--      todo: Советую не писать в style, а сразу создавать class. Представь, что это реальный проект. В этом проекте сидят несколько разрабов
-           Если будет случай, что нужно будет изменить стиль здесь, то будет очень удобно-->
-      <small style="font-size: 15px; margin-right: 8px">FACT ADDRESS</small>
+      <small>FACT ADDRESS</small>
       <mat-form-field appearance="fill" class="form">
         <mat-label>Street</mat-label>
         <input formControlName="street" type="text" matInput placeholder="client street">
@@ -153,8 +151,9 @@
     </div>
   </form>
 </div>
-<button style="float: right" mat-flat-button color="accent" mat-dialog-close>cancel</button>
-<button style="float: right" mat-flat-button color="accent" (click)="addOrEditClient()">{{action}} client</button>
+
+<button class="btnRight" mat-flat-button color="accent" mat-dialog-close>cancel</button>
+<button class="btnRight" mat-flat-button color="accent" (click)="saveClient()">{{action}} client</button>
 
 
 

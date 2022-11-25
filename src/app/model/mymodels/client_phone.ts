@@ -1,6 +1,6 @@
 import {PhoneType} from '../phone-type';
 
-export interface Client_phone {
+export interface ClientPhone {
   client: number; // client id
   number: string;
   type: PhoneType;
