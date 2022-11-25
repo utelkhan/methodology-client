@@ -1,9 +1,8 @@
 import {Client} from '../../app/model/mymodels/client';
 import {Charm} from '../../app/model/mymodels/charm';
-import {Client_gender} from '../../app/model/mymodels/enums/client_gender';
-import {Addr_type} from '../../app/model/mymodels/enums/addr_type';
+import {ClientGender} from '../../app/model/mymodels/enums/client_gender';
+import {AddrType} from '../../app/model/mymodels/enums/addr_type';
 import {PhoneType} from '../../app/model/phone-type';
-import {DatePipe} from '@angular/common';
 
 
 export const CHARM_DATA: Charm[] = [
@@ -17,11 +16,11 @@ export const CLIENT_DATA: Client[] = [
   {
     id: 1,
     surname: 'Nurtaev', name: 'Yernar', patronymic: 'Kenzheuly',
-    gender: Client_gender.MALE,
-    birth_date: new Date('12-01-1997'),
+    gender: ClientGender.MALE,
+    birthDate: new Date('12-01-1997'),
     charm: CHARM_DATA[0],
-    regAddress: {client: 1, type: Addr_type.REG, street: 'first_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
-    factAddress: {client: 1, type: Addr_type.FACT, street: 'first_clients_street', house: 'first_clients_house', flat : 'first_clients_flat'},
+    regAddress: {client: 1, type: AddrType.REG, street: 'first_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
+    factAddress: {client: 1, type: AddrType.FACT, street: 'first_clients_street', house: 'first_clients_house', flat : 'first_clients_flat'},
     phones: [
       {client: 1, number: '81111111111', type: PhoneType.MOBILE},
       {client: 1, number: '71111111111', type: PhoneType.WORK}],
@@ -29,21 +28,21 @@ export const CLIENT_DATA: Client[] = [
   {
     id: 2,
     surname: 'Sugurali', name: 'Aibek',
-    gender: Client_gender.MALE, birth_date: new Date('12-02-2002'),
+    gender: ClientGender.MALE, birthDate: new Date('12-02-2002'),
     charm: CHARM_DATA[1],
-    regAddress:  {client: 2, type: Addr_type.REG, street: 'second_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
-    factAddress:   {client: 2, type: Addr_type.FACT, street: 'second_clients_street', house: 'first_clients_house', flat : 'first_clients_flat'},
+    regAddress:  {client: 2, type: AddrType.REG, street: 'second_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
+    factAddress:   {client: 2, type: AddrType.FACT, street: 'second_clients_street', house: 'first_clients_house', flat : 'first_clients_flat'},
     phones: [
       {client: 2, number: '82222222222', type: PhoneType.MOBILE}]
   },
   {
     id: 3,
     surname: 'Amanbek', name: 'Azamat',
-    gender: Client_gender.MALE,
-    birth_date: new Date('12-03-2002'),
+    gender: ClientGender.MALE,
+    birthDate: new Date('12-03-2002'),
     charm: CHARM_DATA[2],
-    regAddress:  {client: 3, type: Addr_type.REG, street: 'third_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
-    factAddress:   {client: 3, type: Addr_type.FACT, street: null, house: null, flat : null},
+    regAddress:  {client: 3, type: AddrType.REG, street: 'third_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
+    factAddress:   {client: 3, type: AddrType.FACT, street: null, house: null, flat : null},
 
     phones: [
       {client: 3, number: '83333333333', type: PhoneType.MOBILE}],
@@ -51,11 +50,11 @@ export const CLIENT_DATA: Client[] = [
   {
     id: 4,
     surname: 'Berkin', name: 'Alua', patronymic: 'Aidoskyzy',
-    gender: Client_gender.FEMALE,
-    birth_date: new Date('12-04-1976'),
+    gender: ClientGender.FEMALE,
+    birthDate: new Date('12-04-1976'),
     charm: CHARM_DATA[3],
-    regAddress: {client: 4, type: Addr_type.REG, street: 'third_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
-    factAddress:  {client: 4, type: Addr_type.FACT, street: 'fourth_clients_street', house: 'first_clients_house', flat : 'first_clients_flat'},
+    regAddress: {client: 4, type: AddrType.REG, street: 'third_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
+    factAddress:  {client: 4, type: AddrType.FACT, street: 'fourth_clients_street', house: 'first_clients_house', flat : 'first_clients_flat'},
     phones: [
       {client: 4, number: '84444444444', type: PhoneType.MOBILE},
       {client: 4, number: '84444444433', type: PhoneType.MOBILE},
@@ -64,11 +63,11 @@ export const CLIENT_DATA: Client[] = [
   {
     id: 5,
     surname: 'Omar', name: 'Aliya',
-    gender: Client_gender.FEMALE,
-    birth_date: new Date('12-05-2002'),
+    gender: ClientGender.FEMALE,
+    birthDate: new Date('12-05-2002'),
     charm: CHARM_DATA[0],
-    regAddress:  {client: 5, type: Addr_type.REG, street: 'fifth_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
-    factAddress:   {client: 5, type: Addr_type.FACT, street: null, house: null, flat : null},
+    regAddress:  {client: 5, type: AddrType.REG, street: 'fifth_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
+    factAddress:   {client: 5, type: AddrType.FACT, street: null, house: null, flat : null},
     phones: [
       {client: 5, number: '85555555555', type: PhoneType.MOBILE},
       {client: 5, number: '65555555555', type: PhoneType.HOME}],
@@ -76,22 +75,22 @@ export const CLIENT_DATA: Client[] = [
   {
     id: 6,
     surname: 'Kanat', name: 'Alena',
-    gender: Client_gender.FEMALE,
-    birth_date: new Date('12-06-2002'),
+    gender: ClientGender.FEMALE,
+    birthDate: new Date('12-06-2002'),
     charm: CHARM_DATA[1],
-    regAddress:  {client: 6, type: Addr_type.REG, street: 'sixth_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
-    factAddress:   {client: 6, type: Addr_type.FACT, street: null, house: null, flat : null},
+    regAddress:  {client: 6, type: AddrType.REG, street: 'sixth_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
+    factAddress:   {client: 6, type: AddrType.FACT, street: null, house: null, flat : null},
     phones: [
       {client: 6, number: '86666666666', type: PhoneType.MOBILE}],
   },
   {
     id: 7,
     surname: 'Nurtaev', name: 'Yernar', patronymic: 'Kenzheuly',
-    gender: Client_gender.MALE,
-    birth_date: new Date('12-01-1997'),
+    gender: ClientGender.MALE,
+    birthDate: new Date('12-01-1997'),
     charm: CHARM_DATA[0],
-    regAddress: {client: 1, type: Addr_type.REG, street: 'first_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
-    factAddress: {client: 1, type: Addr_type.FACT, street: 'first_clients_street', house: 'first_clients_house', flat : 'first_clients_flat'},
+    regAddress: {client: 1, type: AddrType.REG, street: 'first_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
+    factAddress: {client: 1, type: AddrType.FACT, street: 'first_clients_street', house: 'first_clients_house', flat : 'first_clients_flat'},
     phones: [
       {client: 1, number: '81111111111', type: PhoneType.MOBILE},
       {client: 1, number: '71111111111', type: PhoneType.WORK}],
@@ -99,21 +98,21 @@ export const CLIENT_DATA: Client[] = [
   {
     id: 8,
     surname: 'Sugurali', name: 'Aibek',
-    gender: Client_gender.MALE, birth_date: new Date('12-02-2002'),
+    gender: ClientGender.MALE, birthDate: new Date('12-02-2002'),
     charm: CHARM_DATA[1],
-    regAddress:  {client: 2, type: Addr_type.REG, street: 'second_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
-    factAddress:   {client: 2, type: Addr_type.FACT, street: 'second_clients_street', house: 'first_clients_house', flat : 'first_clients_flat'},
+    regAddress:  {client: 2, type: AddrType.REG, street: 'second_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
+    factAddress:   {client: 2, type: AddrType.FACT, street: 'second_clients_street', house: 'first_clients_house', flat : 'first_clients_flat'},
     phones: [
       {client: 2, number: '82222222222', type: PhoneType.MOBILE}]
   },
   {
     id: 9,
     surname: 'Amanbek', name: 'Azamat',
-    gender: Client_gender.MALE,
-    birth_date: new Date('12-03-2002'),
+    gender: ClientGender.MALE,
+    birthDate: new Date('12-03-2002'),
     charm: CHARM_DATA[2],
-    regAddress:  {client: 3, type: Addr_type.REG, street: 'third_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
-    factAddress:   {client: 3, type: Addr_type.FACT, street: null, house: null, flat : null},
+    regAddress:  {client: 3, type: AddrType.REG, street: 'third_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
+    factAddress:   {client: 3, type: AddrType.FACT, street: null, house: null, flat : null},
 
     phones: [
       {client: 3, number: '83333333333', type: PhoneType.MOBILE}],
@@ -121,11 +120,11 @@ export const CLIENT_DATA: Client[] = [
   {
     id: 10,
     surname: 'Berkin', name: 'Alua', patronymic: 'Aidoskyzy',
-    gender: Client_gender.FEMALE,
-    birth_date: new Date('12-04-1976'),
+    gender: ClientGender.FEMALE,
+    birthDate: new Date('12-04-1976'),
     charm: CHARM_DATA[3],
-    regAddress: {client: 4, type: Addr_type.REG, street: 'third_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
-    factAddress:  {client: 4, type: Addr_type.FACT, street: 'fourth_clients_street', house: 'first_clients_house', flat : 'first_clients_flat'},
+    regAddress: {client: 4, type: AddrType.REG, street: 'third_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
+    factAddress:  {client: 4, type: AddrType.FACT, street: 'fourth_clients_street', house: 'first_clients_house', flat : 'first_clients_flat'},
     phones: [
       {client: 4, number: '84444444444', type: PhoneType.MOBILE},
       {client: 4, number: '84444444433', type: PhoneType.MOBILE},
@@ -134,11 +133,11 @@ export const CLIENT_DATA: Client[] = [
   {
     id: 11,
     surname: 'Omar', name: 'Aliya',
-    gender: Client_gender.FEMALE,
-    birth_date: new Date('12-05-2002'),
+    gender: ClientGender.FEMALE,
+    birthDate: new Date('12-05-2002'),
     charm: CHARM_DATA[0],
-    regAddress:  {client: 5, type: Addr_type.REG, street: 'fifth_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
-    factAddress:   {client: 5, type: Addr_type.FACT, street: null, house: null, flat : null},
+    regAddress:  {client: 5, type: AddrType.REG, street: 'fifth_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
+    factAddress:   {client: 5, type: AddrType.FACT, street: null, house: null, flat : null},
     phones: [
       {client: 5, number: '85555555555', type: PhoneType.MOBILE},
       {client: 5, number: '65555555555', type: PhoneType.HOME}],
@@ -146,11 +145,11 @@ export const CLIENT_DATA: Client[] = [
   {
     id: 12,
     surname: 'Kanat', name: 'Alena',
-    gender: Client_gender.FEMALE,
-    birth_date: new Date('12-06-2002'),
+    gender: ClientGender.FEMALE,
+    birthDate: new Date('12-06-2002'),
     charm: CHARM_DATA[1],
-    regAddress:  {client: 6, type: Addr_type.REG, street: 'sixth_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
-    factAddress:   {client: 6, type: Addr_type.FACT, street: null, house: null, flat : null},
+    regAddress:  {client: 6, type: AddrType.REG, street: 'sixth_clients_street_REG', house: 'first_clients_house_REG', flat : 'first_clients_flat_REG'},
+    factAddress:   {client: 6, type: AddrType.FACT, street: null, house: null, flat : null},
     phones: [
       {client: 6, number: '86666666666', type: PhoneType.MOBILE}],
   }
