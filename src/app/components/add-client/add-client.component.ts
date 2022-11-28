@@ -6,6 +6,7 @@ import {Charm} from '../../model/mymodels/charm';
 import {PhoneType} from '../../model/mymodels/enums/phone_type';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ClientGender} from '../../model/mymodels/enums/client_gender';
+import {Client} from '../../model/mymodels/client';
 
 @Component({
   selector: 'app-add-client',
@@ -17,13 +18,12 @@ export class AddClientComponent implements OnInit {
   charms!: Charm[];
   gender = ClientGender;
   phones = new FormArray([]);
-
   maxDate!: Date;
   availableAdditionalPhones = 2;
 
   action = 'Add';
 
-  constructor(@Inject(MAT_DIALOG_DATA) public editingClient: any,
+  constructor(@Inject(MAT_DIALOG_DATA) public editingClientId: number,
               private formBuilder: FormBuilder,
               private clientService: ClientService,
               private dialogRef: MatDialogRef<AddClientComponent>) {
@@ -39,9 +39,9 @@ export class AddClientComponent implements OnInit {
       this.charms = charms;
     });
 
-    if (this.editingClient) {
+    if (this.editingClientId) {
       this.action = 'Update';
-      this.fillClientForm();
+      this.fillClientForm(this.editingClientId);
     }
   }
 
@@ -49,118 +49,119 @@ export class AddClientComponent implements OnInit {
     // client details
     return this.clientForm = this.formBuilder.group({
       // client data
-      id: [],
-      surname: [Validators.required],
-      name: [Validators.required],
+      id: [null],
+      surname: [null , Validators.required],
+      name: [null , Validators.required],
       patronymic: [],
-      gender: [Validators.required],
-      birthDate: [Validators.required],
-      charm: [Validators.required],
+      gender: [null, Validators.required],
+      birthDate: [null, Validators.required],
+      charm: [null, Validators.required],
 
       // client reg address
       regAddress: this.formBuilder.group({
-        client: [],
+        client: [null],
         type: [AddrType.REG, Validators.required],
-        street: [Validators.required],
-        house: [Validators.required],
-        flat: [Validators.required],
+        street: [null, Validators.required],
+        house: [null, Validators.required],
+        flat: [null, Validators.required],
       }),
       factAddress: this.formBuilder.group({
-        client: [],
+        client: [null],
         type: [AddrType.FACT],
-        street: [],
-        house: [],
-        flat: [],
+        street: [null],
+        house: [null],
+        flat: [null],
       }),
 
       // client phones
       phones: this.formBuilder.array([
         this.formBuilder.group({
-          client: [],
-          number: [Validators.required],
+          client: [null],
+          number: [null, Validators.required],
           type: [PhoneType.MOBILE],
         }),
         this.formBuilder.group({
-          client: [],
-          number: [],
+          client: [null],
+          number: [null],
           type: [PhoneType.HOME],
         }),
         this.formBuilder.group({
-          client: [],
-          number: [],
+          client: [null],
+          number: [null],
           type: [PhoneType.WORK],
         }),
-      ], [Validators.maxLength(5), Validators.minLength(1)])
+      ], [Validators.maxLength(5), Validators.minLength(3)])
     });
   }
 
-  private fillClientForm() {
-    this.action = 'Update';
-    this.clientForm.controls.id.setValue(this.editingClient.id);
-    this.clientForm.controls.surname.setValue(this.editingClient.age);
-    this.clientForm.controls.surname.setValue(this.editingClient.surname);
-    this.clientForm.controls.name.setValue(this.editingClient.name);
-    this.clientForm.controls.patronymic.setValue(this.editingClient.patronymic);
-    this.clientForm.controls.gender.setValue(this.editingClient.gender);
-    this.clientForm.controls.birthDate.setValue(this.editingClient.birthDate);
-    this.clientForm.controls.charm.setValue(this.editingClient.charm);
-    this.clientForm.controls.regAddress.setValue(this.editingClient.regAddress);
-    this.clientForm.controls.factAddress.setValue(this.editingClient.factAddress);
+  private fillClientForm(id: number) {
+    this.clientService.getClientByID(id).toPromise().then((client) => {
 
-    this.phones = this.clientForm.get('phones') as FormArray;
-    this.phones.clear();
+      this.clientForm.controls.id.setValue(client.id);
+      this.clientForm.controls.surname.setValue(client.surname);
+      this.clientForm.controls.name.setValue(client.name);
+      this.clientForm.controls.patronymic.setValue(client.patronymic);
+      this.clientForm.controls.gender.setValue(client.gender);
+      this.clientForm.controls.birthDate.setValue(client.birthDate);
+      this.clientForm.controls.charm.setValue(client.charm);
+      this.clientForm.controls.regAddress.setValue(client.regAddress);
+      this.clientForm.controls.factAddress.setValue(client.factAddress);
 
-    this.editingClient.phones.forEach((phone) => {
-      this.phones.push(
-        this.formBuilder.group({
-          client: [phone.client],
-          number: [phone.number],
-          type: [phone.type],
-        })
-      );
+      this.phones = this.clientForm.get('phones') as FormArray;
+      this.phones.clear();
+
+      client.phones.forEach((phone) => {
+        this.phones.push(
+          this.formBuilder.group({
+            client: [phone.client],
+            number: [phone.number],
+            type: [phone.type],
+          })
+        );
+      });
+
+      if (client.phones.length === 1) {
+        this.phones.push(
+          this.formBuilder.group({
+            client: [client.id],
+            number: [null],
+            type: [PhoneType.HOME],
+          })
+        );
+        this.phones.push(
+          this.formBuilder.group({
+            client: [client.id],
+            number: [null],
+            type: [PhoneType.WORK],
+          })
+        );
+      } else if (client.phones.length === 2) {
+        this.phones.push(
+          this.formBuilder.group({
+            client: [client.id],
+            number: [null],
+            type: [PhoneType.WORK],
+          })
+        );
+      }
     });
-
-    if (this.editingClient.phones.length === 1) {
-      this.phones.push(
-        this.formBuilder.group({
-          client: [this.editingClient.id],
-          number: [],
-          type: [PhoneType.HOME],
-        })
-      );
-      this.phones.push(
-        this.formBuilder.group({
-          client: [this.editingClient.id],
-          number: [],
-          type: [PhoneType.WORK],
-        })
-      );
-    } else if (this.editingClient.phones.length === 2) {
-      this.phones.push(
-        this.formBuilder.group({
-          client: [this.editingClient.id],
-          number: [],
-          type: [PhoneType.WORK],
-        })
-      );
-    }
-    this.availableAdditionalPhones = 5 - this.phones.length;
+    this.action = 'Update';
+    console.log(this.addAdditionalMobilePhone());
   }
 
   saveClient() {
-    if (!this.editingClient) {
+    if (!this.editingClientId) {
       if (this.clientForm.valid) {
-        console.log('adding client', this.clientForm.value);
-        this.clientService.addClient(this.clientForm.value);
+        console.log('creating client ADD_COMPONENT method saveClient()');
+        this.clientService.createClient(this.clientForm.value);
         this.clientForm.reset();
-        this.dialogRef.close('add');
+        this.dialogRef.close('create');
       }
     } else {
       if (this.clientForm.valid) {
-        console.log('editing client', this.editingClient);
-        this.clientService.editClient(this.clientForm.value);
+        this.clientService.updateClient(this.clientForm.value);
         this.clientForm.reset();
-        this.dialogRef.close('edit');
+        this.dialogRef.close('update');
       }
     }
   }
@@ -176,8 +177,8 @@ export class AddClientComponent implements OnInit {
       this.phones = this.clientForm.get('phones') as FormArray;
       this.phones.push(
         this.formBuilder.group({
-            client: [],
-            number: [],
+            client: [null],
+            number: [null],
             type: [PhoneType.MOBILE],
           }
         )

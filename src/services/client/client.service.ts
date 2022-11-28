@@ -1,51 +1,39 @@
 import {Injectable} from '@angular/core';
-import {Client} from '../../app/model/mymodels/client';
 import {of} from 'rxjs';
-import {CHARM_DATA, CLIENT_DATA} from './test.data';
+import {ControllerService} from '../../app/controller/controller.service';
+import {Client} from '../../app/model/mymodels/client';
+
 
 @Injectable({providedIn: 'root'})
+
 export class ClientService {
-  private clients = CLIENT_DATA;
-  private charms = CHARM_DATA;
 
-  constructor() {
+
+  constructor(private controller: ControllerService) {
   }
 
-  public getClients() {
-    return of(this.clients);
-  }
-
-  public addClient(client: Client) {
-    client.id = this.clients.length + 1;
-    console.log('CLIENT_SERVICE.addCLIENT: trying to add client', client);
-    client.phones.forEach((phone) => {
-      phone.client = client.id;
-    });
-
-    client.factAddress.client = client.id;
-    client.regAddress.client = client.id;
-
-    this.clients.push(client);
-    console.log('CLIENT_SERVICE.addCLIENT: clients successfully added');
-    return of(this.clients);
-  }
-
-  public editClient(client: Client) {
-    console.log('CLIENT_SERVICE.editCLIENT: trying to edit client', client);
-    const index = this.clients.findIndex((c) => c.id === client.id);
-    this.clients[index] = client;
-    console.log('CLIENT_SERVICE.addCLIENT: clients successfully edited');
-    return of(this.clients);
+  public getDataForTable() {
+    return of(this.controller.getDataForTable());
   }
 
   public getCharms() {
-    return of(this.charms);
+    return of(this.controller.getCharms());
   }
 
+  public deleteClientById(id: number) {
+    this.controller.deleteClientById(id);
+  }
 
-  public removeClientById(id: number): void {
-    this.clients = this.clients.filter((client) => {
-      return client.id !== id;
-    });
+  public getClientByID(id: number) {
+    return of(this.controller.getClientById(id));
+  }
+
+  public createClient(client: Client) {
+    this.controller.createClient(client);
+  }
+
+  public updateClient(client: Client) {
+    this.controller.updateClient(client);
   }
 }
+

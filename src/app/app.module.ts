@@ -18,6 +18,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
+import {ControllerService} from './controller/controller.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +43,7 @@ import {MatSortModule} from '@angular/material/sort';
     MatPaginatorModule,
     MatSortModule
   ],
-  providers: [],
+  providers: [ControllerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
