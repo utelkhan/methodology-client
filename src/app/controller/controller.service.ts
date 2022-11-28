@@ -29,7 +29,7 @@ export class ControllerService {
   private clientToData(client: Client) {
     const rowDataForTable = new DataForTable();
     rowDataForTable.id = client.id;
-    if ( client.patronymic === null) {
+    if (client.patronymic === null || client.patronymic === undefined) {
       rowDataForTable.fullName = client.surname + ' ' + client.name;
     } else {
       rowDataForTable.fullName = client.surname + ' ' + client.name + ' ' + client.patronymic;

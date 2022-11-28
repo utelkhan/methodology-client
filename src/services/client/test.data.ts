@@ -52,7 +52,7 @@ export const CHARM_DATA: Charm[] = [
 export const CLIENT_DATA: Client[] = [
   {
     id: 1,
-    surname: 'Nurtaev', name: 'Yernar', patronymic: 'Kenzheuly',
+    surname: 'A', name: 'A', patronymic: 'A',
     gender: ClientGender.MALE,
     birthDate: new Date('12-01-1997'),
     charm: CHARM_DATA[0],
@@ -70,7 +70,7 @@ export const CLIENT_DATA: Client[] = [
   },
   {
     id: 2,
-    surname: 'Sugurali', name: 'Aibek',
+    surname: 'B', name: 'B',
     gender: ClientGender.MALE, birthDate: new Date('12-02-2002'),
     charm: CHARM_DATA[1],
     regAddress: {
@@ -92,7 +92,7 @@ export const CLIENT_DATA: Client[] = [
   },
   {
     id: 3,
-    surname: 'Amanbek', name: 'Azamat',
+    surname: 'C', name: 'C',
     gender: ClientGender.MALE,
     birthDate: new Date('12-03-2002'),
     charm: CHARM_DATA[2],
@@ -110,7 +110,7 @@ export const CLIENT_DATA: Client[] = [
   },
   {
     id: 4,
-    surname: 'Berkin', name: 'Alua', patronymic: 'Aidoskyzy',
+    surname: 'D', name: 'D', patronymic: 'D',
     gender: ClientGender.FEMALE,
     birthDate: new Date('12-04-1976'),
     charm: CHARM_DATA[3],
@@ -135,7 +135,7 @@ export const CLIENT_DATA: Client[] = [
   },
   {
     id: 5,
-    surname: 'Omar', name: 'Aliya',
+    surname: 'E', name: 'E',
     gender: ClientGender.FEMALE,
     birthDate: new Date('12-05-2002'),
     charm: CHARM_DATA[0],
@@ -153,7 +153,7 @@ export const CLIENT_DATA: Client[] = [
   },
   {
     id: 6,
-    surname: 'Kanat', name: 'Alena',
+    surname: 'F', name: 'F',
     gender: ClientGender.FEMALE,
     birthDate: new Date('12-06-2002'),
     charm: CHARM_DATA[1],
@@ -170,7 +170,7 @@ export const CLIENT_DATA: Client[] = [
   },
   {
     id: 7,
-    surname: 'Nurtaev', name: 'Yernar', patronymic: 'Kenzheuly',
+    surname: 'G', name: 'G', patronymic: 'G',
     gender: ClientGender.MALE,
     birthDate: new Date('12-01-1997'),
     charm: CHARM_DATA[0],
@@ -188,7 +188,7 @@ export const CLIENT_DATA: Client[] = [
   },
   {
     id: 8,
-    surname: 'Sugurali', name: 'Aibek',
+    surname: 'H', name: 'H',
     gender: ClientGender.MALE, birthDate: new Date('12-02-2002'),
     charm: CHARM_DATA[1],
     regAddress: {
@@ -210,7 +210,7 @@ export const CLIENT_DATA: Client[] = [
   },
   {
     id: 9,
-    surname: 'Amanbek', name: 'Azamat',
+    surname: 'I', name: 'I',
     gender: ClientGender.MALE,
     birthDate: new Date('12-03-2002'),
     charm: CHARM_DATA[2],
@@ -228,7 +228,7 @@ export const CLIENT_DATA: Client[] = [
   },
   {
     id: 10,
-    surname: 'Berkin', name: 'Alua', patronymic: 'Aidoskyzy',
+    surname: 'J', name: 'J', patronymic: 'J',
     gender: ClientGender.FEMALE,
     birthDate: new Date('12-04-1976'),
     charm: CHARM_DATA[3],
@@ -253,7 +253,7 @@ export const CLIENT_DATA: Client[] = [
   },
   {
     id: 11,
-    surname: 'Omar', name: 'Aliya',
+    surname: 'K', name: 'K',
     gender: ClientGender.FEMALE,
     birthDate: new Date('12-05-2002'),
     charm: CHARM_DATA[0],
@@ -271,7 +271,7 @@ export const CLIENT_DATA: Client[] = [
   },
   {
     id: 12,
-    surname: 'Kanat', name: 'Alena',
+    surname: 'L', name: 'L',
     gender: ClientGender.FEMALE,
     birthDate: new Date('12-06-2002'),
     charm: CHARM_DATA[1],

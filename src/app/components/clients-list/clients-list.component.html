@@ -1,71 +1,67 @@
-<button id="addButton" mat-flat-button color="accent" (click)="openAddClientDialog()">+</button>
+<mat-form-field class="filter">
+  <mat-label class="matLabel">Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="filter" #input>
+</mat-form-field>
+  <button id="addButton" mat-flat-button color="accent" (click)="openAddClientDialog()">+</button>
 
-<div  class="mat-elevation-z8">
+<div class="mat-elevation-z8">
 
-<table mat-table [dataSource]="dataSource">
+  <table mat-table matSort [dataSource]="dataSource">
 
-  <!-- Id Column -->
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef>Id</th>
-    <td mat-cell *matCellDef="let row"> {{row.id}} </td>
-  </ng-container>
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-sort-header mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+    </ng-container>
 
-  <!-- Full Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Full Name</th>
-    <td mat-cell *matCellDef="let row"> {{row.fullName}} </td>
-  </ng-container>
+    <!-- Full Name Column -->
+    <ng-container matColumnDef="fullName">
+      <th mat-sort-header mat-header-cell *matHeaderCellDef>Full Name</th>
+      <td mat-cell *matCellDef="let row"> {{row.fullName}} </td>
+    </ng-container>
 
-  <!-- Charm Column -->
-  <ng-container matColumnDef="charm">
-    <th mat-header-cell *matHeaderCellDef>Charm</th>
-    <td mat-cell *matCellDef="let row"> {{row.charm}} </td>
-  </ng-container>
+    <!-- Charm Column -->
+    <ng-container matColumnDef="charm">
+      <th mat-header-cell *matHeaderCellDef>Charm</th>
+      <td mat-cell *matCellDef="let row"> {{row.charm}} </td>
+    </ng-container>
 
-  <!-- Charm Column -->
-  <ng-container matColumnDef="age">
-    <th mat-header-cell *matHeaderCellDef>Age</th>
-<!--    todo: Нельзя использовать метод в html без вызова событии.
-          Если будет какое то событие, например (click), метод исполнится один раз(или столько, сколько нажали)
-          В этом случаем метод исполниться множество раз, что тратит впустую вычислительную мощность.
-          Можешь посмотреть сколько раз, и когда calculateAge() будет отрабатывать внутри пропиши console.log()
-          Ты должен расчитать возраст до этого момента в ts-->
-    <td mat-cell *matCellDef="let row"> {{row.age}} </td>
-  </ng-container>
+    <!-- Charm Column -->
+    <ng-container matColumnDef="age">
+      <th mat-sort-header mat-header-cell *matHeaderCellDef>Age</th>
+      <td mat-cell *matCellDef="let row"> {{row.age}} </td>
+    </ng-container>
 
-  <!-- Total account balance Column -->
-  <ng-container matColumnDef="totalAccountBalance">
-    <th mat-header-cell *matHeaderCellDef>Total account balance</th>
-<!--    <td mat-cell *matCellDef="let client">{{total_account_balance}}</td> heeeeeeeeeeeey it should be like this-->
-    <td mat-cell *matCellDef="let row">{{row.totalAccountBalance}}</td>
-  </ng-container>
+    <!-- Total account balance Column -->
+    <ng-container matColumnDef="totalAccountBalance">
+      <th mat-sort-header mat-header-cell *matHeaderCellDef>Total account balance</th>
+      <td mat-cell *matCellDef="let row">{{row.totalAccountBalance}}</td>
+    </ng-container>
 
-  <!-- Maximum balance Column -->
-  <ng-container matColumnDef="maximumBalance">
-    <th mat-header-cell *matHeaderCellDef>Maximum balance</th>
-<!--    <td mat-cell *matCellDef="let client">{{maximum_balance}}</td> heeeeeeeeeeeey it should be like this-->
-    <td mat-cell *matCellDef="let row">{{row.maximumBalance}}</td>
-  </ng-container>
+    <!-- Maximum balance Column -->
+    <ng-container matColumnDef="maximumBalance">
+      <th mat-sort-header mat-header-cell *matHeaderCellDef>Maximum balance</th>
+      <td mat-cell *matCellDef="let row">{{row.maximumBalance}}</td>
+    </ng-container>
 
-  <!-- Minimum balance Column -->
-  <ng-container matColumnDef="minimumBalance">
-    <th mat-header-cell *matHeaderCellDef >Minimum balance</th>
-    <!--    <td mat-cell *matCellDef="let client">{{minimum_balance}}</td> heeeeeeeeeeeey it should be like this-->
-    <td mat-cell *matCellDef="let row">{{row.minimumBalance}}</td>
-  </ng-container>
+    <!-- Minimum balance Column -->
+    <ng-container matColumnDef="minimumBalance">
+      <th mat-sort-header mat-header-cell *matHeaderCellDef>Minimum balance</th>
+      <td mat-cell *matCellDef="let row">{{row.minimumBalance}}</td>
+    </ng-container>
 
-  <!-- Options Column -->
-  <ng-container matColumnDef="options">
-    <th mat-header-cell *matHeaderCellDef> Options</th>
-    <td mat-cell *matCellDef="let row">
-      <button mat-flat-button color="accent" (click)="openEditClientDialog(row.id)">...</button>
-      <button mat-flat-button color="accent" (click)="deleteClient(row.id)">-</button>
-    </td>
-  </ng-container>
+    <!-- Options Column -->
+    <ng-container matColumnDef="options">
+      <th mat-header-cell *matHeaderCellDef> Options</th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-flat-button color="accent" (click)="openEditClientDialog(row.id)">...</button>
+        <button mat-flat-button color="accent" (click)="deleteClient(row.id)">-</button>
+      </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-</table>
-<mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
 </div>

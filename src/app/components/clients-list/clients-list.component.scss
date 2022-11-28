@@ -1,3 +1,21 @@
+.top{
+  display: inline-block;
+  width: 100%;
+}
+#addButton{
+  margin-right: 0px;
+  font-size: 15px;
+  margin-bottom: 20px;
+  float: right;
+}
+.filter{
+  color: white;
+  float: left;
+  width: 20%;
+}
+.matLabel{
+ color: white;
+}
 table{
   width: 100%;
 }
@@ -5,9 +23,3 @@ button{
   font-size: 15px;
   margin-right: 15px;
 }
-
-#addButton{
-  font-size: 15px;
-  margin-bottom: 20px;
-}
-
