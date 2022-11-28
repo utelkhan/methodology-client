@@ -1,4 +1,4 @@
-import {AddrType} from './enums/addr_type';
+import {AddrType} from './enums/addr-type';
 
 export interface ClientAddr {
   client: number; // client id

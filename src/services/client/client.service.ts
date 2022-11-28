@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {of} from 'rxjs';
-import {ControllerService} from '../../app/controller/controller.service';
 import {Client} from '../../app/model/mymodels/client';
+import {Controller} from '../../app/controller/controller';
 
 
 @Injectable({providedIn: 'root'})
@@ -9,7 +9,7 @@ import {Client} from '../../app/model/mymodels/client';
 export class ClientService {
 
 
-  constructor(private controller: ControllerService) {
+  constructor(private controller: Controller) {
   }
 
   public getDataForTable() {

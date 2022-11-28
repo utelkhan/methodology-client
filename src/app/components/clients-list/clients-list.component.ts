@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {AddClientComponent} from '../add-client/add-client.component';
 import {ClientService} from '../../../services/client/client.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {MatSort, Sort} from '@angular/material/sort';
+import {MatSort} from '@angular/material/sort';
 import {DataForTable} from '../../model/mymodels/data-for-table';
 
 @Component({
@@ -15,7 +15,6 @@ import {DataForTable} from '../../model/mymodels/data-for-table';
 export class ClientsListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'fullName', 'charm', 'age', 'totalAccountBalance', 'maximumBalance', 'minimumBalance', 'options'];
   dataSource!: MatTableDataSource<DataForTable>;
-  dataForTable!: DataForTable[];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -29,8 +28,7 @@ export class ClientsListComponent implements OnInit {
 
   getDataForTable() {
     this.clientService.getDataForTable().toPromise().then((dataList) => {
-      this.dataForTable = dataList.slice();
-      this.dataSource = new MatTableDataSource<DataForTable>(this.dataForTable);
+      this.dataSource = new MatTableDataSource<DataForTable>(dataList);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
@@ -63,11 +61,7 @@ export class ClientsListComponent implements OnInit {
   }
 
   applyFilter(event: Event) {
-    console.log('filtering data');
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
-
-
 }

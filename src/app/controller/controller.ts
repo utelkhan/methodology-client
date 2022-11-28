@@ -7,18 +7,21 @@ import {CHARM_DATA, CLIENT_DATA} from '../../services/client/test.data';
   providedIn: 'root'
 })
 
-export class ControllerService {
+export class Controller {
   private clients!: Client[];
   private charms = CHARM_DATA;
   private data!: DataForTable[];
   private counterForCharm = 0;
+
   constructor() {
     this.fillClients();
     this.fillDataForTable();
   }
+
   private fillClients() {
-    this.clients = CLIENT_DATA;
+    this.clients = CLIENT_DATA.reverse();
   }
+
   private calculateAge(birthDate: Date) {
     return Math.floor((Math.abs(Date.now() - new Date(birthDate).getTime())) / (1000 * 3600 * 24) / 365.25);
 
@@ -26,6 +29,7 @@ export class ControllerService {
     // //so 26 years and 140 days would be considered as 26, not 27.
     // this.age = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
   }
+
   private clientToData(client: Client) {
     const rowDataForTable = new DataForTable();
     rowDataForTable.id = client.id;
@@ -48,6 +52,7 @@ export class ControllerService {
     rowDataForTable.maximumBalance = 0;
     return rowDataForTable;
   }
+
   private fillDataForTable() {
     this.data = [];
     for (let i = 0; i < this.clients.length.valueOf(); i++) {
@@ -67,7 +72,6 @@ export class ControllerService {
   public getClientById(id: number) {
     return this.clients.find((c) => {
       if (c.id === id) {
-        console.log('editing client', c);
         return c;
       }
     });
@@ -82,8 +86,8 @@ export class ControllerService {
     client.factAddress.client = client.id;
     client.regAddress.client = client.id;
 
-    this.clients.push(client);
-    this.data.push(this.clientToData(client));
+    this.clients.unshift(client);
+    this.data.unshift(this.clientToData(client));
   }
 
   public updateClient(client: Client) {

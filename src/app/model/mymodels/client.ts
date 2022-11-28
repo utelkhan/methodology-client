@@ -1,7 +1,7 @@
 import {Charm} from './charm';
-import {ClientGender} from './enums/client_gender';
-import {ClientAddr} from './client_addr';
-import {ClientPhone} from './client_phone';
+import {ClientGender} from './enums/client-gender';
+import {ClientAddr} from './client-addr';
+import {ClientPhone} from './client-phone';
 
 export interface Client {
   id: number;

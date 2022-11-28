@@ -1,12 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ClientService} from '../../../services/client/client.service';
-import {AddrType} from '../../model/mymodels/enums/addr_type';
+import {AddrType} from '../../model/mymodels/enums/addr-type';
 import {Charm} from '../../model/mymodels/charm';
-import {PhoneType} from '../../model/mymodels/enums/phone_type';
+import {PhoneType} from '../../model/mymodels/enums/phone-type';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {ClientGender} from '../../model/mymodels/enums/client_gender';
-import {Client} from '../../model/mymodels/client';
+import {ClientGender} from '../../model/mymodels/enums/client-gender';
 
 @Component({
   selector: 'app-add-client',
@@ -50,8 +49,8 @@ export class AddClientComponent implements OnInit {
     return this.clientForm = this.formBuilder.group({
       // client data
       id: [null],
-      surname: [null , Validators.required],
-      name: [null , Validators.required],
+      surname: [null, Validators.required],
+      name: [null, Validators.required],
       patronymic: [],
       gender: [null, Validators.required],
       birthDate: [null, Validators.required],
@@ -119,34 +118,8 @@ export class AddClientComponent implements OnInit {
           })
         );
       });
-
-      if (client.phones.length === 1) {
-        this.phones.push(
-          this.formBuilder.group({
-            client: [client.id],
-            number: [null],
-            type: [PhoneType.HOME],
-          })
-        );
-        this.phones.push(
-          this.formBuilder.group({
-            client: [client.id],
-            number: [null],
-            type: [PhoneType.WORK],
-          })
-        );
-      } else if (client.phones.length === 2) {
-        this.phones.push(
-          this.formBuilder.group({
-            client: [client.id],
-            number: [null],
-            type: [PhoneType.WORK],
-          })
-        );
-      }
+      this.availableAdditionalPhones = 5 - client.phones.length;
     });
-    this.action = 'Update';
-    console.log(this.addAdditionalMobilePhone());
   }
 
   saveClient() {
@@ -161,8 +134,6 @@ export class AddClientComponent implements OnInit {
         this.clientService.updateClient(this.clientForm.value);
         this.clientForm.reset();
         this.dialogRef.close('update');
-      } else {
-        console.log('form is not valid');
       }
     }
   }
@@ -172,7 +143,6 @@ export class AddClientComponent implements OnInit {
   }
 
   addAdditionalMobilePhone() {
-    console.log(this.clientForm.get('birthDate'));
     if (this.availableAdditionalPhones > 0) {
       this.availableAdditionalPhones--;
       this.phones = this.clientForm.get('phones') as FormArray;
@@ -187,11 +157,11 @@ export class AddClientComponent implements OnInit {
     }
   }
 
-  removeAdditionalMobilePhone() {
+  removeAdditionalMobilePhone(index: number) {
     if (this.availableAdditionalPhones < 3) {
       this.phones = this.clientForm.get('phones') as FormArray;
       this.availableAdditionalPhones++;
-      this.phones.removeAt(this.phones.length - 1);
+      this.phones.removeAt(index);
     }
   }
 

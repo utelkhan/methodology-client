@@ -1,7 +1,7 @@
 import {Client} from '../../app/model/mymodels/client';
 import {Charm} from '../../app/model/mymodels/charm';
-import {ClientGender} from '../../app/model/mymodels/enums/client_gender';
-import {AddrType} from '../../app/model/mymodels/enums/addr_type';
+import {ClientGender} from '../../app/model/mymodels/enums/client-gender';
+import {AddrType} from '../../app/model/mymodels/enums/addr-type';
 import {PhoneType} from '../../app/model/phone-type';
 
 export const CHARM_DATA: Charm[] = [
@@ -66,6 +66,7 @@ export const CLIENT_DATA: Client[] = [
     factAddress: {client: 1, type: AddrType.FACT, street: 'first_clients_street', house: 'first_clients_house', flat: 'first_clients_flat'},
     phones: [
       {client: 1, number: '81111111111', type: PhoneType.MOBILE},
+      {client: 1, number: null, type: PhoneType.HOME},
       {client: 1, number: '71111111111', type: PhoneType.WORK}],
   },
   {
@@ -88,7 +89,9 @@ export const CLIENT_DATA: Client[] = [
       flat: 'first_clients_flat'
     },
     phones: [
-      {client: 2, number: '82222222222', type: PhoneType.MOBILE}]
+      {client: 2, number: '82222222222', type: PhoneType.MOBILE},
+      {client: 2, number: null, type: PhoneType.HOME},
+      {client: 2, number: null, type: PhoneType.WORK}],
   },
   {
     id: 3,
@@ -106,7 +109,9 @@ export const CLIENT_DATA: Client[] = [
     factAddress: {client: 3, type: AddrType.FACT, street: null, house: null, flat: null},
 
     phones: [
-      {client: 3, number: '83333333333', type: PhoneType.MOBILE}],
+      {client: 3, number: '83333333333', type: PhoneType.MOBILE},
+      {client: 3, number: null, type: PhoneType.HOME},
+      {client: 3, number: null, type: PhoneType.WORK}],
   },
   {
     id: 4,
@@ -130,7 +135,7 @@ export const CLIENT_DATA: Client[] = [
     },
     phones: [
       {client: 4, number: '84444444444', type: PhoneType.MOBILE},
-      {client: 4, number: '84444444433', type: PhoneType.MOBILE},
+      {client: 4, number: '84444444433', type: PhoneType.HOME},
       {client: 4, number: '74444444444', type: PhoneType.WORK}],
   },
   {
@@ -149,7 +154,8 @@ export const CLIENT_DATA: Client[] = [
     factAddress: {client: 5, type: AddrType.FACT, street: null, house: null, flat: null},
     phones: [
       {client: 5, number: '85555555555', type: PhoneType.MOBILE},
-      {client: 5, number: '65555555555', type: PhoneType.HOME}],
+      {client: 5, number: '65555555555', type: PhoneType.HOME},
+      {client: 5, number: null, type: PhoneType.WORK}],
   },
   {
     id: 6,
@@ -166,7 +172,9 @@ export const CLIENT_DATA: Client[] = [
     },
     factAddress: {client: 6, type: AddrType.FACT, street: null, house: null, flat: null},
     phones: [
-      {client: 6, number: '86666666666', type: PhoneType.MOBILE}],
+      {client: 6, number: '86666666666', type: PhoneType.MOBILE},
+      {client: 6, number: null, type: PhoneType.HOME},
+      {client: 6, number: null, type: PhoneType.WORK}],
   },
   {
     id: 7,
@@ -175,16 +183,17 @@ export const CLIENT_DATA: Client[] = [
     birthDate: new Date('12-01-1997'),
     charm: CHARM_DATA[0],
     regAddress: {
-      client: 1,
+      client: 7,
       type: AddrType.REG,
       street: 'first_clients_street_REG',
       house: 'first_clients_house_REG',
       flat: 'first_clients_flat_REG'
     },
-    factAddress: {client: 1, type: AddrType.FACT, street: 'first_clients_street', house: 'first_clients_house', flat: 'first_clients_flat'},
+    factAddress: {client: 7, type: AddrType.FACT, street: 'first_clients_street', house: 'first_clients_house', flat: 'first_clients_flat'},
     phones: [
-      {client: 1, number: '81111111111', type: PhoneType.MOBILE},
-      {client: 1, number: '71111111111', type: PhoneType.WORK}],
+      {client: 7, number: '81111111111', type: PhoneType.MOBILE},
+      {client: 7, number: null, type: PhoneType.HOME},
+      {client: 7, number: '71111111111', type: PhoneType.WORK}]
   },
   {
     id: 8,
@@ -192,21 +201,23 @@ export const CLIENT_DATA: Client[] = [
     gender: ClientGender.MALE, birthDate: new Date('12-02-2002'),
     charm: CHARM_DATA[1],
     regAddress: {
-      client: 2,
+      client: 8,
       type: AddrType.REG,
       street: 'second_clients_street_REG',
       house: 'first_clients_house_REG',
       flat: 'first_clients_flat_REG'
     },
     factAddress: {
-      client: 2,
+      client: 8,
       type: AddrType.FACT,
       street: 'second_clients_street',
       house: 'first_clients_house',
       flat: 'first_clients_flat'
     },
     phones: [
-      {client: 2, number: '82222222222', type: PhoneType.MOBILE}]
+      {client: 8, number: '82222222222', type: PhoneType.MOBILE},
+      {client: 8, number: null, type: PhoneType.HOME},
+      {client: 8, number: null, type: PhoneType.WORK}]
   },
   {
     id: 9,
@@ -215,16 +226,18 @@ export const CLIENT_DATA: Client[] = [
     birthDate: new Date('12-03-2002'),
     charm: CHARM_DATA[2],
     regAddress: {
-      client: 3,
+      client: 9,
       type: AddrType.REG,
       street: 'third_clients_street_REG',
       house: 'first_clients_house_REG',
       flat: 'first_clients_flat_REG'
     },
-    factAddress: {client: 3, type: AddrType.FACT, street: null, house: null, flat: null},
+    factAddress: {client: 9, type: AddrType.FACT, street: null, house: null, flat: null},
 
     phones: [
-      {client: 3, number: '83333333333', type: PhoneType.MOBILE}],
+      {client: 9, number: '83333333333', type: PhoneType.MOBILE},
+      {client: 9, number: null, type: PhoneType.HOME},
+      {client: 9, number: null, type: PhoneType.WORK}]
   },
   {
     id: 10,
@@ -233,23 +246,24 @@ export const CLIENT_DATA: Client[] = [
     birthDate: new Date('12-04-1976'),
     charm: CHARM_DATA[3],
     regAddress: {
-      client: 4,
+      client: 10,
       type: AddrType.REG,
       street: 'third_clients_street_REG',
       house: 'first_clients_house_REG',
       flat: 'first_clients_flat_REG'
     },
     factAddress: {
-      client: 4,
+      client: 10,
       type: AddrType.FACT,
       street: 'fourth_clients_street',
       house: 'first_clients_house',
       flat: 'first_clients_flat'
     },
     phones: [
-      {client: 4, number: '84444444444', type: PhoneType.MOBILE},
-      {client: 4, number: '84444444433', type: PhoneType.MOBILE},
-      {client: 4, number: '74444444444', type: PhoneType.WORK}],
+      {client: 10, number: '84444444444', type: PhoneType.MOBILE},
+      {client: 10, number: null, type: PhoneType.HOME},
+      {client: 10, number: '74444444444', type: PhoneType.WORK},
+      {client: 10, number: '84444444433', type: PhoneType.MOBILE}],
   },
   {
     id: 11,
@@ -258,16 +272,17 @@ export const CLIENT_DATA: Client[] = [
     birthDate: new Date('12-05-2002'),
     charm: CHARM_DATA[0],
     regAddress: {
-      client: 5,
+      client: 11,
       type: AddrType.REG,
       street: 'fifth_clients_street_REG',
       house: 'first_clients_house_REG',
       flat: 'first_clients_flat_REG'
     },
-    factAddress: {client: 5, type: AddrType.FACT, street: null, house: null, flat: null},
+    factAddress: {client: 11, type: AddrType.FACT, street: null, house: null, flat: null},
     phones: [
-      {client: 5, number: '85555555555', type: PhoneType.MOBILE},
-      {client: 5, number: '65555555555', type: PhoneType.HOME}],
+      {client: 11, number: '85555555555', type: PhoneType.MOBILE},
+      {client: 11, number: '65555555555', type: PhoneType.HOME},
+      {client: 11, number: null, type: PhoneType.WORK}],
   },
   {
     id: 12,
@@ -276,14 +291,16 @@ export const CLIENT_DATA: Client[] = [
     birthDate: new Date('12-06-2002'),
     charm: CHARM_DATA[1],
     regAddress: {
-      client: 6,
+      client: 12,
       type: AddrType.REG,
       street: 'sixth_clients_street_REG',
       house: 'first_clients_house_REG',
       flat: 'first_clients_flat_REG'
     },
-    factAddress: {client: 6, type: AddrType.FACT, street: null, house: null, flat: null},
+    factAddress: {client: 12, type: AddrType.FACT, street: null, house: null, flat: null},
     phones: [
-      {client: 6, number: '86666666666', type: PhoneType.MOBILE}],
+      {client: 12, number: '86666666666', type: PhoneType.MOBILE},
+      {client: 12, number: null, type: PhoneType.HOME},
+      {client: 12, number: null, type: PhoneType.WORK}],
   }
 ];
