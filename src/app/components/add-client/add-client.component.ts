@@ -152,7 +152,6 @@ export class AddClientComponent implements OnInit {
   saveClient() {
     if (!this.editingClientId) {
       if (this.clientForm.valid) {
-        console.log('creating client ADD_COMPONENT method saveClient()');
         this.clientService.createClient(this.clientForm.value);
         this.clientForm.reset();
         this.dialogRef.close('create');
@@ -162,6 +161,8 @@ export class AddClientComponent implements OnInit {
         this.clientService.updateClient(this.clientForm.value);
         this.clientForm.reset();
         this.dialogRef.close('update');
+      } else {
+        console.log('form is not valid');
       }
     }
   }

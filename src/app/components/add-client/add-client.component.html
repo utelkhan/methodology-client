@@ -155,7 +155,7 @@
 </div>
 
 <button class="btnRight" mat-flat-button color="accent" mat-dialog-close>cancel</button>
-<button class="btnRight" mat-flat-button color="accent" (click)="saveClient()">{{action}} client</button>
+<button class="btnRight" [disabled]="!clientForm.valid" mat-flat-button color="accent" (click)="saveClient()">{{action}} client</button>
 
 
 
