@@ -4,7 +4,7 @@ import {ClientAddr} from './client-addr';
 import {ClientPhone} from './client-phone';
 
 export interface Client {
-  id: number;
+  id: string;
   surname: string;
   name: string;
   patronymic?: string;

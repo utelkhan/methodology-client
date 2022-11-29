@@ -44,7 +44,7 @@ export class ClientsListComponent implements OnInit {
     });
   }
 
-  openEditClientDialog(id: number): void {
+  openEditClientDialog(id: string): void {
     const dialogRef = this.dialog.open(AddClientComponent, {
       width: '70%',
       data: id,
@@ -55,7 +55,7 @@ export class ClientsListComponent implements OnInit {
     });
   }
 
-  deleteClient(id: number) {
+  deleteClient(id: string) {
     this.clientService.deleteClientById(id);
     this.getDataForTable();
   }

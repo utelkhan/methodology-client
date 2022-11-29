@@ -20,11 +20,11 @@ export class ClientService {
     return of(this.controller.getCharms());
   }
 
-  public deleteClientById(id: number) {
+  public deleteClientById(id: string) {
     this.controller.deleteClientById(id);
   }
 
-  public getClientByID(id: number) {
+  public getClientByID(id: string) {
     return of(this.controller.getClientById(id));
   }
 

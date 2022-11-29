@@ -1,5 +1,5 @@
 export interface Charm {
-  id: number;
+  id: string;
   name: string;
   description: string;
   energy: number;

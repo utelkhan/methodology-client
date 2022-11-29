@@ -69,7 +69,7 @@ export class Controller {
     return this.data;
   }
 
-  public getClientById(id: number) {
+  public getClientById(id: string) {
     return this.clients.find((c) => {
       if (c.id === id) {
         return c;
@@ -78,7 +78,7 @@ export class Controller {
   }
 
   public createClient(client: Client) {
-    client.id = this.clients.length + 1;
+    client.id = String(this.clients.length + 1);
     client.phones.forEach((phone) => {
       phone.client = client.id;
     });
@@ -96,7 +96,7 @@ export class Controller {
     this.data[index] = this.clientToData(client);
   }
 
-  public deleteClientById(id: number): void {
+  public deleteClientById(id: string): void {
     this.clients.forEach((client, index) => {
       if (client.id === id) {
         this.clients.splice(index, 1);

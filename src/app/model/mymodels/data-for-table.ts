@@ -1,7 +1,7 @@
 export class DataForTable {
   constructor(
   ) {}
-  public id: number;
+  public id: string;
   public fullName: string;
   public charm: string;
   public age: number;

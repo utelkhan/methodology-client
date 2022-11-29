@@ -22,7 +22,7 @@ export class AddClientComponent implements OnInit {
 
   action = 'Add';
 
-  constructor(@Inject(MAT_DIALOG_DATA) public editingClientId: number,
+  constructor(@Inject(MAT_DIALOG_DATA) public editingClientId: string,
               private formBuilder: FormBuilder,
               private clientService: ClientService,
               private dialogRef: MatDialogRef<AddClientComponent>) {
@@ -93,7 +93,7 @@ export class AddClientComponent implements OnInit {
     });
   }
 
-  private fillClientForm(id: number) {
+  private fillClientForm(id: string) {
     this.clientService.getClientByID(id).toPromise().then((client) => {
 
       this.clientForm.controls.id.setValue(client.id);
