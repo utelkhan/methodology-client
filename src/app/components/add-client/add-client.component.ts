@@ -48,45 +48,45 @@ export class AddClientComponent implements OnInit {
     // client details
     return this.clientForm = this.formBuilder.group({
       // client data
-      id: [null],
-      surname: [null, Validators.required],
-      name: [null, Validators.required],
-      patronymic: [],
-      gender: [null, Validators.required],
-      birthDate: [null, Validators.required],
-      charm: [null, Validators.required],
+      id: [''],
+      surname: ['', Validators.required],
+      name: ['', Validators.required],
+      patronymic: [''],
+      gender: ['', Validators.required],
+      birthDate: ['', Validators.required],
+      charm: ['', Validators.required],
 
       // client reg address
       regAddress: this.formBuilder.group({
-        client: [null],
+        client: [''],
         type: [AddrType.REG, Validators.required],
-        street: [null, Validators.required],
-        house: [null, Validators.required],
-        flat: [null, Validators.required],
+        street: ['', Validators.required],
+        house: ['', Validators.required],
+        flat: ['', Validators.required],
       }),
       factAddress: this.formBuilder.group({
-        client: [null],
+        client: [''],
         type: [AddrType.FACT],
-        street: [null],
-        house: [null],
-        flat: [null],
+        street: [''],
+        house: [''],
+        flat: [''],
       }),
 
       // client phones
       phones: this.formBuilder.array([
         this.formBuilder.group({
-          client: [null],
-          number: [null, Validators.required],
+          client: [''],
+          number: ['', Validators.required],
           type: [PhoneType.MOBILE],
         }),
         this.formBuilder.group({
-          client: [null],
-          number: [null],
+          client: [''],
+          number: [''],
           type: [PhoneType.HOME],
         }),
         this.formBuilder.group({
-          client: [null],
-          number: [null],
+          client: [''],
+          number: [''],
           type: [PhoneType.WORK],
         }),
       ], [Validators.maxLength(5), Validators.minLength(3)])
@@ -148,8 +148,8 @@ export class AddClientComponent implements OnInit {
       this.phones = this.clientForm.get('phones') as FormArray;
       this.phones.push(
         this.formBuilder.group({
-            client: [null],
-            number: [null],
+            client: [''],
+            number: [''],
             type: [PhoneType.MOBILE],
           }
         )
