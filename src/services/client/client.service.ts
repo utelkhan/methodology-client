@@ -2,6 +2,10 @@ import {Injectable} from '@angular/core';
 import {of} from 'rxjs';
 import {Client} from '../../app/model/mymodels/client';
 import {Controller} from '../../app/controller/controller';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/internal/Observable';
+import {RowClient} from '../../app/model/mymodels/row-client';
+import {FilterModel} from '../../app/model/mymodels/filter/filter';
 
 
 @Injectable({providedIn: 'root'})
@@ -9,11 +13,12 @@ import {Controller} from '../../app/controller/controller';
 export class ClientService {
 
 
-  constructor(private controller: Controller) {
+  constructor(private controller: Controller, private http: HttpClient) {
   }
 
-  public getDataForTable() {
-    return of(this.controller.getDataForTable());
+  public getDataForTable(filter: FilterModel): Observable<RowClient[]> {
+    console.log(filter);
+    return this.http.post<RowClient[]>('http://localhost:1313/web/client/get-filtered-data', filter);
   }
 
   public getCharms() {
@@ -35,5 +40,6 @@ export class ClientService {
   public updateClient(client: Client) {
     this.controller.updateClient(client);
   }
+
 }
 

@@ -1,9 +1,9 @@
-export class DataForTable {
+export class RowClient {
   constructor(
   ) {}
   public id: string;
   public fullName: string;
-  public charm: string;
+  public charmName: string;
   public age: number;
   public totalAccountBalance: number;
   public maximumBalance: number;

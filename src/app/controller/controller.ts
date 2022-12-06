@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {DataForTable} from '../model/mymodels/data-for-table';
+import {RowClient} from '../model/mymodels/row-client';
 import {Client} from '../model/mymodels/client';
 import {CHARM_DATA, CLIENT_DATA} from '../../services/client/test.data';
 
@@ -10,7 +10,7 @@ import {CHARM_DATA, CLIENT_DATA} from '../../services/client/test.data';
 export class Controller {
   private clients!: Client[];
   private charms = CHARM_DATA;
-  private data!: DataForTable[];
+  private data!: RowClient[];
   private counterForCharm = 0;
 
   constructor() {
@@ -31,7 +31,7 @@ export class Controller {
   }
 
   private clientToData(client: Client) {
-    const rowDataForTable = new DataForTable();
+    const rowDataForTable = new RowClient();
     rowDataForTable.id = client.id;
     if (client.patronymic === null || client.patronymic === undefined) {
       rowDataForTable.fullName = client.surname + ' ' + client.name;
@@ -40,7 +40,7 @@ export class Controller {
     }
     rowDataForTable.age = this.calculateAge(client.birthDate);
 
-    rowDataForTable.charm = client.charm.name;
+    rowDataForTable.charmName = client.charm.name;
     this.counterForCharm++;
 
     if (this.counterForCharm > 3) {
