@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {AddClientComponent} from '../add-client/add-client.component';
 import {ClientService} from '../../../services/client/client.service';
 import {PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {MatSort} from '@angular/material/sort';
+import {Sort} from '@angular/material/sort';
 import {RowClient} from '../../model/mymodels/row-client';
 import {PageModel} from '../../model/mymodels/filter/filter-details/page';
 import {FilterModel} from '../../model/mymodels/filter/filter';
@@ -19,8 +19,7 @@ export class ClientsListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'fullName', 'charm', 'age', 'totalAccountBalance', 'maximumBalance', 'minimumBalance', 'options'];
   dataSource!: MatTableDataSource<RowClient>;
   totalElements = 0;
-  filter = new FilterModel('', new PageModel(5, 0), new SortModel('asc', 'id'));
-  @ViewChild(MatSort) sort!: MatSort;
+  filter = new FilterModel('', new PageModel(5, 0), new SortModel('desc', 'id'));
 
   constructor(private clientService: ClientService, private dialog: MatDialog) {
   }
@@ -38,6 +37,7 @@ export class ClientsListComponent implements OnInit {
 
   getDataForTable() {
     this.clientService.getDataForTable(this.filter).toPromise().then((dataList) => {
+      console.log(dataList);
       this.dataSource = new MatTableDataSource<RowClient>(dataList);
     });
   }
@@ -82,4 +82,20 @@ export class ClientsListComponent implements OnInit {
     this.getDataForTable();
   }
 
+  sortColumn(sort: Sort) {
+    console.log(sort.active + ' ' + sort.direction);
+    if (!sort.active || sort.direction === '') {
+      this.filter.sortModel.direction = 'desc';
+      this.filter.sortModel.columnName = 'id';
+      console.log('hello from true if in sortColumn');
+      this.getCountOfRows();
+      this.getDataForTable();
+    } else {
+      this.filter.sortModel.direction = sort.direction;
+      this.filter.sortModel.columnName = sort.active;
+      console.log('hello from false if in sortColumn');
+      this.getCountOfRows();
+      this.getDataForTable();
+    }
+  }
 }
