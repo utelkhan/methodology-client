@@ -66,5 +66,7 @@
   <mat-paginator [pageSizeOptions]="[5,10,20]"
                  [pageSize]="filter.pageModel.pageSize"
                  [pageIndex]="filter.pageModel.pageIndex"
-                 showFirstLastButtons></mat-paginator>
+                 [length]="totalElements"
+                 (page)="nextPage($event)">
+  </mat-paginator>
 </div>

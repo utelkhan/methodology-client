@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {AddClientComponent} from '../add-client/add-client.component';
 import {ClientService} from '../../../services/client/client.service';
-import {MatPaginator} from '@angular/material/paginator';
+import {PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {RowClient} from '../../model/mymodels/row-client';
@@ -18,9 +18,8 @@ import {SortModel} from '../../model/mymodels/filter/filter-details/sort';
 export class ClientsListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'fullName', 'charm', 'age', 'totalAccountBalance', 'maximumBalance', 'minimumBalance', 'options'];
   dataSource!: MatTableDataSource<RowClient>;
-  filter = new FilterModel('', new PageModel(10, 0), new SortModel('id', 'asc'));
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  totalElements = 0;
+  filter = new FilterModel('', new PageModel(5, 0), new SortModel('id', 'asc'));
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private clientService: ClientService, private dialog: MatDialog) {
@@ -28,14 +27,18 @@ export class ClientsListComponent implements OnInit {
 
   ngOnInit() {
     this.getDataForTable();
+    this.getCountOfRows();
+  }
+
+  getCountOfRows() {
+    this.clientService.getCountOfRows().toPromise().then((count) => {
+      this.totalElements = count;
+    });
   }
 
   getDataForTable() {
     this.clientService.getDataForTable(this.filter).toPromise().then((dataList) => {
-      console.log(dataList);
       this.dataSource = new MatTableDataSource<RowClient>(dataList);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
     });
   }
 
@@ -62,6 +65,7 @@ export class ClientsListComponent implements OnInit {
 
   deleteClient(id: string) {
     this.clientService.deleteClientById(id);
+    this.getCountOfRows();
     this.getDataForTable();
   }
 
@@ -69,4 +73,12 @@ export class ClientsListComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  nextPage(event: PageEvent) {
+    this.filter.pageModel.pageIndex = event.pageIndex;
+    this.filter.pageModel.pageSize = event.pageSize;
+    this.getCountOfRows();
+    this.getDataForTable();
+  }
+
 }

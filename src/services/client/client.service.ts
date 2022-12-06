@@ -17,7 +17,7 @@ export class ClientService {
   }
 
   public getDataForTable(filter: FilterModel): Observable<RowClient[]> {
-    console.log(filter);
+    console.log('getClients with filter: ', filter);
     return this.http.post<RowClient[]>('http://localhost:1313/web/client/get-filtered-data', filter);
   }
 
@@ -41,5 +41,9 @@ export class ClientService {
     this.controller.updateClient(client);
   }
 
+  getCountOfRows() {
+    console.log('getCountOfRows');
+    return this.http.get<number>('http://localhost:1313/web/client/get-count-of-actual-clients');
+  }
 }
 
