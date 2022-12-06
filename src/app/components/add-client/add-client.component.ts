@@ -95,14 +95,18 @@ export class AddClientComponent implements OnInit {
 
   private fillClientForm(id: string) {
     this.clientService.getClientByID(id).toPromise().then((client) => {
-
+      console.log(client);
       this.clientForm.controls.id.setValue(client.id);
       this.clientForm.controls.surname.setValue(client.surname);
       this.clientForm.controls.name.setValue(client.name);
       this.clientForm.controls.patronymic.setValue(client.patronymic);
       this.clientForm.controls.gender.setValue(client.gender);
       this.clientForm.controls.birthDate.setValue(client.birthDate);
-      this.clientForm.controls.charm.setValue(client.charm);
+      this.charms.forEach((c) => {
+        if (c.name === client.charmName) {
+          this.clientForm.controls.charm.setValue(client.charmName);
+        }
+      });
       this.clientForm.controls.regAddress.setValue(client.regAddress);
       this.clientForm.controls.factAddress.setValue(client.factAddress);
 

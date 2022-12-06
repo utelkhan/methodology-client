@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/internal/Observable';
 import {RowClient} from '../../app/model/mymodels/row-client';
 import {FilterModel} from '../../app/model/mymodels/filter/filter';
+import {Charm} from '../../app/model/mymodels/charm';
 
 
 @Injectable({providedIn: 'root'})
@@ -22,7 +23,7 @@ export class ClientService {
   }
 
   public getCharms() {
-    return of(this.controller.getCharms());
+    return this.http.get<Charm[]>('http://localhost:1313/web/charm/get-all');
   }
 
   public deleteClientById(id: string) {
@@ -30,7 +31,7 @@ export class ClientService {
   }
 
   public getClientByID(id: string) {
-    return of(this.controller.getClientById(id));
+    return this.http.get<Client>('http://localhost:1313/web/client/' + id);
   }
 
   public createClient(client: Client) {

@@ -59,7 +59,7 @@
       <mat-form-field appearance="fill" class="form">
         <mat-label>Charm</mat-label>
         <mat-select formControlName="charm" required>
-          <mat-option *ngFor="let charm of charms" [value]="charm">
+          <mat-option *ngFor="let charm of charms" [value]="charm.name">
             {{charm.name}}
           </mat-option>
         </mat-select>
