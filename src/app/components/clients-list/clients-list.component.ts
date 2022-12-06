@@ -30,14 +30,13 @@ export class ClientsListComponent implements OnInit {
   }
 
   getCountOfRows() {
-    this.clientService.getCountOfRows().toPromise().then((count) => {
+    this.clientService.getCountOfRows(this.filter.searchValue).toPromise().then((count) => {
       this.totalElements = count;
     });
   }
 
   getDataForTable() {
     this.clientService.getDataForTable(this.filter).toPromise().then((dataList) => {
-      console.log(dataList);
       this.dataSource = new MatTableDataSource<RowClient>(dataList);
     });
   }
@@ -83,17 +82,14 @@ export class ClientsListComponent implements OnInit {
   }
 
   sortColumn(sort: Sort) {
-    console.log(sort.active + ' ' + sort.direction);
     if (!sort.active || sort.direction === '') {
       this.filter.sortModel.direction = 'desc';
       this.filter.sortModel.columnName = 'id';
-      console.log('hello from true if in sortColumn');
       this.getCountOfRows();
       this.getDataForTable();
     } else {
       this.filter.sortModel.direction = sort.direction;
       this.filter.sortModel.columnName = sort.active;
-      console.log('hello from false if in sortColumn');
       this.getCountOfRows();
       this.getDataForTable();
     }
