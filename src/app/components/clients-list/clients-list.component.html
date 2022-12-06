@@ -1,6 +1,6 @@
 <mat-form-field class="filter">
   <mat-label class="matLabel">Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="filter" #input>
+  <input matInput (keyup)="search($event)" placeholder="filter" #input>
 </mat-form-field>
 <button id="addButton" mat-flat-button color="accent" (click)="openAddClientDialog()">+</button>
 
@@ -63,7 +63,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
   </table>
-  <mat-paginator [pageSizeOptions]="[5,10,20]"
+  <mat-paginator [pageSizeOptions]="[5, 10, 20, 40]"
                  [pageSize]="filter.pageModel.pageSize"
                  [pageIndex]="filter.pageModel.pageIndex"
                  [length]="totalElements"

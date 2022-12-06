@@ -19,7 +19,7 @@ export class ClientsListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'fullName', 'charm', 'age', 'totalAccountBalance', 'maximumBalance', 'minimumBalance', 'options'];
   dataSource!: MatTableDataSource<RowClient>;
   totalElements = 0;
-  filter = new FilterModel('', new PageModel(5, 0), new SortModel('id', 'asc'));
+  filter = new FilterModel('', new PageModel(5, 0), new SortModel('asc', 'id'));
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private clientService: ClientService, private dialog: MatDialog) {
@@ -69,9 +69,10 @@ export class ClientsListComponent implements OnInit {
     this.getDataForTable();
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  search(event: Event) {
+    this.filter.searchValue = (event.target as HTMLInputElement).value;
+    this.getCountOfRows();
+    this.getDataForTable();
   }
 
   nextPage(event: PageEvent) {

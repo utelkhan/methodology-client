@@ -41,8 +41,7 @@ export class ClientService {
     this.controller.updateClient(client);
   }
 
-  getCountOfRows() {
-    console.log('getCountOfRows');
+  public getCountOfRows() {
     return this.http.get<number>('http://localhost:1313/web/client/get-count-of-actual-clients');
   }
 }
