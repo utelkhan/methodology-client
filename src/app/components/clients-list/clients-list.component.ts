@@ -47,6 +47,7 @@ export class ClientsListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().toPromise().then(result => {
+      this.totalElements++;
       this.getDataForTable();
     });
   }
@@ -64,7 +65,7 @@ export class ClientsListComponent implements OnInit {
 
   deleteClient(id: string) {
     this.clientService.deleteClientById(id).toPromise().then(result => {
-      this.getCountOfRows();
+      this.totalElements--;
       this.getDataForTable();
     });
   }
@@ -78,7 +79,6 @@ export class ClientsListComponent implements OnInit {
   nextPage(event: PageEvent) {
     this.filter.pageModel.pageIndex = event.pageIndex;
     this.filter.pageModel.pageSize = event.pageSize;
-    this.getCountOfRows();
     this.getDataForTable();
   }
 
@@ -86,12 +86,10 @@ export class ClientsListComponent implements OnInit {
     if (!sort.active || sort.direction === '') {
       this.filter.sortModel.direction = '';
       this.filter.sortModel.columnName = '';
-      this.getCountOfRows();
       this.getDataForTable();
     } else {
       this.filter.sortModel.direction = sort.direction;
       this.filter.sortModel.columnName = sort.active;
-      this.getCountOfRows();
       this.getDataForTable();
     }
   }
