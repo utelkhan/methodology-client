@@ -46,7 +46,7 @@
       <mat-form-field appearance="fill" class="form">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-label>Date of birth</mat-label>
-        <input required formControlName="birthDate" matInput [max]="maxDate" [matDatepicker]="picker">
+        <input matInput required formControlName="birthDate" [max]="maxDate" [matDatepicker]="picker">
       </mat-form-field>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
@@ -58,7 +58,7 @@
       <hr>
       <mat-form-field appearance="fill" class="form">
         <mat-label>Charm</mat-label>
-        <mat-select formControlName="charm" required>
+        <mat-select formControlName="charmId" required>
           <mat-option *ngFor="let charm of charms" [value]="charm.name">
             {{charm.name}}
           </mat-option>
@@ -135,7 +135,7 @@
                 </div>
               </mat-form-field>
               <label *ngIf="i > 2">
-                <button mat-mini-fab color="accent" color="accent" (click)="removeAdditionalMobilePhone(i)">-</button>
+                <button mat-mini-fab color="accent" (click)="removeAdditionalMobilePhone(i)">-</button>
               </label>
             </label>
           </label>
@@ -154,7 +154,7 @@
   </form>
 </div>
 
-<button class="btnRight" mat-flat-button color="accent" mat-dialog-close>cancel</button>
+<button class="btnRight" mat-flat-button color="accent" mat-dialog-close="">cancel</button>
 <button class="btnRight" [disabled]="!clientForm.valid" mat-flat-button color="accent" (click)="saveClient()">{{action}}
   client
 </button>

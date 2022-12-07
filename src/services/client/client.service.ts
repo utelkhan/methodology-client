@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
-import {of} from 'rxjs';
 import {Client} from '../../app/model/mymodels/client';
-import {Controller} from '../../app/controller/controller';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/internal/Observable';
 import {RowClient} from '../../app/model/mymodels/row-client';
@@ -14,36 +12,46 @@ import {Charm} from '../../app/model/mymodels/charm';
 export class ClientService {
 
 
-  constructor(private controller: Controller, private http: HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
   public getDataForTable(filter: FilterModel): Observable<RowClient[]> {
-    console.log('getClients with filter: ', filter);
+    console.log('getDataForTable: ', filter);
     return this.http.post<RowClient[]>('http://localhost:1313/web/client/get-filtered-data', filter);
   }
 
   public getCharms() {
+    console.log('getCharms');
     return this.http.get<Charm[]>('http://localhost:1313/web/charm/get-all');
   }
 
   public deleteClientById(id: string) {
-    this.controller.deleteClientById(id);
+    console.log('deleteClientById: ', id);
+    const url = 'http://localhost:1313/web/client/delete/' + id;
+    console.log(url);
+    return this.http.delete<string>(url);
   }
 
   public getClientByID(id: string) {
-    return this.http.get<Client>('http://localhost:1313/web/client/' + id);
+    console.log('getClientByID: ', id);
+    const url = 'http://localhost:1313/web/client/' + id;
+    console.log(url);
+    return this.http.get<Client>(url);
   }
 
   public createClient(client: Client) {
-    this.controller.createClient(client);
+    console.log('createClient: ', client);
+    return this.http.post<string>('http://localhost:1313/web/client/create', client);
   }
 
   public updateClient(client: Client) {
-    this.controller.updateClient(client);
+    console.log('updateClient: ', client);
+    return this.http.put<string>('http://localhost:1313/web/client/update', client);
   }
 
   public getCountOfRows(searchValue: string) {
-    return this.http.get<number>('http://localhost:1313/web/client/get-count-of-actual-clients/' + searchValue + '/');
+    console.log('getCountOfRows: ', searchValue);
+    return this.http.get<number>('http://localhost:1313/web/client/get-count-of-actual-clients/' + searchValue);
   }
 }
 

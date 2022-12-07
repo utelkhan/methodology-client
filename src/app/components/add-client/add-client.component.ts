@@ -54,7 +54,7 @@ export class AddClientComponent implements OnInit {
       patronymic: [''],
       gender: ['', Validators.required],
       birthDate: ['', Validators.required],
-      charm: ['', Validators.required],
+      charmId: ['', Validators.required],
 
       // client reg address
       regAddress: this.formBuilder.group({
@@ -95,7 +95,6 @@ export class AddClientComponent implements OnInit {
 
   private fillClientForm(id: string) {
     this.clientService.getClientByID(id).toPromise().then((client) => {
-      console.log(client);
       this.clientForm.controls.id.setValue(client.id);
       this.clientForm.controls.surname.setValue(client.surname);
       this.clientForm.controls.name.setValue(client.name);
@@ -103,8 +102,8 @@ export class AddClientComponent implements OnInit {
       this.clientForm.controls.gender.setValue(client.gender);
       this.clientForm.controls.birthDate.setValue(client.birthDate);
       this.charms.forEach((c) => {
-        if (c.name === client.charmName) {
-          this.clientForm.controls.charm.setValue(client.charmName);
+        if (c.id === client.charmId) {
+          this.clientForm.controls.charmId.setValue(c.name);
         }
       });
       this.clientForm.controls.regAddress.setValue(client.regAddress);
@@ -112,7 +111,7 @@ export class AddClientComponent implements OnInit {
 
       this.phones = this.clientForm.get('phones') as FormArray;
       this.phones.clear();
-
+      console.log(client.phones);
       client.phones.forEach((phone) => {
         this.phones.push(
           this.formBuilder.group({
@@ -127,17 +126,23 @@ export class AddClientComponent implements OnInit {
   }
 
   saveClient() {
-    if (!this.editingClientId) {
-      if (this.clientForm.valid) {
-        this.clientService.createClient(this.clientForm.value);
-        this.clientForm.reset();
-        this.dialogRef.close('create');
-      }
-    } else {
-      if (this.clientForm.valid) {
-        this.clientService.updateClient(this.clientForm.value);
-        this.clientForm.reset();
-        this.dialogRef.close('update');
+    if (this.clientForm.valid) {
+      this.charms.forEach((c) => {
+        if (c.name === this.clientForm.controls.charmId.value) {
+          this.clientForm.controls.charmId.setValue(c.id);
+        }
+      });
+
+      if (!this.editingClientId) {
+        this.clientService.createClient(this.clientForm.value).toPromise().then(result => {
+          this.clientForm.reset();
+          this.dialogRef.close('create');
+        });
+      } else {
+        this.clientService.updateClient(this.clientForm.value).toPromise().then(result => {
+          this.clientForm.reset();
+          this.dialogRef.close('update');
+        });
       }
     }
   }

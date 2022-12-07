@@ -19,7 +19,7 @@ export class ClientsListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'fullName', 'charm', 'age', 'totalAccountBalance', 'maximumBalance', 'minimumBalance', 'options'];
   dataSource!: MatTableDataSource<RowClient>;
   totalElements = 0;
-  filter = new FilterModel('', new PageModel(5, 0), new SortModel('desc', 'id'));
+  filter = new FilterModel('', new PageModel(5, 0), new SortModel('', ''));
 
   constructor(private clientService: ClientService, private dialog: MatDialog) {
   }
@@ -63,9 +63,10 @@ export class ClientsListComponent implements OnInit {
   }
 
   deleteClient(id: string) {
-    this.clientService.deleteClientById(id);
-    this.getCountOfRows();
-    this.getDataForTable();
+    this.clientService.deleteClientById(id).toPromise().then(result => {
+      this.getCountOfRows();
+      this.getDataForTable();
+    });
   }
 
   search(event: Event) {
@@ -83,8 +84,8 @@ export class ClientsListComponent implements OnInit {
 
   sortColumn(sort: Sort) {
     if (!sort.active || sort.direction === '') {
-      this.filter.sortModel.direction = 'desc';
-      this.filter.sortModel.columnName = 'id';
+      this.filter.sortModel.direction = '';
+      this.filter.sortModel.columnName = '';
       this.getCountOfRows();
       this.getDataForTable();
     } else {
