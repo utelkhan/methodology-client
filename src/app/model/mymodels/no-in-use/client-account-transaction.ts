@@ -1,5 +1,5 @@
 export interface ClientAccountTransaction {
-  id: string;
+  id: number;
   account: string; // account id
   money: number;
   finishedAt?: string; // should be TimeStamp

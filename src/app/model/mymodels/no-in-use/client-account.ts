@@ -1,6 +1,6 @@
 export interface ClientAccount {
-  id: string;
-  client: string; // client id
+  id: number;
+  client: number; // client id
   money: number;
   number: string;
   registeredAt: Date; // should be TimeStamp

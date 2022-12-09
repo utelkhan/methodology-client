@@ -58,7 +58,7 @@
       <hr>
       <mat-form-field appearance="fill" class="form">
         <mat-label>Charm</mat-label>
-        <mat-select formControlName="charmId" required>
+        <mat-select formControlName="charm" required>
           <mat-option *ngFor="let charm of charms" [value]="charm.name">
             {{charm.name}}
           </mat-option>

@@ -5,53 +5,42 @@ import {Observable} from 'rxjs/internal/Observable';
 import {RowClient} from '../../app/model/mymodels/row-client';
 import {FilterModel} from '../../app/model/mymodels/filter/filter';
 import {Charm} from '../../app/model/mymodels/charm';
-
+import {environment} from '../../environments/environment';
 
 @Injectable({providedIn: 'root'})
 
 export class ClientService {
-
+  private urlPrefix = environment.urlPrefix;
 
   constructor(private http: HttpClient) {
   }
 
   public getDataForTable(filter: FilterModel): Observable<RowClient[]> {
-    console.log('getDataForTable: ', filter);
-    return this.http.post<RowClient[]>('http://localhost:1313/web/client/get-filtered-data', filter);
+    return this.http.post<RowClient[]>(this.urlPrefix + '/client/get-filtered-data', filter);
   }
 
   public getCharms() {
-    console.log('getCharms');
-    return this.http.get<Charm[]>('http://localhost:1313/web/charm/get-all');
+    return this.http.get<Charm[]>(this.urlPrefix + '/charm/get-all');
   }
 
   public deleteClientById(id: string) {
-    console.log('deleteClientById: ', id);
-    const url = 'http://localhost:1313/web/client/delete/' + id;
-    console.log(url);
-    return this.http.delete<string>(url);
+    return this.http.delete<string>(this.urlPrefix + '/client/delete/' + id);
   }
 
   public getClientByID(id: string) {
-    console.log('getClientByID: ', id);
-    const url = 'http://localhost:1313/web/client/' + id;
-    console.log(url);
-    return this.http.get<Client>(url);
+    return this.http.get<Client>(this.urlPrefix + '/client/' + id);
   }
 
   public createClient(client: Client) {
-    console.log('createClient: ', client);
-    return this.http.post<string>('http://localhost:1313/web/client/create', client);
+    return this.http.post<string>(this.urlPrefix + '/client/create', client);
   }
 
   public updateClient(client: Client) {
-    console.log('updateClient: ', client);
-    return this.http.put<string>('http://localhost:1313/web/client/update', client);
+    return this.http.put<string>(this.urlPrefix + '/client/update', client);
   }
 
   public getCountOfRows(searchValue: string) {
-    console.log('getCountOfRows: ', searchValue);
-    return this.http.get<number>('http://localhost:1313/web/client/get-count-of-actual-clients/' + searchValue);
+    return this.http.get<number>(this.urlPrefix + '/client/get-count-of-actual-clients/' + searchValue);
   }
 }
 

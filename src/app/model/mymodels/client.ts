@@ -3,13 +3,13 @@ import {ClientAddr} from './client-addr';
 import {ClientPhone} from './client-phone';
 
 export interface Client {
-  id: string;
+  id: number;
   surname: string;
   name: string;
   patronymic?: string;
   gender: ClientGender;
   birthDate: string;
-  charmId: string;
+  charm: number;
   regAddress: ClientAddr;
   factAddress?: ClientAddr;
   phones: ClientPhone[];

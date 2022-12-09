@@ -1,7 +1,7 @@
 export class RowClient {
   constructor(
   ) {}
-  public id: string;
+  public id: number;
   public fullName: string;
   public charmName: string;
   public age: number;

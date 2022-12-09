@@ -54,7 +54,7 @@ export class AddClientComponent implements OnInit {
       patronymic: [''],
       gender: ['', Validators.required],
       birthDate: ['', Validators.required],
-      charmId: ['', Validators.required],
+      charm: ['', Validators.required],
 
       // client reg address
       regAddress: this.formBuilder.group({
@@ -78,16 +78,20 @@ export class AddClientComponent implements OnInit {
           client: [''],
           number: ['', Validators.required],
           type: [PhoneType.MOBILE],
+          required: [true],
+
         }),
         this.formBuilder.group({
           client: [''],
           number: [''],
           type: [PhoneType.HOME],
+          required: [false],
         }),
         this.formBuilder.group({
           client: [''],
           number: [''],
           type: [PhoneType.WORK],
+          required: [false],
         }),
       ], [Validators.maxLength(5), Validators.minLength(3)])
     });
@@ -102,8 +106,8 @@ export class AddClientComponent implements OnInit {
       this.clientForm.controls.gender.setValue(client.gender);
       this.clientForm.controls.birthDate.setValue(client.birthDate);
       this.charms.forEach((c) => {
-        if (c.id === client.charmId) {
-          this.clientForm.controls.charmId.setValue(c.name);
+        if (c.id === client.charm) {
+          this.clientForm.controls.charm.setValue(c.name);
         }
       });
       this.clientForm.controls.regAddress.setValue(client.regAddress);
@@ -118,6 +122,7 @@ export class AddClientComponent implements OnInit {
             client: [phone.client],
             number: [phone.number],
             type: [phone.type],
+            required: [phone.required],
           })
         );
       });
@@ -128,8 +133,8 @@ export class AddClientComponent implements OnInit {
   saveClient() {
     if (this.clientForm.valid) {
       this.charms.forEach((c) => {
-        if (c.name === this.clientForm.controls.charmId.value) {
-          this.clientForm.controls.charmId.setValue(c.id);
+        if (c.name === this.clientForm.controls.charm.value) {
+          this.clientForm.controls.charm.setValue(c.id);
         }
       });
 
