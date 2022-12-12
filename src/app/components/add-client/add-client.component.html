@@ -44,9 +44,9 @@
       <p>Date of birth</p>
       <hr>
       <mat-form-field appearance="fill" class="form">
-        <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-label>Date of birth</mat-label>
         <input matInput required formControlName="birthDate" [max]="maxDate" [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
       </mat-form-field>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
@@ -58,7 +58,7 @@
       <hr>
       <mat-form-field appearance="fill" class="form">
         <mat-label>Charm</mat-label>
-        <mat-select formControlName="charm" required>
+        <mat-select formControlName="charmId" required>
           <mat-option *ngFor="let charm of charms" [value]="charm.name">
             {{charm.name}}
           </mat-option>

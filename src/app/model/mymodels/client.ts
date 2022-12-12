@@ -8,8 +8,8 @@ export interface Client {
   name: string;
   patronymic?: string;
   gender: ClientGender;
-  birthDate: string;
-  charm: number;
+  birthDate: Date;
+  charmId: number;
   regAddress: ClientAddr;
   factAddress?: ClientAddr;
   phones: ClientPhone[];

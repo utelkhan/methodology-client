@@ -54,7 +54,7 @@ export class AddClientComponent implements OnInit {
       patronymic: [''],
       gender: ['', Validators.required],
       birthDate: ['', Validators.required],
-      charm: ['', Validators.required],
+      charmId: ['', Validators.required],
 
       // client reg address
       regAddress: this.formBuilder.group({
@@ -104,10 +104,10 @@ export class AddClientComponent implements OnInit {
       this.clientForm.controls.name.setValue(client.name);
       this.clientForm.controls.patronymic.setValue(client.patronymic);
       this.clientForm.controls.gender.setValue(client.gender);
-      this.clientForm.controls.birthDate.setValue(client.birthDate);
+      this.clientForm.controls.birthDate.setValue(new Date(client.birthDate));
       this.charms.forEach((c) => {
-        if (c.id === client.charm) {
-          this.clientForm.controls.charm.setValue(c.name);
+        if (c.id === client.charmId) {
+          this.clientForm.controls.charmId.setValue(c.name);
         }
       });
       this.clientForm.controls.regAddress.setValue(client.regAddress);
@@ -115,7 +115,6 @@ export class AddClientComponent implements OnInit {
 
       this.phones = this.clientForm.get('phones') as FormArray;
       this.phones.clear();
-      console.log(client.phones);
       client.phones.forEach((phone) => {
         this.phones.push(
           this.formBuilder.group({
@@ -133,8 +132,8 @@ export class AddClientComponent implements OnInit {
   saveClient() {
     if (this.clientForm.valid) {
       this.charms.forEach((c) => {
-        if (c.name === this.clientForm.controls.charm.value) {
-          this.clientForm.controls.charm.setValue(c.id);
+        if (c.name === this.clientForm.controls.charmId.value) {
+          this.clientForm.controls.charmId.setValue(c.id);
         }
       });
 
