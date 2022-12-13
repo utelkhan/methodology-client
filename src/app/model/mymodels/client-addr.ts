@@ -1,7 +1,7 @@
 import {AddrType} from './enums/addr-type';
 
 export interface ClientAddr {
-  client: number; // client id
+  clientId: number; // client id
   type: AddrType;
   street: string;
   house: string;
