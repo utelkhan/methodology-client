@@ -115,32 +115,16 @@
         <div class="inline">
           <label *ngFor="let item of phonesArrayControl.controls; let i = index">
             <label [formGroupName]="i">
-
               <mat-form-field appearance="fill" class="form">
-                <mat-label>{{item.get('type').value}} phone</mat-label>
-                <label *ngIf="i === 0">
-                  <input required formControlName="number" type="text" matInput placeholder="mobile number">
-                </label>
-
-                <label *ngIf="i === 1">
-                  <input formControlName="number" type="text" matInput placeholder="home number">
-                </label>
-
-                <label *ngIf="i === 2">
-                  <input formControlName="number" type="text" matInput placeholder="work number">
-                </label>
-
-                <div *ngIf="i > 2">
-                  <input formControlName="number" type="text" matInput placeholder="additional mobile phone">
-                </div>
+                <mat-label>{{item.get('type').value}} PHONE</mat-label>
+                <input [required]="item.get('required').value" formControlName="number" type="text" matInput [placeholder]="item.get('type').value">
               </mat-form-field>
-              <label *ngIf="i > 2">
+              <label *ngIf="item.get('type').value === 'MOBILE' && item.get('required').value === false">
                 <button mat-mini-fab color="accent" (click)="removeAdditionalMobilePhone(i)">-</button>
               </label>
             </label>
           </label>
         </div>
-
 
         <button *ngIf="availableAdditionalPhones > 0" mat-flat-button color="accent"
                 (click)="addAdditionalMobilePhone()">

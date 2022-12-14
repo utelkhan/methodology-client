@@ -16,27 +16,27 @@ export class ClientService {
   }
 
   public getDataForTable(filter: FilterModel): Observable<RowClient[]> {
-    return this.http.post<RowClient[]>(this.urlPrefix + '/client/get-filtered-data', filter);
+    return this.http.post<RowClient[]>(this.urlPrefix + 'client/get-filtered-data', filter);
   }
 
   public getCharms() {
-    return this.http.get<Charm[]>(this.urlPrefix + '/charm/get-all');
+    return this.http.get<Charm[]>(this.urlPrefix + 'charm/get-all');
   }
 
   public deleteClientById(id: string) {
-    return this.http.delete<string>(this.urlPrefix + '/client/delete/' + id);
+    return this.http.delete<string>(this.urlPrefix + 'client/delete/' + id);
   }
 
   public getClientByID(id: string) {
-    return this.http.get<Client>(this.urlPrefix + '/client/' + id);
+    return this.http.get<Client>(this.urlPrefix + 'client/' + id);
   }
 
   public createClient(client: Client) {
-    return this.http.post<string>(this.urlPrefix + '/client/create', client);
+    return this.http.post<string>(this.urlPrefix + 'client/create', client);
   }
 
   public updateClient(client: Client) {
-    return this.http.put<string>(this.urlPrefix + '/client/update', client);
+    return this.http.put<string>(this.urlPrefix + 'client/update', client);
   }
 
   public getCountOfRows(searchValue: string) {

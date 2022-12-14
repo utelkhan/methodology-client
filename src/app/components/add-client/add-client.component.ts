@@ -49,47 +49,47 @@ export class AddClientComponent implements OnInit {
     return this.clientForm = this.formBuilder.group({
       // client data
       id: [null],
-      surname: [null, Validators.required],
-      name: [null, Validators.required],
-      patronymic: [null],
-      gender: [null, Validators.required],
-      birthDate: [null, Validators.required],
-      charmId: [null, Validators.required],
+      surname: ['', Validators.required],
+      name: ['', Validators.required],
+      patronymic: [''],
+      gender: ['', Validators.required],
+      birthDate: ['', Validators.required],
+      charmId: ['', Validators.required],
 
       // client reg address
       regAddress: this.formBuilder.group({
         clientId: [null],
         type: [AddrType.REG, Validators.required],
-        street: [null, Validators.required],
-        house: [null, Validators.required],
-        flat: [null, Validators.required],
+        street: ['', Validators.required],
+        house: ['', Validators.required],
+        flat: ['', Validators.required],
       }),
       factAddress: this.formBuilder.group({
         clientId: [null],
         type: [AddrType.FACT],
-        street: [null],
-        house: [null],
-        flat: [null],
+        street: [''],
+        house: [''],
+        flat: [''],
       }),
 
       // client phones
       phones: this.formBuilder.array([
         this.formBuilder.group({
           clientId: [null],
-          number: [null, Validators.required],
+          number: ['', Validators.required],
           type: [PhoneType.MOBILE],
           required: [true],
 
         }),
         this.formBuilder.group({
           clientId: [null],
-          number: [null],
+          number: [''],
           type: [PhoneType.HOME],
           required: [false],
         }),
         this.formBuilder.group({
           clientId: [null],
-          number: [null],
+          number: [''],
           type: [PhoneType.WORK],
           required: [false],
         }),
@@ -98,6 +98,7 @@ export class AddClientComponent implements OnInit {
   }
 
   private fillClientForm(id: string) {
+    let phoneOrder = 0;
     this.clientService.getClientByID(id).toPromise().then((client) => {
       this.clientForm.controls.id.setValue(client.id);
       this.clientForm.controls.surname.setValue(client.surname);
@@ -114,18 +115,36 @@ export class AddClientComponent implements OnInit {
       this.clientForm.controls.factAddress.setValue(client.factAddress);
 
       this.phones = this.clientForm.get('phones') as FormArray;
-      this.phones.clear();
-      client.phones.forEach((phone) => {
-        this.phones.push(
-          this.formBuilder.group({
-            clientId: [phone.clientId],
-            number: [phone.number],
-            type: [phone.type],
-            required: [phone.required],
+      client.phones.forEach(item => {
+        if (item.required === true) {
+          phoneOrder = 0;
+        } else if (item.type.toString() === PhoneType.HOME.toString()) {
+          phoneOrder = 1;
+        } else if (item.type.toString() === PhoneType.WORK.toString()) {
+          phoneOrder = 2;
+        }
+        this.phones.setControl(phoneOrder, this.formBuilder.group({
+            clientId: [item.clientId],
+            number: [item.number],
+            type: [item.type],
+            required: [item.required],
           })
         );
       });
-      this.availableAdditionalPhones = 5 - client.phones.length;
+      client.phones.forEach(item => {
+        if (item.required === false && item.type.toString() === PhoneType.MOBILE.toString()) {
+          this.phones.push(this.formBuilder.group({
+              clientId: [item.clientId],
+              number: [item.number],
+              type: [item.type],
+              required: [false],
+            })
+          );
+          this.availableAdditionalPhones--;
+        }
+      });
+
+      console.log(this.clientForm.get('phones'));
     });
   }
 
@@ -161,9 +180,10 @@ export class AddClientComponent implements OnInit {
       this.phones = this.clientForm.get('phones') as FormArray;
       this.phones.push(
         this.formBuilder.group({
-            client: [''],
-            number: [''],
+            clientId: [this.editingClientId],
+            number: [null],
             type: [PhoneType.MOBILE],
+            required: [false],
           }
         )
       );
