@@ -1,11 +1,12 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ClientService} from '../../../services/client/client.service';
-import {AddrType} from '../../model/mymodels/enums/addr-type';
-import {Charm} from '../../model/mymodels/charm';
-import {PhoneType} from '../../model/mymodels/enums/phone-type';
+import {ClientController} from '../../../controller/client.controller';
+import {AddrType} from '../../model/enums/addr-type';
+import {Charm} from '../../model/charm';
+import {PhoneType} from '../../model/enums/phone-type';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {ClientGender} from '../../model/mymodels/enums/client-gender';
+import {ClientGender} from '../../model/enums/client-gender';
+import {CharmController} from '../../../controller/charm.controller';
 
 @Component({
   selector: 'app-add-client',
@@ -24,7 +25,8 @@ export class AddClientComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public editingClientId: string,
               private formBuilder: FormBuilder,
-              private clientService: ClientService,
+              private clientController: ClientController,
+              private charmController: CharmController,
               private dialogRef: MatDialogRef<AddClientComponent>) {
   }
 
@@ -34,7 +36,7 @@ export class AddClientComponent implements OnInit {
     this.clientForm = this.createClientForm();
 
     // getting charms
-    this.clientService.getCharms().toPromise().then((charms) => {
+    this.charmController.getCharms().toPromise().then((charms) => {
       this.charms = charms;
     });
 
@@ -99,7 +101,7 @@ export class AddClientComponent implements OnInit {
 
   private fillClientForm(id: string) {
     let phoneOrder = 0;
-    this.clientService.getClientByID(id).toPromise().then((client) => {
+    this.clientController.getClientByID(id).toPromise().then((client) => {
       this.clientForm.controls.id.setValue(client.id);
       this.clientForm.controls.surname.setValue(client.surname);
       this.clientForm.controls.name.setValue(client.name);
@@ -123,29 +125,27 @@ export class AddClientComponent implements OnInit {
         } else if (item.type.toString() === PhoneType.WORK.toString()) {
           phoneOrder = 2;
         }
-        this.phones.setControl(phoneOrder, this.formBuilder.group({
-            clientId: [item.clientId],
-            number: [item.number],
-            type: [item.type],
-            required: [item.required],
-          })
-        );
-      });
-      client.phones.forEach(item => {
         if (item.required === false && item.type.toString() === PhoneType.MOBILE.toString()) {
           this.phones.push(this.formBuilder.group({
               clientId: [item.clientId],
               number: [item.number],
               type: [item.type],
-              required: [false],
+              required: [item.required],
             })
           );
           this.availableAdditionalPhones--;
+        } else {
+          this.phones.setControl(phoneOrder, this.formBuilder.group({
+              clientId: [item.clientId],
+              number: [item.number],
+              type: [item.type],
+              required: [item.required],
+            })
+          );
         }
       });
-
-      console.log(this.clientForm.get('phones'));
     });
+    console.log(this.phones);
   }
 
   saveClient() {
@@ -157,12 +157,12 @@ export class AddClientComponent implements OnInit {
       });
 
       if (!this.editingClientId) {
-        this.clientService.createClient(this.clientForm.value).toPromise().then(result => {
+        this.clientController.createClient(this.clientForm.value).toPromise().then(result => {
           this.clientForm.reset();
           this.dialogRef.close('create');
         });
       } else {
-        this.clientService.updateClient(this.clientForm.value).toPromise().then(result => {
+        this.clientController.updateClient(this.clientForm.value).toPromise().then(result => {
           this.clientForm.reset();
           this.dialogRef.close('update');
         });

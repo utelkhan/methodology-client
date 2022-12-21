@@ -1,25 +1,47 @@
-.top{
+.top {
   display: inline-block;
   width: 100%;
 }
-#addButton{
-  margin-right: 0px;
+
+//float right button
+.frb {
   font-size: 15px;
   margin-bottom: 20px;
   float: right;
 }
-.filter{
+
+.filter {
   color: white;
   float: left;
   width: 20%;
 }
-.matLabel{
- color: white;
+
+.matLabel {
+  color: white;
 }
-table{
+
+table {
   width: 100%;
 }
-button{
+
+button {
   font-size: 15px;
   margin-right: 15px;
 }
+
+p {
+  color: white;
+}
+
+#form-right {
+  font-size: 15px;
+  margin-bottom: 20px;
+  float: right;
+  margin-right: 15px;
+}
+
+.report {
+  width: 100%;
+  margin-top: 20px;
+}
+

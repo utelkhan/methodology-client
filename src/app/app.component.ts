@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {TestController} from '../services/test/test.controller';
-import {ComplexObject} from './model/complex-object';
-import {PhoneType} from './model/phone-type';
+import {ComplexObject} from './model/no-in-use/complex-object';
+import {PhoneType} from './model/no-in-use/phone-type';
 
 @Component({
   selector: 'app-root',

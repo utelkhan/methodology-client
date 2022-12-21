@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from '../http/http.service';
-import {ComplexObject} from '../../app/model/complex-object';
+import {ComplexObject} from '../../app/model/no-in-use/complex-object';
 
 @Injectable({providedIn: 'root'})
 export class TestController {

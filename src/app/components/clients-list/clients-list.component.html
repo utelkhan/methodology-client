@@ -2,7 +2,7 @@
   <mat-label class="matLabel">Filter</mat-label>
   <input matInput (keyup)="search($event)" placeholder="filter" #input>
 </mat-form-field>
-<button id="addButton" mat-flat-button color="accent" (click)="openAddClientDialog()">+</button>
+<button class="frb" mat-flat-button color="accent" (click)="openAddClientDialog()">+</button>
 
 <div class="mat-elevation-z8">
 
@@ -63,11 +63,25 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
   </table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 20, 40]"
+  <mat-paginator [pageSizeOptions]="[5, 10, 20, 40, 100]"
                  [pageSize]="filter.pageModel.pageSize"
                  [pageIndex]="filter.pageModel.pageIndex"
                  [length]="totalElements"
                  (page)="nextPage($event)"
-                  showFirstLastButtons>
+                 showFirstLastButtons>
   </mat-paginator>
 </div>
+
+<div class="report">
+  <button mat-flat-button class="frb" color="accent" (click)="generateReport()">generate</button>
+
+  <mat-form-field id="form-right" class="b" appearance="fill">
+    <mat-label>Report type</mat-label>
+    <mat-select [(ngModel)]="reportType" name="food">
+      <mat-option value="xlsx">XLSX</mat-option>
+      <mat-option value="pdf">PDF</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+

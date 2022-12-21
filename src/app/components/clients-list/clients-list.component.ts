@@ -1,14 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {AddClientComponent} from '../add-client/add-client.component';
-import {ClientService} from '../../../services/client/client.service';
+import {ClientController} from '../../../controller/client.controller';
 import {PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {Sort} from '@angular/material/sort';
-import {RowClient} from '../../model/mymodels/row-client';
-import {PageModel} from '../../model/mymodels/filter/filter-details/page';
-import {FilterModel} from '../../model/mymodels/filter/filter';
-import {SortModel} from '../../model/mymodels/filter/filter-details/sort';
+import {RowClient} from '../../model/row-client';
+import {PageModel} from '../../model/filter/filter-details/page';
+import {FilterModel} from '../../model/filter/filter';
+import {SortModel} from '../../model/filter/filter-details/sort';
+import {saveAs} from 'file-saver';
+import {CharmController} from '../../../controller/charm.controller';
+import {ReportController} from '../../../controller/report.controller';
+
 
 @Component({
   selector: 'app-clients-list',
@@ -20,8 +24,12 @@ export class ClientsListComponent implements OnInit {
   dataSource!: MatTableDataSource<RowClient>;
   totalElements = 0;
   filter = new FilterModel('', new PageModel(5, 0), new SortModel('', ''));
+  reportType = 'xlsx';
 
-  constructor(private clientService: ClientService, private dialog: MatDialog) {
+  constructor(private clientController: ClientController,
+              private charmController: CharmController,
+              private reportController: ReportController,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -30,13 +38,13 @@ export class ClientsListComponent implements OnInit {
   }
 
   getCountOfRows() {
-    this.clientService.getCountOfRows(this.filter.searchValue).toPromise().then((count) => {
+    this.clientController.getCountOfRows(this.filter.searchValue).toPromise().then((count) => {
       this.totalElements = count;
     });
   }
 
   getDataForTable() {
-    this.clientService.getDataForTable(this.filter).toPromise().then((dataList) => {
+    this.clientController.getDataForTable(this.filter).toPromise().then((dataList) => {
       this.dataSource = new MatTableDataSource<RowClient>(dataList);
     });
   }
@@ -64,7 +72,7 @@ export class ClientsListComponent implements OnInit {
   }
 
   deleteClient(id: string) {
-    this.clientService.deleteClientById(id).toPromise().then(result => {
+    this.clientController.deleteClientById(id).toPromise().then(result => {
       this.totalElements--;
       this.getDataForTable();
     });
@@ -92,5 +100,14 @@ export class ClientsListComponent implements OnInit {
       this.filter.sortModel.columnName = sort.active;
       this.getDataForTable();
     }
+  }
+
+  generateReport() {
+    const date = new Date();
+    const fileName = 'report_' + date;
+    this.reportController.generateReport(this.filter, this.reportType).toPromise().then(blob => {
+      saveAs(blob, fileName);
+      this.getDataForTable();
+    });
   }
 }
