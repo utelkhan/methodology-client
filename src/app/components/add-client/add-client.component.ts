@@ -19,8 +19,7 @@ export class AddClientComponent implements OnInit {
   gender = ClientGender;
   phones = new FormArray([]);
   maxDate!: Date;
-  availableAdditionalPhones = 2;
-
+  countOfMobilePhones = 1;
   action = 'Add';
 
   constructor(@Inject(MAT_DIALOG_DATA) public editingClientId: string,
@@ -95,7 +94,7 @@ export class AddClientComponent implements OnInit {
           type: [PhoneType.WORK],
           required: [false],
         }),
-      ], [Validators.maxLength(5), Validators.minLength(3)])
+      ], [Validators.minLength(3)])
     });
   }
 
@@ -133,7 +132,6 @@ export class AddClientComponent implements OnInit {
               required: [item.required],
             })
           );
-          this.availableAdditionalPhones--;
         } else {
           this.phones.setControl(phoneOrder, this.formBuilder.group({
               clientId: [item.clientId],
@@ -175,25 +173,22 @@ export class AddClientComponent implements OnInit {
   }
 
   addAdditionalMobilePhone() {
-    if (this.availableAdditionalPhones > 0) {
-      this.availableAdditionalPhones--;
-      this.phones = this.clientForm.get('phones') as FormArray;
-      this.phones.push(
-        this.formBuilder.group({
-            clientId: [this.editingClientId],
-            number: [null],
-            type: [PhoneType.MOBILE],
-            required: [false],
-          }
-        )
-      );
-    }
+    this.countOfMobilePhones++;
+    this.phones = this.clientForm.get('phones') as FormArray;
+    this.phones.push(
+      this.formBuilder.group({
+          clientId: [this.editingClientId],
+          number: [null],
+          type: [PhoneType.MOBILE],
+          required: [false],
+        }
+      )
+    );
   }
 
   removeAdditionalMobilePhone(index: number) {
-    if (this.availableAdditionalPhones < 3) {
+    if (this.countOfMobilePhones > 1) {
       this.phones = this.clientForm.get('phones') as FormArray;
-      this.availableAdditionalPhones++;
       this.phones.removeAt(index);
     }
   }

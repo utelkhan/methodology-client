@@ -117,7 +117,8 @@
             <label [formGroupName]="i">
               <mat-form-field appearance="fill" class="form">
                 <mat-label>{{item.get('type').value}} PHONE</mat-label>
-                <input [required]="item.get('required').value" formControlName="number" type="text" matInput [placeholder]="item.get('type').value">
+                <input [required]="item.get('required').value" formControlName="number" type="text" matInput
+                       [placeholder]="item.get('type').value">
               </mat-form-field>
               <label *ngIf="item.get('type').value === 'MOBILE' && item.get('required').value === false">
                 <button mat-mini-fab color="accent" (click)="removeAdditionalMobilePhone(i)">-</button>
@@ -126,11 +127,10 @@
           </label>
         </div>
 
-        <button *ngIf="availableAdditionalPhones > 0" mat-flat-button color="accent"
+        <button mat-flat-button color="accent"
                 (click)="addAdditionalMobilePhone()">
           + additional number
         </button>
-
 
       </div>
 
